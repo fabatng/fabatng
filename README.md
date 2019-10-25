@@ -1,3 +1,5 @@
 # mechanic-worshop
-#Developer : @calebdeji
+
+## Developer : @calebdeji
+
 Github repository for the mechanic website I am working on
