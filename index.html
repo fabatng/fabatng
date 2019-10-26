@@ -22,6 +22,9 @@
     rel="stylesheet"
     href="./css/main.css"
   ></link>
+  <script src="https://unpkg.com/scrollreveal@4"></script>
+  
+  <!-- <link rel="stylesheet" href="./css/animation.css"> -->
 
   <!-- <link rel="stylesheet" href="https://www.mechanics.ng/assets-landing/css/bootstrap.min.css"> -->
 
@@ -38,6 +41,7 @@
         <img
           src="./asset/images/logo.png"
           alt="company's brand"
+          class="nav__image"
         >
       </a>
 
@@ -112,6 +116,9 @@
           <span class="nav-link-span"></span>
         </div>
       </div>
+      <a href="javascript:void(0)" class="nav-drop-down" id="nav_link_trigger">
+        <i class="fa fa-bars"></i>
+      </a>
     </nav>
 
     <div class="welcoming">
@@ -175,6 +182,65 @@
         </div>
       </div>
     </div>
+    <div class="welcoming--mobile-view">
+      <h1 class="welcoming__landing-banner">
+        OUR MECHANICS MAKE HOUSE CALL
+      </h1>
+      <h3 class="welcoming__landing-banner welcoming--light-size">
+        Service at your home or office
+      </h3>
+      <div class="welcoming__action-links">
+        <a
+            href="javascript:void(0)"
+            class="rounded__anchor-link rounded__margin-top button--like"
+          >Book a Service</a>
+
+        <a
+          href="javascript:void(0)"
+          class="rounded__anchor-link rounded__margin-top"
+        >
+        Get An Estimate
+        </a>
+      </div>
+      <div class="welcoming__image--modify">
+        <img src="./asset/images/IMG_8.png" alt="" class="welcoming__image--image-mod">
+      </div>
+      <div class="welcoming__action-links">
+        <a
+            href="javascript:void(0)"
+            class="rounded__anchor-link"
+          >
+            <i class="fa fa-android fa--modify-icon"></i>
+
+            <label
+              for="download link text"
+              class="hover-pointer"
+            >
+              Download for
+
+              <br>
+              Android
+            </label>
+          </a>
+
+          <a
+            href="javascript:void(0)"
+            class="rounded__anchor-link"
+          >
+            <i class="fa fa-android fa--modify-icon"></i>
+
+            <label
+              for="download link text"
+              class="hover-pointer"
+            >
+              Download for
+
+              <br>
+              Apple IOS
+            </label>
+          </a>
+      </div>
+    </div>
   </header>
 
   <main class="main">
@@ -190,20 +256,8 @@
         >Mechanics.NG App</label>
       </div>
 
-      <div class="main__div-grid">
-        <div class="grid__each-cell each-cell--vertical grid__about">
-          <div class="grid--link-alike">
-            <i class="fa fa-download"></i>
-          </div>
-
-          <h3>Easy Setup</h3>
-
-          <p>
-            Easy to setup, download from apple store or play store.
-          </p>
-        </div>
-
-        <div class="grid__each-cell each-cell--vertical">
+      <div class="main__div-grid div-grid--about">
+         <div class="grid__each-cell each-cell--vertical">
           <div class="grid--link-alike">
             <i class="fa fa-download"></i>
           </div>
@@ -220,11 +274,22 @@
             <i class="fa fa-download"></i>
           </div>
 
-          <h3>Dedicated support</h3>
+          <h3>On-the-go</h3>
 
           <p>
-            need help? we are here to help you find the right
-              professional,email us.
+            fat access to autmobile experts within your area.
+          </p>
+        </div>
+
+         <div class="grid__each-cell each-cell--vertical">
+          <div class="grid--link-alike">
+            <i class="fa fa-download"></i>
+          </div>
+
+          <h3>On-the-go</h3>
+
+          <p>
+            fat access to autmobile experts within your area.
           </p>
         </div>
       </div>
@@ -243,7 +308,7 @@
       </div>
 
       <div class="main__div-grid">
-        <div class="grid__each-cell each-cell-vertical">
+        <div class="grid__each-cell each-cell-vertical grid__each-cell--paragraph-modified">
           <div class="grid__each-sub-cell each-cell--horizontal">
             <div class="grid__text">
               <h3>Easy Setup</h3>
@@ -272,7 +337,7 @@
             </div>
           </div>
 
-          <div class="grid__each-sub-cell each-cell--horizontal">
+          <div class="grid__each-sub-cell each-cell--horizontal grid__each-cell--paragraph-modified">
             <div class="grid__text">
               <h3>Easy Setup</h3>
 
@@ -286,7 +351,7 @@
             </div>
           </div>
 
-          <div class="grid__each-sub-cell each-cell--horizontal">
+          <div class="grid__each-sub-cell each-cell--horizontal grid__each-cell--paragraph-modified">
             <div class="grid__text">
               <h3>Easy Setup</h3>
 
@@ -305,10 +370,11 @@
           <img
             src="./asset/images/iphone-freeze.png"
             alt=""
+            class="grid__image"
           >
         </div>
 
-        <div class="grid__each-cell each-cell-vertical">
+        <div class="grid__each-cell each-cell-vertical grid__each-cell--paragraph-modified">
           <div class="grid__each-sub-cell each-cell--horizontal">
             <div class="grid__text">
               <h3>Easy Setup</h3>
@@ -323,7 +389,7 @@
             </div>
           </div>
 
-          <div class="grid__each-sub-cell each-cell--horizontal">
+          <div class="grid__each-sub-cell each-cell--horizontal grid__each-cell--paragraph-modified">
             <div class="grid__text">
               <h3>Easy Setup</h3>
 
@@ -337,7 +403,7 @@
             </div>
           </div>
 
-          <div class="grid__each-sub-cell each-cell--horizontal">
+          <div class="grid__each-sub-cell each-cell--horizontal grid__each-cell--paragraph-modified">
             <div class="grid__text">
               <h3>Easy Setup</h3>
 
@@ -351,7 +417,7 @@
             </div>
           </div>
 
-          <div class="grid__each-sub-cell each-cell--horizontal">
+          <div class="grid__each-sub-cell each-cell--horizontal grid__each-cell--paragraph-modified">
             <div class="grid__text">
               <h3>Easy Setup</h3>
 
@@ -569,10 +635,10 @@
           </label>
         </div>
 
-        <video
+        <!-- <video
           src=""
           height="300px"
-        ></video>
+        ></video> -->
       </div>
 
       <div class="main__section main__section--get-app">
@@ -690,11 +756,12 @@
   <footer class="footer">
     <a
         href="javascript:void(0)"
-        class="brand-logo brand-logo--adjust"
+        class="brand-logo--adjust"
       >
         <img
           src="./asset/images/logo.png"
           alt="company's brand"
+          class="footer__brand-image"
         >
       </a>
 

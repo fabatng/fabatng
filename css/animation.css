@@ -1,0 +1,16 @@
+.animate-show {
+  animation: animateshow 0.5s;
+  animation-delay: 0.4s;
+  position: relative;
+}
+
+@keyframes animateshow {
+  from {
+    transform: scale(1, 1);
+  }
+  to {
+    transform: scale((2, 2));
+  }
+}
+
+/*# sourceMappingURL=animation.css.map */
