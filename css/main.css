@@ -601,7 +601,7 @@ body {
   margin: 0;
   text-align: center;
   color: #ffffff;
-  font-weight: bolder;
+  font-weight: bold;
 }
 
 @media screen and (max-width: 999px) {
