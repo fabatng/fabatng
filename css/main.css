@@ -800,6 +800,7 @@ body {
 
   .navbar--sticky {
     background-color: #2a0e02;
+    padding: 15px 0 15px 0;
   }
 
   .brand-logo {
