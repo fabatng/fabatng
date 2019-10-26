@@ -741,7 +741,7 @@ body {
 
   .nav-links {
     position: absolute;
-    bottom: -375px;
+    bottom: -390px;
     /* flex-direction: row; */
     display: none;
     flex-direction: column;
@@ -801,6 +801,9 @@ body {
   .navbar--sticky {
     background-color: #2a0e02;
     padding: 15px 0 15px 0;
+  }
+  .navbar--sticky .nav-links {
+    bottom: -375px;
   }
 
   .brand-logo {
