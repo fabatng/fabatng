@@ -1,7 +1,10 @@
 let navBarElement = document.querySelector(".navbar");
 let navBarSpan = document.querySelectorAll(".nav-link-span");
 
-const addFlexWrap = () => {
+/**
+ * To animate the div section on appearing on the vieport
+ */
+const animateOnViewPort = () => {
     let mainSection = document.querySelectorAll(".main__section");
     mainSection.forEach((item) => {
         ScrollReveal({
@@ -10,7 +13,16 @@ const addFlexWrap = () => {
             delay: 300
         });
     });
-    console.log("should animate");
+    // console.log("should animate");
+}
+/**
+ * Slider effect for the testimonial
+ */
+const slideRight = () => {
+
+}
+const slideLeft = () => {
+
 }
 window.addEventListener("scroll", () => {
     let navBarElementOffset = navBarElement.offsetTop;
@@ -29,12 +41,12 @@ window.addEventListener("scroll", () => {
         document.querySelector(".header").style.paddingTop = "40px";
         // console.log("no hello")
     }
-    // addFlexWrap();
+    // animateOnViewPort();
     // animateMainSection();
 });
 window.addEventListener("load", () => {
     // animateMainSection();
-    addFlexWrap();
+    animateOnViewPort();
     let navLinkDropDownTrigger = document.getElementById("nav_link_trigger");
     let dropDownStatus = false;
     navLinkDropDownTrigger.addEventListener("click", () => {
