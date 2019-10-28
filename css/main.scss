@@ -265,12 +265,13 @@ body {
 }
 .slider {
   @include flex_column();
-
+  .slider__slider-item:nth-child(1),
   .slider__slider-item:nth-child(2),
   .slider__slider-item:nth-child(3) {
     display: none;
   }
   margin-top: 3em;
+  overflow-x: hidden;
 }
 
 .slider__slider-item {
@@ -280,12 +281,39 @@ body {
   justify-content: center;
   align-items: center;
 }
+.slider__testimonial {
+  animation: sliderRight 1s;
+}
+.slider__testimonial--close-animation {
+  animation: sliderClose 1s;
+  animation-timing-function: ease-in-out;
+}
+@keyframes sliderRight {
+  25% {
+    transform: translateX(20%);
+  }
+  50% {
+    transform: translateX(-10%);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+@keyframes sliderClose {
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
 .rounded-image {
   border-radius: 100%;
   object-fit: cover;
   margin-right: 2em;
   height: 110px;
-  width: 110px;
+  width: auto;
   border-style: solid;
   border-width: 2px;
 }
@@ -294,6 +322,7 @@ body {
   color: $primary_color;
   padding: 10px 20px 20px 50px;
   border-radius: 10px;
+  box-shadow: 2px 3px 5px rgb(161, 224, 245);
 }
 .chat__quoted-paragraph {
   font-size: 20px;
@@ -318,6 +347,9 @@ body {
   border-radius: 100%;
   width: 30px;
   height: 30px;
+  outline: none;
+  -moz-outline-radius: none;
+  @include transistion_duration();
   background-color: $primary_color;
   &:hover {
     cursor: pointer;
