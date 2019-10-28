@@ -76,7 +76,6 @@ window.addEventListener("scroll", () => {
             item.classList.add("nav-link-span--backgroundColor");
         })
         document.querySelector(".header").style.paddingTop = "0px";
-        // console.log("Hello")
     } else {
         navBarElement.classList.remove("navbar--sticky");
         navBarSpan.forEach((item) => {
@@ -85,11 +84,8 @@ window.addEventListener("scroll", () => {
         document.querySelector(".header").style.paddingTop = "40px";
         // console.log("no hello")
     }
-    // animateOnViewPort();
-    // animateMainSection();
 });
 window.addEventListener("load", () => {
-    // animateMainSection();
     // animateOnViewPort();
     automaticSLider(0);
     let navLinkDropDownTrigger = document.getElementById("nav_link_trigger");
@@ -112,6 +108,9 @@ window.addEventListener("load", () => {
         }
         dropDownStatus = !dropDownStatus;
     });
+    /**
+     * This is to concatenate string with the 'slide' word in order to reference the funtions with the string name
+     */
     let wordAssignValue = {
         0: "First",
         1: "Second",
