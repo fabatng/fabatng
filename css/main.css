@@ -468,6 +468,18 @@ body {
   display: none;
 }
 
+.slider__screen-image--animate {
+  animation: fadeIn 4s;
+}
+
+@keyframes fadeIn {
+  from {
+    transform: scale(0.9, 0.9);
+  }
+  to {
+    transform: scale(1, 1);
+  }
+}
 .main__section--get-app {
   padding-top: 130px;
   justify-content: center;
@@ -873,6 +885,11 @@ body {
   }
 
   .nav-links {
+    display: none;
+  }
+
+  .slider-screen .phone-image:nth-child(3),
+.slider-screen .phone-image:nth-child(4) {
     display: none;
   }
 
