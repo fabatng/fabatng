@@ -7,13 +7,15 @@ let navBarSpan = document.querySelectorAll(".nav-link-span");
 const animateOnViewPort = () => {
     let mainSection = document.querySelectorAll(".main__section");
     mainSection.forEach((item) => {
+        /**
+         * scroll reveal function imported from the script requested in the head tag
+         */
         ScrollReveal({
             duration: 1000
         }).reveal(item, {
             delay: 300
         });
     });
-    // console.log("should animate");
 }
 /**
  * Slider effect for the testimonial
