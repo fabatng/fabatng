@@ -19,9 +19,13 @@ const animateOnViewPort = () => {
         });
     });
 }
+
+
 /**
  * Slider effect for the testimonial
  */
+
+
 let testimonialId;
 let triggerSliderButton = document.querySelectorAll(".slider-trigger-button");
 const automaticSLider = (counter) => {
@@ -40,8 +44,29 @@ const automaticSLider = (counter) => {
     counter = (counter <= 1) ? counter + 1 : 0;
     testimonialId = setTimeout(() => {
         automaticSLider(counter);
-    }, 3000);
+    }, 3500);
 
+}
+
+/**
+ * screen button clicked effect
+ */
+const screenButtonEffects = () => {
+    let screensButton = document.querySelectorAll(".rounded__anchor-screens");
+    let sliderScreenImageCollection = document.querySelectorAll(".slider__screen-image");
+    for (let screenButtonItem = 0; screenButtonItem < screensButton.length; screenButtonItem++) {
+        for (let sliderScreenImageElement = 0; sliderScreenImageElement < sliderScreenImageCollection.length; sliderScreenImageElement++) {
+            if (screenButtonItem == sliderScreenImageElement) {
+                screensButton[screenButtonItem].addEventListener("click", () => {
+                    sliderScreenImageCollection.forEach((item) => {
+                        item.style.display = "none";
+                    })
+                    // sliderScreenImageCollection[sliderScreenImageElement].classList.add("slider__screen-image--animate");
+                    sliderScreenImageCollection[sliderScreenImageElement].style.display = "flex";
+                });
+            }
+        }
+    }
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -49,8 +74,8 @@ function slideFirst() {
     console.log("testimonial id : ", testimonialId);
     clearInterval(testimonialId);
 
-    console.log("slider first seen here");
-    console.log("testimonial id : ", testimonialId);
+    // console.log("slider first seen here");
+    // console.log("testimonial id : ", testimonialId);
     automaticSLider(0);
 }
 
@@ -88,6 +113,7 @@ window.addEventListener("scroll", () => {
 window.addEventListener("load", () => {
     // animateOnViewPort();
     automaticSLider(0);
+    screenButtonEffects();
     let navLinkDropDownTrigger = document.getElementById("nav_link_trigger");
     let dropDownStatus = false;
     navLinkDropDownTrigger.addEventListener("click", () => {
