@@ -29,7 +29,7 @@ const animateOnViewPort = () => {
 let testimonialId;
 let triggerSliderButton = document.querySelectorAll(".slider-trigger-button");
 const automaticSLider = (counter) => {
-    console.log(counter)
+    // console.log(counter)
     let testimonialElements = document.querySelectorAll(".slider__testimonial");
 
     testimonialElements.forEach(item => {
@@ -40,7 +40,6 @@ const automaticSLider = (counter) => {
     })
     testimonialElements[counter].style.display = "flex";
     triggerSliderButton[counter].style.backgroundColor = "#ffffff";
-    console.log("current dispaly : ", testimonialElements[counter].style.display);
     counter = (counter <= 1) ? counter + 1 : 0;
     testimonialId = setTimeout(() => {
         automaticSLider(counter);
@@ -83,15 +82,73 @@ function slideFirst() {
 function slideSecond() {
     clearInterval(testimonialId);
     automaticSLider(1);
-    console.log("Slider second seen here");
+    // console.log("Slider second seen here");
 }
 
 // eslint-disable-next-line no-unused-vars
 function slideThird() {
     clearInterval(testimonialId);
     automaticSLider(2);
-    console.log("Slider second third here");
+    // console.log("Slider second third here");
 }
+/**
+ * Screen slider
+ */
+let firstSlideScreenButtonLeft = document.querySelector("#screenButtonLeft");
+let firstSlideScreenButtonRight = document.querySelector("#screenButtonRight");
+let secondSlideScreenButtonLeft = document.querySelector("#secondScreenButtonLeft");
+let secondSlideScreenButtonRight = document.querySelector("#secondScreenButtonRight");
+let counter = 0;
+let secondCounter = 0;
+const screenSlider = (determineCounter, index, elementCollection) => {
+    for (let elementCounter = 0; elementCounter < elementCollection.length; elementCounter++) {
+        elementCollection[elementCounter].style.display = "none";
+    }
+    console.log(elementCollection[index]);
+    if (index >= 0 && index < 2) {
+        elementCollection[index].style.display = "flex";
+        if (determineCounter == "counter") {
+            counter++;
+        } else {
+            secondCounter++
+        }
+    } else {
+        index = (index % 2 == 0) ? 0 : 1;
+        elementCollection[index].style.display = "flex";
+        if (determineCounter == "counter") {
+            counter = (counter % 2 == 0) ? 0 : 1;
+            counter++;
+        } else {
+            secondCounter = (secondCounter % 2 == 0) ? 0 : 1;
+            secondCounter++
+        }
+        counter++;
+    }
+
+
+}
+
+
+
+
+
+firstSlideScreenButtonLeft.addEventListener("click", () => {
+    let elementCollection = document.querySelectorAll(".slider__slider-item--screens--first-section");
+    screenSlider("counter", counter - 1, elementCollection);
+});
+
+firstSlideScreenButtonRight.addEventListener("click", () => {
+    let elementCollection = document.querySelectorAll(".slider__slider-item--screens--first-section");
+    screenSlider("counter", counter + 1, elementCollection);
+});
+secondSlideScreenButtonLeft.addEventListener("click", () => {
+    let elementCollection = document.querySelectorAll(".slider__slider-item--screens--second-section");
+    screenSlider("secondCounter", secondCounter - 1, elementCollection);
+});
+secondSlideScreenButtonRight.addEventListener("click", () => {
+    let elementCollection = document.querySelectorAll(".slider__slider-item--screens--second-section");
+    screenSlider("secondCounter", secondCounter + 1, elementCollection);
+})
 
 
 window.addEventListener("scroll", () => {
@@ -99,13 +156,13 @@ window.addEventListener("scroll", () => {
         navBarElement.classList.add("navbar--sticky");
         navBarSpan.forEach((item) => {
             item.classList.add("nav-link-span--backgroundColor");
-        })
+        });
         document.querySelector(".header").style.paddingTop = "0px";
     } else {
         navBarElement.classList.remove("navbar--sticky");
         navBarSpan.forEach((item) => {
             item.classList.remove("nav-link-span--backgroundColor");
-        })
+        });
         document.querySelector(".header").style.paddingTop = "40px";
         // console.log("no hello")
     }
