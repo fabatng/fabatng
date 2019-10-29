@@ -468,6 +468,11 @@ body {
   display: none;
 }
 
+.slider__slider-item--screens--first-section--second,
+.slider__slider-item--screens--second-section--second {
+  display: none;
+}
+
 .slider__screen-image--animate {
   animation: fadeIn 4s;
 }
