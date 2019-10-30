@@ -57,10 +57,13 @@ const screenButtonEffects = () => {
         for (let sliderScreenImageElement = 0; sliderScreenImageElement < sliderScreenImageCollection.length; sliderScreenImageElement++) {
             if (screenButtonItem == sliderScreenImageElement) {
                 screensButton[screenButtonItem].addEventListener("click", () => {
+                    screensButton.forEach(item => {
+                        item.classList.remove("active-anchor");
+                    })
                     sliderScreenImageCollection.forEach((item) => {
                         item.style.display = "none";
                     })
-                    // sliderScreenImageCollection[sliderScreenImageElement].classList.add("slider__screen-image--animate");
+                    screensButton[screenButtonItem].classList.add("active-anchor");
                     sliderScreenImageCollection[sliderScreenImageElement].style.display = "flex";
                 });
             }

@@ -398,6 +398,7 @@ body {
   flex-direction: row;
   justify-content: center;
   margin-top: 1em;
+  flex-wrap: wrap;
 }
 
 .rounded__anchor--modified {
@@ -406,8 +407,14 @@ body {
   border: solid #cccccc;
   display: flex;
   justify-content: center;
+  margin-bottom: 0.5em;
 }
 .rounded__anchor--modified:hover {
+  color: #cccccc;
+}
+
+.active-anchor {
+  background-color: #2a0e02;
   color: #cccccc;
 }
 
@@ -898,6 +905,10 @@ body {
     display: none;
   }
 
+  .phone-image {
+    width: 45%;
+  }
+
   .footer__brand-image {
     width: auto;
     margin-left: auto;
@@ -958,6 +969,9 @@ body {
     margin: 0;
     margin-top: 20px;
   }
+  .div-grid--about p {
+    font-size: 16px;
+  }
 
   .grid__each-cell {
     width: 100% !important;
@@ -975,6 +989,10 @@ body {
 
   .screens-links {
     flex-wrap: wrap;
+  }
+
+  .phone-image {
+    width: 35% !important;
   }
 
   .rounded__anchor--modified {
