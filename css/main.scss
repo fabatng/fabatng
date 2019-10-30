@@ -360,6 +360,7 @@ body {
   @include flex_row();
   justify-content: center;
   margin-top: 1em;
+  flex-wrap: wrap;
 }
 
 .rounded__anchor--modified {
@@ -368,9 +369,14 @@ body {
   border: solid rgb(204, 204, 204);
   display: flex;
   justify-content: center;
+  margin-bottom: 0.5em;
   &:hover {
     color: rgb(204, 204, 204);
   }
+}
+.active-anchor {
+  background-color: $primary_color;
+  color: rgb(204, 204, 204);
 }
 .slider-screen {
   margin-top: 2.5em;
@@ -827,6 +833,9 @@ body {
       display: none;
     }
   }
+  .phone-image {
+    width: 45%;
+  }
   .footer__brand-image {
     width: auto;
     margin-left: auto;
@@ -878,6 +887,9 @@ body {
       margin: 0;
       margin-top: 20px;
     }
+    p {
+      font-size: 16px;
+    }
   }
   .grid__each-cell {
     width: 100% !important;
@@ -895,6 +907,9 @@ body {
   }
   .screens-links {
     flex-wrap: wrap;
+  }
+  .phone-image {
+    width: 35% !important;
   }
   .rounded__anchor--modified {
     margin-bottom: 10px;
