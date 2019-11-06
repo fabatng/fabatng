@@ -28,6 +28,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     firebase.initializeApp(firebaseConfig);
     firebase.database().ref("Shop Collection").once('value', (snapshot) => {
         snapshot.forEach((item) => {
+            // console.clear()
             // console.log(`item key : ${item.key}`);
             // console.log(`item value : ${item.val()}`);
             appendElement(item.val());
