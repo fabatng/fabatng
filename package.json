@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/calebdeji/mechanic-worshop/issues"
   },
-  "homepage": "https://github.com/calebdeji/mechanic-worshop#readme"
+  "homepage": "https://github.com/calebdeji/mechanic-worshop#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  }
 }
