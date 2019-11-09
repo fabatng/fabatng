@@ -1,3 +1,5 @@
+// eslint-disable-next-line no-undef
+// require('dotenv');
 const itemContainer = document.querySelector(".category-all__item-collection");
 const appendElement = (item) => {
     const eachItem =
