@@ -115,18 +115,7 @@ body {
 }
 
 .button--like {
-  display: flex;
-  flex-direction: row;
-  transition-duration: 1s;
-  background-color: #ffffff;
-  border-radius: 10px;
   color: #333399 !important;
-  outline: none;
-  padding-right: 20px;
-  padding-left: 20px;
-}
-.button--like:hover {
-  background-color: #ccc3c3 !important;
 }
 
 .welcoming {
