@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="./css/root.css" />
     <link rel="stylesheet" href="./css/shop.css" />
     <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    </link>
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-database.js"></script>
 
@@ -21,14 +21,59 @@
       <a href="index.html" class="button--like shop-nav__link">Home</a>
     </nav>
     <main class="main row">
+      <a href="javascript:void(0)" class="main__link-navigator-trigger"
+        ><i class="fa fa-bars"></i
+      ></a>
       <section class="main__category main__category-element column">
-          <div class="category__header-text column">
-            <h1 class="main--modified-heading">CATEGORY</h1>
+        <a href="javascript:void(0)" class="main__link-navigator-trigger-close"
+          ><i class="fa fa-window-close"></i
+        ></a>
+        <div class="category__header-text column">
+          <h1 class="main--modified-heading">CATEGORY</h1>
 
-            <span class="main__span"></span>
-          </div>
+          <span class="main__span"></span>
+        </div>
         <ul class="unordered-list">
-          <li>
+          <li class="item-list">
+            <button class="category__button">All</button>
+          </li>
+          <li class="item-list">
+            <button class="category__button">All</button>
+          </li>
+          <li class="item-list">
+            <button class="category__button">All</button>
+          </li>
+          <li class="item-list">
+            <button class="category__button">All</button>
+          </li>
+          <li class="item-list">
+            <button class="category__button">All</button>
+          </li>
+          <li class="item-list">
+            <button class="category__button">All</button>
+          </li>
+          <li class="item-list">
+            <button class="category__button">All</button>
+          </li>
+          <li class="item-list">
+            <button class="category__button">All</button>
+          </li>
+          <li class="item-list">
+            <button class="category__button">All</button>
+          </li>
+          <li class="item-list">
+            <button class="category__button">All</button>
+          </li>
+          <li class="item-list">
+            <button class="category__button">All</button>
+          </li>
+          <li class="item-list">
+            <button class="category__button">All</button>
+          </li>
+          <li class="item-list">
+            <button class="category__button">All</button>
+          </li>
+          <li class="item-list">
             <button class="category__button">All</button>
           </li>
         </ul>
@@ -42,18 +87,23 @@
           </div>
           <div class="category-all__header-form row">
             <button class="button-reset">Reset</button>
-            <button class="icon-search"><i class="fa fa-search fa--customized"></i></button>
+            <button class="icon-search">
+              <i class="fa fa-search fa--customized"></i>
+            </button>
           </div>
-          
         </div>
         <div class="category-all__search-field">
-            <form action="" class="search-form">
-                <input type="search" name="" id="" placeholder="search" class="search-input">
-            </form>
+          <form action="" class="search-form">
+            <input
+              type="search"
+              name=""
+              id=""
+              placeholder="search"
+              class="search-input"
+            />
+          </form>
         </div>
-        <div class="category-all__item-collection">
-
-        </div>
+        <div class="category-all__item-collection"></div>
       </section>
     </main>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -63,7 +113,6 @@
 
     <script>
       // Your web app's Firebase configuration
-      
     </script>
     <script src="./js/shop.js"></script>
   </body>
