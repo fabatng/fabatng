@@ -11,10 +11,31 @@ const appendElement = (item) => {
                 <label for="" class="category-all__each-label">${item.shop_item_price}</label>
                 <p class = "category-all__each-item-text"> Sold By : ${item.shop_item_seller} </p>
             </div>
+            <div class ="send-message">
+                <button class = "message-button"> Order <i class="fa fa-cart-arrow-down"></i> </button>
+            </div>
         </div>`;
     itemContainer.innerHTML += eachItem;
 }
+
+
+const navToogle = (status) => {
+    let linkNavSection = document.querySelector('.main__category');
+    if (status) {
+        linkNavSection.style.display = "flex"
+    } else {
+        linkNavSection.classList.add("slideback");
+        console.log(linkNavSection.className);
+        setTimeout(() => {
+            linkNavSection.style.display = "none";
+            linkNavSection.classList.remove("slideback");
+        }, 200);
+    }
+}
+
+
 window.addEventListener("DOMContentLoaded", (event) => {
+    event.preventDefault();
     var firebaseConfig = {
         apiKey: "AIzaSyBwriMZap33ujMIzx7Ck4EPi5sOrzbGyb0",
         authDomain: "mechanics-b3612.firebaseapp.com",
@@ -25,13 +46,28 @@ window.addEventListener("DOMContentLoaded", (event) => {
         appId: "1:98302440694:web:83d23a56461bc6593568d7"
     };
     // Initialize Firebase
+
+    // eslint-disable-next-line no-undef
     firebase.initializeApp(firebaseConfig);
-    firebase.database().ref("Shop Collection").once('value', (snapshot) => {
+
+    /**
+     * referencing the database     
+     */
+
+    // eslint-disable-next-line no-undef
+    firebase.database().ref("Shop Collection").on('value', (snapshot) => {
         snapshot.forEach((item) => {
-            // console.clear()
-            // console.log(`item key : ${item.key}`);
-            // console.log(`item value : ${item.val()}`);
+            //this calls the function to populate the webpage with the values of the item
             appendElement(item.val());
-        })
+        });
     });
-})
+
+    let linkNavOpeningTrigger = document.querySelector('.main__link-navigator-trigger');
+    linkNavOpeningTrigger.addEventListener("click", () => {
+        navToogle(true);
+    })
+    let linkNavClosingTrigger = document.querySelector('.main__link-navigator-trigger-close');
+    linkNavClosingTrigger.addEventListener("click", () => {
+        navToogle(false);
+    });
+});
