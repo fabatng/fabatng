@@ -22,5 +22,8 @@
   "homepage": "https://github.com/calebdeji/mechanic-worshop#readme",
   "dependencies": {
     "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "cssnano": "^4.1.10"
   }
 }
