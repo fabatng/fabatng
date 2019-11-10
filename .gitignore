@@ -8,4 +8,5 @@
 ### dotenv ###
 .env
 
+/mode_modules
 # End of https://www.gitignore.io/api/dotenv
