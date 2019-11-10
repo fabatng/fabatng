@@ -1,0 +1,14 @@
+.animate-show {
+  animation: animateshow 1s;
+  animation-delay: 0.4s;
+  position: relative;
+  //   display: flex;
+}
+@keyframes animateshow {
+  from {
+    background-color: red;
+  }
+  to {
+    background-color: yellow;
+  }
+}
