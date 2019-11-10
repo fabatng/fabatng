@@ -1,0 +1,54 @@
+font-face {
+  src: url("/lato.hairline.681e6ecd.ttf");
+  font-family: "lato hairline";
+}
+
+font-face {
+  src: url("/lato.light.e5f8aff4.ttf");
+  font-family: "lato light";
+}
+
+font-face {
+  src: url("/lato.thin.67582187.ttf");
+  font-family: "lato thin";
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "lato thin", Arial;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.hover-pointer:hover {
+  cursor: pointer;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.button--like {
+  display: flex;
+  flex-direction: row;
+  transition-duration: 1s;
+  background-color: #ffffff;
+  border-radius: 10px;
+  outline: none;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.button--like:hover {
+  background-color: #ccc3c3 !important;
+}
+
+
+
+
+/*# sourceMappingURL=/root.css.map */
