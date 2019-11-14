@@ -765,6 +765,7 @@ function config(options
 module.exports.config = config;
 module.exports.parse = parse;
 },{"fs":"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/_empty.js","path":"../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/path-browserify/index.js","process":"../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/process/browser.js"}],"js/shop.js":[function(require,module,exports) {
+/* eslint-disable no-undef */
 // eslint-disable-next-line no-undef
 // require('dotenv').config();
 require('dotenv').config({
@@ -796,13 +797,13 @@ window.addEventListener("DOMContentLoaded", function (event) {
   event.preventDefault();
   var firebaseConfig = {
     // eslint-disable-next-line no-undef
-    apiKey: "AIzaSyBwriMZap33ujMIzx7Ck4EPi5sOrzbGyb0",
-    authDomain: "mechanics-b3612.firebaseapp.com",
-    databaseURL: "https://mechanics-b3612.firebaseio.com",
-    projectId: "mechanics-b3612",
-    storageBucket: "mechanics-b3612.appspot.com",
-    messagingSenderId: "98302440694",
-    appId: "1:98302440694:web:83d23a56461bc6593568d7"
+    apiKey: undefined,
+    authDomain: undefined,
+    databaseURL: undefined,
+    projectId: undefined,
+    storageBucket: undefined,
+    messagingSenderId: undefined,
+    appId: undefined
   }; // Initialize Firebase
   // eslint-disable-next-line no-undef
 
@@ -866,7 +867,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38657" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34399" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
