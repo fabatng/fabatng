@@ -808,6 +808,7 @@ window.addEventListener("DOMContentLoaded", function (event) {
   // eslint-disable-next-line no-undef
 
   firebase.initializeApp(firebaseConfig);
+  console.log("apio ", undefined);
   /**
    * referencing the database     
    */
@@ -867,7 +868,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34399" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40617" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
