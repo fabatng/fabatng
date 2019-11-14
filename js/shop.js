@@ -1,9 +1,7 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line no-undef
 // require('dotenv').config();
-require(['node_modules/dotenv']).config({
-    encoding: 'utf8'
-});
+require(['dotenv']).config();
 const itemContainer = document.querySelector(".category-all__item-collection");
 const appendElement = (item) => {
     const eachItem =
