@@ -1,6 +1,7 @@
+/* eslint-disable no-undef */
 // eslint-disable-next-line no-undef
 // require('dotenv').config();
-require('dotenv').config({
+require(['node_modules/dotenv']).config({
     encoding: 'utf8'
 });
 const itemContainer = document.querySelector(".category-all__item-collection");
