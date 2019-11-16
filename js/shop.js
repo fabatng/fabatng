@@ -55,7 +55,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
     // eslint-disable-next-line no-undef
     firebase.initializeApp(firebaseConfig);
-    console.log("apio ", process.env.authDomain);
     /**
      * referencing the database     
      */
