@@ -37,7 +37,7 @@ const automaticSLider = (counter) => {
     });
     triggerSliderButton.forEach(item => {
         item.style.backgroundColor = "rgb(42, 14, 2)";
-    })
+    });
     testimonialElements[counter].style.display = "flex";
     triggerSliderButton[counter].style.backgroundColor = "#ffffff";
     counter = (counter <= 1) ? counter + 1 : 0;
@@ -107,7 +107,7 @@ const screenSlider = (determineCounter, index, elementCollection) => {
     for (let elementCounter = 0; elementCounter < elementCollection.length; elementCounter++) {
         elementCollection[elementCounter].style.display = "none";
     }
-    console.log(elementCollection[index]);
+    console.log("index : ", index);
     if (index >= 0 && index < 2) {
         elementCollection[index].style.display = "flex";
         if (determineCounter == "counter") {
@@ -117,6 +117,7 @@ const screenSlider = (determineCounter, index, elementCollection) => {
         }
     } else {
         index = (index % 2 == 0) ? 0 : 1;
+        console.log("Index else block : ", index);
         elementCollection[index].style.display = "flex";
         if (determineCounter == "counter") {
             counter = (counter % 2 == 0) ? 0 : 1;
@@ -125,7 +126,6 @@ const screenSlider = (determineCounter, index, elementCollection) => {
             secondCounter = (secondCounter % 2 == 0) ? 0 : 1;
             secondCounter++
         }
-        counter++;
     }
 
 

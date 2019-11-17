@@ -776,7 +776,7 @@ var listContainer = document.querySelector('.unordered-list');
 var itemContainer = document.querySelector(".category-all__item-collection");
 
 var appendList = function appendList(item) {
-  var eachList = "<li class=\"item-list\">\n        <button class=\"category__button\">".concat(item.val(), "</button>\n    </li>");
+  var eachList = "\n            <li class=\"item-list\">\n                <button class=\"category__button\">".concat(item.val(), "</button>\n            </li>\n        ");
   listContainer.innerHTML += eachList;
 };
 
@@ -819,13 +819,18 @@ window.addEventListener("DOMContentLoaded", function (event) {
    */
   // eslint-disable-next-line no-undef
 
-  firebase.database().ref("Shop Collection").on('value', function (snapshot) {
-    snapshot.forEach(function (item) {
-      //to get the list of collections available.
-      appendList(item);
-      console.log("item is : ", item.val()); //this calls the function to populate the webpage with the values of the item
-
-      appendElement(item.val());
+  firebase.database().ref("Shop Collection/All").on('value', function (snapshot) {
+    snapshot.forEach(function (all) {
+      //to get the list of alls available.
+      // appendList(item);
+      //this calls the function to populate the webpage with the values of the itemes in each category
+      //taking two from each category
+      all.val().forEach(function (collection) {// for (let counter = 0; counter < collection.length; counter++) {
+        //     if (counter < 2) {
+        //         appendElement(collection.val());
+        //     }
+        // }
+      });
     });
   });
   var linkNavOpeningTrigger = document.querySelector('.main__link-navigator-trigger');
@@ -875,7 +880,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "37937" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33677" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -247,6 +247,9 @@ button:hover {
   bottom: 0px;
   width: 100%;
   animation: messageslide 0.4s ease-in-out;
+  -moz-animation: messageslide 0.4s ease-in-out;
+  -o-animation: messageslide 0.4s ease-in-out;
+  -webkit-animation: messageslide 0.4s ease-in-out;
   background-color: rgba(42, 14, 2, 0.9);
   display: none;
   height: 100%;
@@ -349,12 +352,18 @@ button:hover {
     color: #ffffff;
     padding-left: 20px;
     padding-right: 20px;
-    animation: slideleft ease-in-out 0.4s;
+    animation: slideleft 0.4s ease-in-out;
+    -moz-animation: slideleft 0.4s ease-in-out;
+    -o-animation: slideleft 0.4s ease-in-out;
+    -webkit-animation: slideleft 0.4s ease-in-out;
     transition: all ease-in-out 4s;
   }
 
   .slideback {
-    animation: slideback ease-in-out 0.4s;
+    animation: slideback 0.4s ease-in-out;
+    -moz-animation: slideback 0.4s ease-in-out;
+    -o-animation: slideback 0.4s ease-in-out;
+    -webkit-animation: slideback 0.4s ease-in-out;
     transition: all ease-in-out 4s;
   }
 

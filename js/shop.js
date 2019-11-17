@@ -10,9 +10,11 @@ const itemContainer = document.querySelector(".category-all__item-collection");
 
 const appendList = (item) => {
     const eachList =
-        `<li class="item-list">
-        <button class="category__button">${item.val()}</button>
-    </li>`;
+        `
+            <li class="item-list">
+                <button class="category__button">${item.val()}</button>
+            </li>
+        `;
     listContainer.innerHTML += eachList;
 }
 const appendElement = (item) => {
@@ -70,13 +72,19 @@ window.addEventListener("DOMContentLoaded", (event) => {
      */
 
     // eslint-disable-next-line no-undef
-    firebase.database().ref("Shop Collection").on('value', (snapshot) => {
-        snapshot.forEach((item) => {
-            //to get the list of collections available.
-            appendList(item);
-            console.log("item is : ", item.val());
-            //this calls the function to populate the webpage with the values of the item
-            appendElement(item.val());
+    firebase.database().ref("Shop Collection/All").on('value', (snapshot) => {
+        snapshot.forEach((all) => {
+            //to get the list of alls available.
+            // appendList(item);
+            //this calls the function to populate the webpage with the values of the itemes in each category
+            //taking two from each category
+            all.val().forEach((collection) => {
+                // for (let counter = 0; counter < collection.length; counter++) {
+                //     if (counter < 2) {
+                //         appendElement(collection.val());
+                //     }
+                // }
+            })
         });
     });
 
