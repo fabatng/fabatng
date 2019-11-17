@@ -4,7 +4,17 @@
 require('dotenv').config({
     encoding: 'utf8'
 });
+
+const listContainer = document.querySelector('.unordered-list');
 const itemContainer = document.querySelector(".category-all__item-collection");
+
+const appendList = (item) => {
+    const eachList =
+        `<li class="item-list">
+        <button class="category__button">${item.val()}</button>
+    </li>`;
+    listContainer.innerHTML += eachList;
+}
 const appendElement = (item) => {
     const eachItem =
         `<div class="category-all__each-item category-all__each-item--hover">
@@ -62,20 +72,15 @@ window.addEventListener("DOMContentLoaded", (event) => {
     // eslint-disable-next-line no-undef
     firebase.database().ref("Shop Collection").on('value', (snapshot) => {
         snapshot.forEach((item) => {
+            //to get the list of collections available.
+            appendList(item);
+            console.log("item is : ", item.val());
             //this calls the function to populate the webpage with the values of the item
             appendElement(item.val());
         });
     });
 
-    /**
-     * to start service worker, the service wprker updates the list of categories for section.main__category
-     */
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('../sw.js');
-        console.log("service workwer enabled");
-    } else {
-        console.log("service worker not compatible");
-    }
+
 
     let linkNavOpeningTrigger = document.querySelector('.main__link-navigator-trigger');
     linkNavOpeningTrigger.addEventListener("click", () => {
@@ -85,4 +90,13 @@ window.addEventListener("DOMContentLoaded", (event) => {
     linkNavClosingTrigger.addEventListener("click", () => {
         navToogle(false);
     });
+    /**
+     * to start service worker, the service wprker updates the list of categories for section.main__category
+     */
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('../sw.js');
+        console.log("service workwer enabled");
+    } else {
+        console.log("service worker not compatible");
+    }
 });

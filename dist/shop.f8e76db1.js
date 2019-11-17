@@ -772,7 +772,13 @@ require('dotenv').config({
   encoding: 'utf8'
 });
 
+var listContainer = document.querySelector('.unordered-list');
 var itemContainer = document.querySelector(".category-all__item-collection");
+
+var appendList = function appendList(item) {
+  var eachList = "<li class=\"item-list\">\n        <button class=\"category__button\">".concat(item.val(), "</button>\n    </li>");
+  listContainer.innerHTML += eachList;
+};
 
 var appendElement = function appendElement(item) {
   var eachItem = "<div class=\"category-all__each-item category-all__each-item--hover\">\n            <div class=\"category-all__each-item-image-div\">\n                <img src = \"".concat(item.shop_item_image, "\" class =\"category-all__each-item-image\" />\n            </div>\n            <div class=\"category-all__each-item-text-container\">\n                <h3 class=\"category-all__each-item-text\">").concat(item.shop_item_name, "</h3>\n                <h5 class=\"category-all__each-item-text\">").concat(item.shop_item_descrpt, "</h5>\n                <label for=\"\" class=\"category-all__each-label\">").concat(item.shop_item_price, "</label>\n                <p class = \"category-all__each-item-text\"> Sold By : ").concat(item.shop_item_seller, " </p>\n            </div>\n            <div class =\"send-message\">\n                <button class = \"message-button\"> Order <i class=\"fa fa-cart-arrow-down\"></i> </button>\n            </div>\n        </div>");
@@ -808,7 +814,6 @@ window.addEventListener("DOMContentLoaded", function (event) {
   // eslint-disable-next-line no-undef
 
   firebase.initializeApp(firebaseConfig);
-  console.log("apio ", "mechanics-b3612.firebaseapp.com");
   /**
    * referencing the database     
    */
@@ -816,9 +821,20 @@ window.addEventListener("DOMContentLoaded", function (event) {
 
   firebase.database().ref("Shop Collection").on('value', function (snapshot) {
     snapshot.forEach(function (item) {
-      //this calls the function to populate the webpage with the values of the item
+      //to get the list of collections available.
+      appendList(item);
+      console.log("item is : ", item.val()); //this calls the function to populate the webpage with the values of the item
+
       appendElement(item.val());
     });
+  });
+  var linkNavOpeningTrigger = document.querySelector('.main__link-navigator-trigger');
+  linkNavOpeningTrigger.addEventListener("click", function () {
+    navToogle(true);
+  });
+  var linkNavClosingTrigger = document.querySelector('.main__link-navigator-trigger-close');
+  linkNavClosingTrigger.addEventListener("click", function () {
+    navToogle(false);
   });
   /**
    * to start service worker, the service wprker updates the list of categories for section.main__category
@@ -830,15 +846,6 @@ window.addEventListener("DOMContentLoaded", function (event) {
   } else {
     console.log("service worker not compatible");
   }
-
-  var linkNavOpeningTrigger = document.querySelector('.main__link-navigator-trigger');
-  linkNavOpeningTrigger.addEventListener("click", function () {
-    navToogle(true);
-  });
-  var linkNavClosingTrigger = document.querySelector('.main__link-navigator-trigger-close');
-  linkNavClosingTrigger.addEventListener("click", function () {
-    navToogle(false);
-  });
 });
 },{"dotenv":"node_modules/dotenv/lib/main.js","./../sw.js":[["sw.js","sw.js"],"sw.js.map","sw.js"]}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -868,7 +875,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39861" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "37937" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
