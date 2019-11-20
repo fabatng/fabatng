@@ -106,7 +106,7 @@
   width: 100%;
   border-bottom: solid rgba(197, 194, 194, 0.9) thin;
   color: black;
-  font-weight: bold;
+  font-weight: bolder;
 }
 
 .category__button {
@@ -117,6 +117,8 @@
   padding: 10px 0 10px 10px;
   transition-duration: 0.4s;
   outline: none;
+  font-size: 16px;
+  text-transform: capitalize;
 }
 
 .category__button:hover {
@@ -195,6 +197,7 @@ button:hover {
   border: solid rgba(197, 194, 194, 0.9) thin;
   transition-duration: 1s;
   position: relative;
+  margin-bottom: 1.5em;
   z-index: 99;
 }
 
@@ -247,6 +250,9 @@ button:hover {
   bottom: 0px;
   width: 100%;
   animation: messageslide 0.4s ease-in-out;
+  -moz-animation: messageslide 0.4s ease-in-out;
+  -o-animation: messageslide 0.4s ease-in-out;
+  -webkit-animation: messageslide 0.4s ease-in-out;
   background-color: rgba(42, 14, 2, 0.9);
   display: none;
   height: 100%;
@@ -349,12 +355,18 @@ button:hover {
     color: #ffffff;
     padding-left: 20px;
     padding-right: 20px;
-    animation: slideleft ease-in-out 0.4s;
+    animation: slideleft 0.4s ease-in-out;
+    -moz-animation: slideleft 0.4s ease-in-out;
+    -o-animation: slideleft 0.4s ease-in-out;
+    -webkit-animation: slideleft 0.4s ease-in-out;
     transition: all ease-in-out 4s;
   }
 
   .slideback {
-    animation: slideback ease-in-out 0.4s;
+    animation: slideback 0.4s ease-in-out;
+    -moz-animation: slideback 0.4s ease-in-out;
+    -o-animation: slideback 0.4s ease-in-out;
+    -webkit-animation: slideback 0.4s ease-in-out;
     transition: all ease-in-out 4s;
   }
 

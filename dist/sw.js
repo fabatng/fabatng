@@ -118,31 +118,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"sw.js":[function(require,module,exports) {
-var cacheName = "mechanics-shop";
-self.addEventListener("install", function (event) {
-  var firebaseConfig = {
-    apiKey: "AIzaSyBwriMZap33ujMIzx7Ck4EPi5sOrzbGyb0",
-    authDomain: "mechanics-b3612.firebaseapp.com",
-    databaseURL: "https://mechanics-b3612.firebaseio.com",
-    projectId: "mechanics-b3612",
-    storageBucket: "mechanics-b3612.appspot.com",
-    messagingSenderId: "98302440694",
-    appId: "1:98302440694:web:83d23a56461bc6593568d7"
-  }; // Initialize Firebase
-  // eslint-disable-next-line no-undef
 
-  firebase.initializeApp(firebaseConfig);
-  /**
-   * referencig database
-   */
-
-  var categoryList = [];
-  firebase.database().ref('Shop Collection').on('value', function (snapshot) {
-    snapshot.forEach(function (item) {
-      categoryList.append(item.val());
-    });
-  });
-});
 },{}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -171,7 +147,11 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
+<<<<<<< HEAD
   var ws = new WebSocket(protocol + '://' + hostname + ':' + "41779" + '/');
+=======
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "37869" + '/');
+>>>>>>> data-refactor
 
   ws.onmessage = function (event) {
     checkedAssets = {};

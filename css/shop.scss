@@ -13,6 +13,12 @@ $white_color: #ffffff;
 @mixin transistion_duration {
   transition-duration: 1s;
 }
+@mixin animation($name, $duaration, $timing) {
+  animation: $name $duaration $timing;
+  -moz-animation: $name $duaration $timing;
+  -o-animation: $name $duaration $timing;
+  -webkit-animation: $name $duaration $timing;
+}
 * {
   box-sizing: border-box;
 }
@@ -119,7 +125,7 @@ $white_color: #ffffff;
   width: 100%;
   border-bottom: solid rgba(197, 194, 194, 0.9) thin;
   color: black;
-  font-weight: bold;
+  font-weight: bolder;
 }
 
 .category__button {
@@ -130,6 +136,8 @@ $white_color: #ffffff;
   padding: 10px 0 10px 10px;
   transition-duration: 0.4s;
   outline: none;
+  font-size: 16px;
+  text-transform: capitalize;
 }
 
 .category__button:hover {
@@ -208,6 +216,7 @@ button:hover {
   border: solid rgba(197, 194, 194, 0.9) thin;
   transition-duration: 1s;
   position: relative;
+  margin-bottom: 1.5em;
   z-index: 99;
 }
 
@@ -259,7 +268,7 @@ button:hover {
   position: absolute;
   bottom: 0px;
   width: 100%;
-  animation: messageslide 0.4s ease-in-out;
+  @include animation(messageslide, 0.4s, ease-in-out);
   background-color: rgba(42, 14, 2, 0.9);
   display: none;
   height: 100%;
@@ -361,11 +370,11 @@ button:hover {
     color: $white_color;
     padding-left: 20px;
     padding-right: 20px;
-    animation: slideleft ease-in-out 0.4s;
+    @include animation(slideleft, 0.4s, ease-in-out);
     transition: all ease-in-out 4s;
   }
   .slideback {
-    animation: slideback ease-in-out 0.4s;
+    @include animation(slideback, 0.4s, ease-in-out);
     transition: all ease-in-out 4s;
   }
   .category-all__each-item {

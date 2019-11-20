@@ -776,13 +776,18 @@ var listContainer = document.querySelector('.unordered-list');
 var itemContainer = document.querySelector(".category-all__item-collection");
 
 var appendList = function appendList(item) {
-  var eachList = "<li class=\"item-list\">\n        <button class=\"category__button\">".concat(item.val(), "</button>\n    </li>");
+  var eachList = "\n            <li class=\"item-list\">\n                <button class=\"category__button\">".concat(item.val(), "</button>\n            </li>\n        ");
   listContainer.innerHTML += eachList;
 };
 
 var appendElement = function appendElement(item) {
   var eachItem = "<div class=\"category-all__each-item category-all__each-item--hover\">\n            <div class=\"category-all__each-item-image-div\">\n                <img src = \"".concat(item.shop_item_image, "\" class =\"category-all__each-item-image\" />\n            </div>\n            <div class=\"category-all__each-item-text-container\">\n                <h3 class=\"category-all__each-item-text\">").concat(item.shop_item_name, "</h3>\n                <h5 class=\"category-all__each-item-text\">").concat(item.shop_item_descrpt, "</h5>\n                <label for=\"\" class=\"category-all__each-label\">").concat(item.shop_item_price, "</label>\n                <p class = \"category-all__each-item-text\"> Sold By : ").concat(item.shop_item_seller, " </p>\n            </div>\n            <div class =\"send-message\">\n                <button class = \"message-button\"> Order <i class=\"fa fa-cart-arrow-down\"></i> </button>\n            </div>\n        </div>");
   itemContainer.innerHTML += eachItem;
+};
+
+var processArray = function processArray(collection_title) {
+  var listSection = document.querySelector(".unordered-list");
+  listSection.innerHTML += "\n            <li class=\"item-list\">\n                <button class=\"category__button\">".concat(collection_title, "</button>\n            </li>\n        ");
 };
 
 var navToogle = function navToogle(status) {
@@ -819,13 +824,30 @@ window.addEventListener("DOMContentLoaded", function (event) {
    */
   // eslint-disable-next-line no-undef
 
-  firebase.database().ref("Shop Collection").on('value', function (snapshot) {
-    snapshot.forEach(function (item) {
-      //to get the list of collections available.
-      appendList(item);
-      console.log("item is : ", item.val()); //this calls the function to populate the webpage with the values of the item
+  firebase.database().ref("Shop Collection").once('value', function (snapshot) {
+    snapshot.forEach(function (all) {
+      /**
+       * this returns the name of each collection
+       */
+      var eachCollectionTitle = all.getRef().getKey(); //to populate the list of categories
 
-      appendElement(item.val());
+      processArray(eachCollectionTitle);
+      /**
+       * to get the necessary keys needed to access the items
+       * 
+       */
+      // const keys = Object.keys(all);
+
+      var arrayKeys = Object.keys(all.toJSON());
+      console.log("array keys is : ", arrayKeys);
+      console.log("json : ", all.toJSON());
+
+      for (counter = 0; counter < arrayKeys.length; counter++) {
+        var temp = arrayKeys[counter];
+        var toDisplay = all.toJSON()[temp];
+        appendElement(toDisplay);
+        console.log("to display is : ", toDisplay);
+      }
     });
   });
   var linkNavOpeningTrigger = document.querySelector('.main__link-navigator-trigger');
@@ -836,18 +858,8 @@ window.addEventListener("DOMContentLoaded", function (event) {
   linkNavClosingTrigger.addEventListener("click", function () {
     navToogle(false);
   });
-  /**
-   * to start service worker, the service wprker updates the list of categories for section.main__category
-   */
-
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register("/sw.js");
-    console.log("service workwer enabled");
-  } else {
-    console.log("service worker not compatible");
-  }
 });
-},{"dotenv":"node_modules/dotenv/lib/main.js","./../sw.js":[["sw.js","sw.js"],"sw.js.map","sw.js"]}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"dotenv":"node_modules/dotenv/lib/main.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -875,7 +887,11 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
+<<<<<<< HEAD
   var ws = new WebSocket(protocol + '://' + hostname + ':' + "41779" + '/');
+=======
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45715" + '/');
+>>>>>>> data-refactor
 
   ws.onmessage = function (event) {
     checkedAssets = {};

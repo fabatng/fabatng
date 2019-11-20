@@ -201,22 +201,20 @@ var screenButtonEffects = function screenButtonEffects() {
 
 function slideFirst() {
   console.log("testimonial id : ", testimonialId);
-  clearInterval(testimonialId); // console.log("slider first seen here");
-  // console.log("testimonial id : ", testimonialId);
-
+  clearInterval(testimonialId);
   automaticSLider(0);
 } // eslint-disable-next-line no-unused-vars
 
 
 function slideSecond() {
   clearInterval(testimonialId);
-  automaticSLider(1); // console.log("Slider second seen here");
+  automaticSLider(1);
 } // eslint-disable-next-line no-unused-vars
 
 
 function slideThird() {
   clearInterval(testimonialId);
-  automaticSLider(2); // console.log("Slider second third here");
+  automaticSLider(2);
 }
 /**
  * Screen slider
@@ -235,7 +233,7 @@ var screenSlider = function screenSlider(determineCounter, index, elementCollect
     elementCollection[elementCounter].style.display = "none";
   }
 
-  console.log(elementCollection[index]);
+  console.log("index : ", index);
 
   if (index >= 0 && index < 2) {
     elementCollection[index].style.display = "flex";
@@ -247,6 +245,7 @@ var screenSlider = function screenSlider(determineCounter, index, elementCollect
     }
   } else {
     index = index % 2 == 0 ? 0 : 1;
+    console.log("Index else block : ", index);
     elementCollection[index].style.display = "flex";
 
     if (determineCounter == "counter") {
@@ -256,8 +255,6 @@ var screenSlider = function screenSlider(determineCounter, index, elementCollect
       secondCounter = secondCounter % 2 == 0 ? 0 : 1;
       secondCounter++;
     }
-
-    counter++;
   }
 };
 
@@ -366,7 +363,11 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
+<<<<<<< HEAD
   var ws = new WebSocket(protocol + '://' + hostname + ':' + "41779" + '/');
+=======
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45715" + '/');
+>>>>>>> data-refactor
 
   ws.onmessage = function (event) {
     checkedAssets = {};

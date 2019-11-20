@@ -36,6 +36,9 @@ a {
 }
 @mixin transistion_duration {
   transition-duration: 1s;
+  -moz-transition-duration: 1s;
+  -webkit-transition: 1s;
+  -o-transition: 1s;
 }
 @mixin span_decorate($width, $bgcolor) {
   display: block;
@@ -48,9 +51,6 @@ a {
 body {
   padding: 0 !important;
   margin: 0 !important;
-  // position: relative;
-  padding: 0;
-  margin: 0;
   width: 100%;
   display: flex;
   flex-direction: column;

@@ -5,16 +5,8 @@ require('dotenv').config({
     encoding: 'utf8'
 });
 
-const listContainer = document.querySelector('.unordered-list');
 const itemContainer = document.querySelector(".category-all__item-collection");
 
-const appendList = (item) => {
-    const eachList =
-        `<li class="item-list">
-        <button class="category__button">${item.val()}</button>
-    </li>`;
-    listContainer.innerHTML += eachList;
-}
 const appendElement = (item) => {
     const eachItem =
         `<div class="category-all__each-item category-all__each-item--hover">
@@ -32,6 +24,16 @@ const appendElement = (item) => {
             </div>
         </div>`;
     itemContainer.innerHTML += eachItem;
+}
+
+const processArray = (collection_title) => {
+    const listSection = document.querySelector(".unordered-list");
+    listSection.innerHTML +=
+        `
+            <li class="item-list">
+                <button class="category__button">${collection_title}</button>
+            </li>
+        `;
 }
 
 
@@ -70,13 +72,29 @@ window.addEventListener("DOMContentLoaded", (event) => {
      */
 
     // eslint-disable-next-line no-undef
-    firebase.database().ref("Shop Collection").on('value', (snapshot) => {
-        snapshot.forEach((item) => {
-            //to get the list of collections available.
-            appendList(item);
-            console.log("item is : ", item.val());
-            //this calls the function to populate the webpage with the values of the item
-            appendElement(item.val());
+    firebase.database().ref("Shop Collection").once('value', (snapshot) => {
+        snapshot.forEach((all) => {
+            /**
+             * this returns the name of each collection
+             */
+            const eachCollectionTitle = all.getRef().getKey();
+            //to populate the list of categories
+            processArray(eachCollectionTitle);
+
+            /**
+             * to get the necessary keys needed to access the items
+             * 
+             */
+            // const keys = Object.keys(all);
+            let arrayKeys = Object.keys(all.toJSON());
+            console.log("array keys is : ", arrayKeys);
+            console.log("json : ", all.toJSON());
+            for (counter = 0; counter < arrayKeys.length; counter++) {
+                let temp = arrayKeys[counter];
+                let toDisplay = all.toJSON()[temp];
+                appendElement(toDisplay);
+                console.log("to display is : ", toDisplay);
+            }
         });
     });
 
@@ -90,13 +108,4 @@ window.addEventListener("DOMContentLoaded", (event) => {
     linkNavClosingTrigger.addEventListener("click", () => {
         navToogle(false);
     });
-    /**
-     * to start service worker, the service wprker updates the list of categories for section.main__category
-     */
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('../sw.js');
-        console.log("service workwer enabled");
-    } else {
-        console.log("service worker not compatible");
-    }
 });
