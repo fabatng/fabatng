@@ -785,6 +785,11 @@ var appendElement = function appendElement(item) {
   itemContainer.innerHTML += eachItem;
 };
 
+var processArray = function processArray(collection_title) {
+  var listSection = document.querySelector(".unordered-list");
+  listSection.innerHTML += "\n            <li class=\"item-list\">\n                <button class=\"category__button\">".concat(collection_title, "</button>\n            </li>\n        ");
+};
+
 var navToogle = function navToogle(status) {
   var linkNavSection = document.querySelector('.main__category');
 
@@ -819,18 +824,30 @@ window.addEventListener("DOMContentLoaded", function (event) {
    */
   // eslint-disable-next-line no-undef
 
-  firebase.database().ref("Shop Collection/All").on('value', function (snapshot) {
+  firebase.database().ref("Shop Collection").once('value', function (snapshot) {
     snapshot.forEach(function (all) {
-      //to get the list of alls available.
-      // appendList(item);
-      //this calls the function to populate the webpage with the values of the itemes in each category
-      //taking two from each category
-      all.val().forEach(function (collection) {// for (let counter = 0; counter < collection.length; counter++) {
-        //     if (counter < 2) {
-        //         appendElement(collection.val());
-        //     }
-        // }
-      });
+      /**
+       * this returns the name of each collection
+       */
+      var eachCollectionTitle = all.getRef().getKey(); //to populate the list of categories
+
+      processArray(eachCollectionTitle);
+      /**
+       * to get the necessary keys needed to access the items
+       * 
+       */
+      // const keys = Object.keys(all);
+
+      var arrayKeys = Object.keys(all.toJSON());
+      console.log("array keys is : ", arrayKeys);
+      console.log("json : ", all.toJSON());
+
+      for (counter = 0; counter < arrayKeys.length; counter++) {
+        var temp = arrayKeys[counter];
+        var toDisplay = all.toJSON()[temp];
+        appendElement(toDisplay);
+        console.log("to display is : ", toDisplay);
+      }
     });
   });
   var linkNavOpeningTrigger = document.querySelector('.main__link-navigator-trigger');
@@ -841,18 +858,8 @@ window.addEventListener("DOMContentLoaded", function (event) {
   linkNavClosingTrigger.addEventListener("click", function () {
     navToogle(false);
   });
-  /**
-   * to start service worker, the service wprker updates the list of categories for section.main__category
-   */
-
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register("/sw.js");
-    console.log("service workwer enabled");
-  } else {
-    console.log("service worker not compatible");
-  }
 });
-},{"dotenv":"node_modules/dotenv/lib/main.js","./../sw.js":[["sw.js","sw.js"],"sw.js.map","sw.js"]}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"dotenv":"node_modules/dotenv/lib/main.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -880,7 +887,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33677" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43975" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

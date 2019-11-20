@@ -75,9 +75,6 @@ const screenButtonEffects = () => {
 function slideFirst() {
     console.log("testimonial id : ", testimonialId);
     clearInterval(testimonialId);
-
-    // console.log("slider first seen here");
-    // console.log("testimonial id : ", testimonialId);
     automaticSLider(0);
 }
 
@@ -85,14 +82,12 @@ function slideFirst() {
 function slideSecond() {
     clearInterval(testimonialId);
     automaticSLider(1);
-    // console.log("Slider second seen here");
 }
 
 // eslint-disable-next-line no-unused-vars
 function slideThird() {
     clearInterval(testimonialId);
     automaticSLider(2);
-    // console.log("Slider second third here");
 }
 /**
  * Screen slider
@@ -127,8 +122,6 @@ const screenSlider = (determineCounter, index, elementCollection) => {
             secondCounter++
         }
     }
-
-
 }
 
 

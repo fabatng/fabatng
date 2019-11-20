@@ -106,7 +106,7 @@
   width: 100%;
   border-bottom: solid rgba(197, 194, 194, 0.9) thin;
   color: black;
-  font-weight: bold;
+  font-weight: bolder;
 }
 
 .category__button {
@@ -117,6 +117,8 @@
   padding: 10px 0 10px 10px;
   transition-duration: 0.4s;
   outline: none;
+  font-size: 16px;
+  text-transform: capitalize;
 }
 
 .category__button:hover {
@@ -195,6 +197,7 @@ button:hover {
   border: solid rgba(197, 194, 194, 0.9) thin;
   transition-duration: 1s;
   position: relative;
+  margin-bottom: 1.5em;
   z-index: 99;
 }
 
