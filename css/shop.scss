@@ -69,6 +69,9 @@ $white_color: #ffffff;
   padding-top: 10px;
 }
 .order-button{
+  // display: flex;
+  // align-items: center;
+  text-align: center;
   width: 200px;
   margin: auto;
   border-radius: 10px;
@@ -77,6 +80,14 @@ $white_color: #ffffff;
   :hover{
     background-color: $white_color !important;
   }
+}
+.loading-gif{
+  width: 30px;
+  height: 30px;
+}
+.modify-icon-button{
+  font-size: 25px !important;
+  color: $primary_color;
 }
 @media screen and (min-width:1000px){
   .form__element{

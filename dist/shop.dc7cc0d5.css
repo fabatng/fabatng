@@ -55,6 +55,7 @@
 }
 
 .order-button {
+  text-align: center;
   width: 200px;
   margin: auto;
   border-radius: 10px;
@@ -63,6 +64,16 @@
 }
 .order-button :hover {
   background-color: #ffffff !important;
+}
+
+.loading-gif {
+  width: 30px;
+  height: 30px;
+}
+
+.modify-icon-button {
+  font-size: 25px !important;
+  color: #2a0e02;
 }
 
 @media screen and (min-width: 1000px) {
