@@ -24,12 +24,10 @@ const mailer = (param) => {
     // sgMail.send(param);
     formButton.innerHTML = '<img src="/loading.28bc329d.gif" alt="loading animation" class="loading-gif">';
     const username = process.env.userName;
-    const password = process.env.password;
-
     Email.send({
         Host : "smtp.elasticemail.com",
-        Username : username,
-        Password : password,
+        Username : process.env.userName,
+        Password : process.env.password,
         To : param.receiver,
         From : username,
         Subject : param.subject,
@@ -37,9 +35,12 @@ const mailer = (param) => {
     }).then(
       message => alert(message)
     ).then(()=>{
-        formButton.innerHTML = '<img src="./asset/images/sent.gif" class="loading-img"/>';
+
+        formButton.innerHTML = 'Sent  <i class="fa fa-check modify-icon-button"></>';
+        setTimeout(()=>{
+            formSection.style.display = "none";
+        },1000);
     });
-    console.log("username : ",username);
 
 }
 
