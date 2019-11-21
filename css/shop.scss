@@ -32,6 +32,72 @@ $white_color: #ffffff;
   display: flex;
   flex-direction: column;
 }
+.body{
+  position  : relative;
+}
+.form-section{
+  position: fixed;
+  width: 100%;
+  @include flex_row();
+  align-items: center;
+  z-index: 9999999999;
+  background-color:  rgb(42, 14, 2,0.9);
+  display: none;
+}
+
+.form__close{
+  position: absolute;
+  right: 15px;
+  top :15px;
+  color: $white_color;
+  font-size: 20px;
+}
+
+.form{
+  @include flex_column();
+  width: 100%;
+}
+.form__element{
+  margin: auto;
+  margin-bottom: 1em;
+  border-radius: 10px;
+  padding-left: 10px;
+  height: 40px;
+}
+.form__textarea{
+  height : 100px !important;
+  padding-top: 10px;
+}
+.order-button{
+  width: 200px;
+  margin: auto;
+  border-radius: 10px;
+  height: 30px;
+  color: rgba(0, 0, 0);
+  :hover{
+    background-color: $white_color !important;
+  }
+}
+@media screen and (min-width:1000px){
+  .form__element{
+    width : 50%;
+  }
+}
+@media screen and (max-width : 999px){
+  .form__element{
+    width: 70%;
+  }
+}
+@media screen and (max-width:600px){
+  .form__element{
+    width: 90%;
+  }
+}
+@media screen and (max-width:230px){
+  .order-button{
+    width : 90%;
+  }
+}
 
 .main--modified-heading {
   margin-bottom: 10px;

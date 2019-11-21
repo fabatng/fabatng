@@ -4,10 +4,69 @@
 require('dotenv').config({
     encoding: 'utf8'
 });
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.mailerAPI);
+
 
 const itemContainer = document.querySelector(".category-all__item-collection");
+const formClose = document.querySelector('.form__close');
+const formSection = document.querySelector('.form-section');
+const formElement = document.querySelector('.form');
+
+
+formClose.addEventListener("click",()=>{
+    formSection.style.display = "none";
+});
+
+
+const mailer = (param) => {
+    sgMail.send(param);
+    // const msg = {
+    //     to: 'test@example.com',
+    //     from: 'test@example.com',
+    //     subject: 'Sending with Twilio SendGrid is Fun',
+    //     text: 'and easy to do anywhere, even with Node.js',
+    //     html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+    //   };
+    //   sgMail.send(msg);
+}
+
+const sendMessagePop = (item_description,item_email) => {
+    formSection.style.display = "flex";
+    const orderSubjectInputElement = document.querySelector('#order_subject');
+    orderSubjectInputElement.value = item_description;  
+    const formEmailData = document.querySelector('#form_email');
+    formEmailData.dataset.clientEmail = item_email;
+    console.log("form email data : ", formEmailData);
+}
+
+
+/**
+ * initialize parameters and call the mailer function to implement the sendGrid API
+ */
+
+formElement.addEventListener("submit",()=>{
+    // event.preventDefault();
+    const receiver = document.querySelector('#form_email').dataset.clientEmail;
+    const sender = document.querySelector('#form_email').value;
+    const subject = document.querySelector('#order_subject').value;
+    const text = document.querySelector('#order_message').value;
+    const cc = 'calebdeji06@gmail.com';
+    const html= '<strong>and easy to do anywhere, even with Node.js</strong>';
+    const parameters = { receiver, sender , subject , text , html, cc};
+    console.log("para : ", parameters);
+    mailer(parameters);
+});
+
 
 const appendElement = (item) => {
+    /**
+     * to generate ID for each item
+     * this temporary, the id should actually be set from the database.
+     */
+    let itemDescription = item.shop_item_descrpt.split(' ');
+    itemDescription= itemDescription.join('_');
+    // console.log("desc : ",itemDescription);
     const eachItem =
         `<div class="category-all__each-item category-all__each-item--hover">
             <div class="category-all__each-item-image-div">
@@ -20,10 +79,21 @@ const appendElement = (item) => {
                 <p class = "category-all__each-item-text"> Sold By : ${item.shop_item_seller} </p>
             </div>
             <div class ="send-message">
-                <button class = "message-button"> Order <i class="fa fa-cart-arrow-down"></i> </button>
+                <button class = "message-button" data-id="${itemDescription}" data-email-client="${item.shop_item_email}"> Order <i class="fa fa-cart-arrow-down"></i> </button>
             </div>
         </div>`;
-    itemContainer.innerHTML += eachItem;
+    //to append each item to the category list
+    itemContainer.insertAdjacentHTML('beforeend',eachItem); 
+
+    /**
+     * the variable that holds the order button when each div is hovered
+     * had to do it like this because JS wouldn't let me add the onclick event in the template literal
+     */
+    const orderButton = document.querySelector(`[data-id="${itemDescription}"]`);
+    orderButton.addEventListener('click',()=>{
+        sendMessagePop(item.shop_item_descrpt,item.shop_item_email);
+    });
+    
 }
 
 const processArray = (collection_title) => {
@@ -87,13 +157,13 @@ window.addEventListener("DOMContentLoaded", (event) => {
              */
             // const keys = Object.keys(all);
             let arrayKeys = Object.keys(all.toJSON());
-            console.log("array keys is : ", arrayKeys);
-            console.log("json : ", all.toJSON());
+            // console.log("array keys is : ", arrayKeys);
+            // console.log("json : ", all.toJSON());
             for (counter = 0; counter < arrayKeys.length; counter++) {
                 let temp = arrayKeys[counter];
                 let toDisplay = all.toJSON()[temp];
                 appendElement(toDisplay);
-                console.log("to display is : ", toDisplay);
+                // console.log("to display is : ", toDisplay);
             }
         });
     });

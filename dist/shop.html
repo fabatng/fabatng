@@ -1,1 +1,84 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><link rel="stylesheet" href="/root.d7a07a61.css"><link rel="stylesheet" href="/shop.55fd580d.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script><script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-database.js"></script><script src="/require.f1bf2ba2.js"></script><title>Shop | Mechanics</title></head><body> <nav class="shop-nav row"> <img src="/logo.e103f574.png" alt="" class="shop-nav__image"> <a href="/index.html" class="button--like shop-nav__link">Home</a> </nav> <main class="main row"> <a href="javascript:void(0)" class="main__link-navigator-trigger"><i class="fa fa-bars"></i></a> <section class="main__category main__category-element column"> <a href="javascript:void(0)" class="main__link-navigator-trigger-close"><i class="fa fa-window-close"></i></a> <div class="category__header-text column"> <h1 class="main--modified-heading">CATEGORY</h1> <span class="main__span"></span> </div> <ul class="unordered-list"></ul> </section> <section class="main__category-all main__category-element"> <div class="category-all__header row"> <div class="category-all__header-text category__header-text column"> <h1 class="main--modified-heading">ALL CATEGORY</h1> <span class="main__span"></span> </div> <div class="category-all__header-form row"> <button class="button-reset">Reset</button> <button class="icon-search"> <i class="fa fa-search fa--customized"></i> </button> </div> </div> <div class="category-all__search-field"> <form action="" class="search-form"> <input type="search" name="" placeholder="search" class="search-input"> </form> </div> <div class="category-all__item-collection"></div> </section> </main>   <script src="/shop.a9d7ff58.js"></script> </body></html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/root.d1f3de5b.css">
+    <link rel="stylesheet" href="/shop.dc7cc0d5.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-database.js"></script>
+    <script src="/require.49676dcb.js"></script>
+    <title>Shop | Mechanics</title>
+  <script src="/shop.dc7cc0d5.js"></script></head>
+  <body class="body">
+    <section class="form-section">
+      <script>var formField = document.querySelector('.form-section');
+
+var adjustHieght = function adjustHieght() {
+  var height = window.innerHeight;
+  formField.style.height = height + 'px';
+};
+
+window.addEventListener("load", function () {
+  adjustHieght();
+});
+window.addEventListener("resize", function () {
+  adjustHieght();
+});</script>
+        <a href="javascript:void(0)" class="form__close"><i class="fa fa-window-close"></i></a>
+
+      <form action="javascript:void(0)" method="POST" class="form">
+        <input type="email" placeholder="Your email" class="form__element" id="form_email">
+        <input type="hidden" id="client_email">
+        <input type="text" id="order_subject" class="form__element" disabled="">
+        <textarea name="message" id="order_message" class="form__textarea form__element" placeholder="Any additional message?"></textarea>
+        <button type="submit" class="order-button">Order</button>
+      </form>
+    </section>
+    <nav class="shop-nav row">
+      <img src="/logo.e0799fbd.png" alt="" class="shop-nav__image">
+      <a href="/index.html" class="button--like shop-nav__link">Home</a>
+    </nav>
+    <main class="main row">
+      <a href="javascript:void(0)" class="main__link-navigator-trigger"><i class="fa fa-bars"></i></a>
+      <section class="main__category main__category-element column">
+        <a href="javascript:void(0)" class="main__link-navigator-trigger-close"><i class="fa fa-window-close"></i></a>
+        <div class="category__header-text column">
+          <h1 class="main--modified-heading">CATEGORY</h1>
+
+          <span class="main__span"></span>
+        </div>
+        <ul class="unordered-list"></ul>
+      </section>
+      <section class="main__category-all main__category-element">
+        <div class="category-all__header row">
+          <div class="category-all__header-text category__header-text column">
+            <h1 class="main--modified-heading">ALL CATEGORY</h1>
+
+            <span class="main__span"></span>
+          </div>
+          <div class="category-all__header-form row">
+            <button class="button-reset">Reset</button>
+            <button class="icon-search">
+              <i class="fa fa-search fa--customized"></i>
+            </button>
+          </div>
+        </div>
+        <div class="category-all__search-field">
+          <form action="" class="search-form">
+            <input type="search" name="" id="" placeholder="search" class="search-input">
+          </form>
+        </div>
+        <div class="category-all__item-collection"></div>
+      </section>
+    </main>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script src="/shop.f8e76db1.js"></script>
+  </body>
+</html>
