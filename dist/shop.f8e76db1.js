@@ -86967,7 +86967,7 @@ require('dotenv').config({
 
 var sgMail = require('@sendgrid/mail');
 
-sgMail.setApiKey("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");
+sgMail.setApiKey(undefined);
 var itemContainer = document.querySelector(".category-all__item-collection");
 var formClose = document.querySelector('.form__close');
 var formSection = document.querySelector('.form-section');
@@ -86977,14 +86977,25 @@ formClose.addEventListener("click", function () {
 });
 
 var mailer = function mailer(param) {
-  sgMail.send(param); // const msg = {
-  //     to: 'test@example.com',
-  //     from: 'test@example.com',
-  //     subject: 'Sending with Twilio SendGrid is Fun',
-  //     text: 'and easy to do anywhere, even with Node.js',
-  //     html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-  //   };
-  //   sgMail.send(msg);
+  var formButton = document.querySelector('.order-button'); // sgMail.send(param);
+
+  formButton.innerHTML = '<img src="/loading.28bc329d.gif" alt="loading animation" class="loading-gif">';
+  var username = "calebdeji06@gmail.com";
+  var password = "4cc0b695-cd4b-42a7-b624-7a33b07f9dc6";
+  Email.send({
+    Host: "smtp.elasticemail.com",
+    Username: username,
+    Password: password,
+    To: param.receiver,
+    From: username,
+    Subject: param.subject,
+    Body: "".concat(param.text, " \n from ").concat(param.sender)
+  }).then(function (message) {
+    return alert(message);
+  }).then(function () {
+    formButton.innerHTML = '<img src="./asset/images/sent.gif" class="loading-img"/>';
+  });
+  console.log("username : ", username);
 };
 
 var sendMessagePop = function sendMessagePop(item_description, item_email) {
@@ -87001,7 +87012,7 @@ var sendMessagePop = function sendMessagePop(item_description, item_email) {
 
 
 formElement.addEventListener("submit", function () {
-  // event.preventDefault();
+  // event.preventDefault();sam.smith@example
   var receiver = document.querySelector('#form_email').dataset.clientEmail;
   var sender = document.querySelector('#form_email').value;
   var subject = document.querySelector('#order_subject').value;
@@ -87028,7 +87039,7 @@ var appendElement = function appendElement(item) {
   var itemDescription = item.shop_item_descrpt.split(' ');
   itemDescription = itemDescription.join('_'); // console.log("desc : ",itemDescription);
 
-  var eachItem = "<div class=\"category-all__each-item category-all__each-item--hover\">\n            <div class=\"category-all__each-item-image-div\">\n                <img src = \"".concat(item.shop_item_image, "\" class =\"category-all__each-item-image\" />\n            </div>\n            <div class=\"category-all__each-item-text-container\">\n                <h3 class=\"category-all__each-item-text\">").concat(item.shop_item_name, "</h3>\n                <h5 class=\"category-all__each-item-text\">").concat(item.shop_item_descrpt, "</h5>\n                <label for=\"\" class=\"category-all__each-label\">").concat(item.shop_item_price, "</label>\n                <p class = \"category-all__each-item-text\"> Sold By : ").concat(item.shop_item_seller, " </p>\n            </div>\n            <div class =\"send-message\">\n                <button class = \"message-button\" data-id=\"").concat(itemDescription, "\" data-email-client=\"").concat(item.shop_item_email, "\"> Order <i class=\"fa fa-cart-arrow-down\"></i> </button>\n            </div>\n        </div>"); //to append each item to the category list
+  var eachItem = "<div class=\"category-all__each-item category-all__each-item--hover\">\n            <div class=\"category-all__each-item-image-div\">\n                <img src = \"".concat(item.shop_item_image, "\" class =\"category-all__each-item-image\" />\n            </div>\n            <div class=\"category-all__each-item-text-container\">\n                <h3 class=\"category-all__each-item-text\">").concat(item.shop_item_name, "</h3>\n                <h5 class=\"category-all__each-item-text\">").concat(item.shop_item_descrpt, "</h5>\n                <label for=\"\" class=\"category-all__each-label\">").concat(item.shop_item_price, "</label>\n                <p class = \"category-all__each-item-text\"> Sold By : ").concat(item.shop_item_seller, " </p>\n            </div>\n            <div class =\"send-message\">\n                <button class = \"message-button\" data-id=\"").concat(itemDescription, "\" data-email-client=\"").concat(item.shop_item_email, "\" > Order <i class=\"fa fa-cart-arrow-down\"></i> </button>\n            </div>\n        </div>"); //to append each item to the category list
 
   itemContainer.insertAdjacentHTML('beforeend', eachItem);
   /**
@@ -87142,7 +87153,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36601" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43625" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

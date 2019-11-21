@@ -20,15 +20,27 @@ formClose.addEventListener("click",()=>{
 
 
 const mailer = (param) => {
-    sgMail.send(param);
-    // const msg = {
-    //     to: 'test@example.com',
-    //     from: 'test@example.com',
-    //     subject: 'Sending with Twilio SendGrid is Fun',
-    //     text: 'and easy to do anywhere, even with Node.js',
-    //     html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-    //   };
-    //   sgMail.send(msg);
+    const formButton = document.querySelector('.order-button');
+    // sgMail.send(param);
+    formButton.innerHTML = '<img src="/loading.28bc329d.gif" alt="loading animation" class="loading-gif">';
+    const username = process.env.userName;
+    const password = process.env.password;
+
+    Email.send({
+        Host : "smtp.elasticemail.com",
+        Username : username,
+        Password : password,
+        To : param.receiver,
+        From : username,
+        Subject : param.subject,
+        Body : `${param.text} \n from ${param.sender}`
+    }).then(
+      message => alert(message)
+    ).then(()=>{
+        formButton.innerHTML = '<img src="./asset/images/sent.gif" class="loading-img"/>';
+    });
+    console.log("username : ",username);
+
 }
 
 const sendMessagePop = (item_description,item_email) => {
@@ -46,7 +58,7 @@ const sendMessagePop = (item_description,item_email) => {
  */
 
 formElement.addEventListener("submit",()=>{
-    // event.preventDefault();
+    // event.preventDefault();sam.smith@example
     const receiver = document.querySelector('#form_email').dataset.clientEmail;
     const sender = document.querySelector('#form_email').value;
     const subject = document.querySelector('#order_subject').value;
@@ -79,7 +91,7 @@ const appendElement = (item) => {
                 <p class = "category-all__each-item-text"> Sold By : ${item.shop_item_seller} </p>
             </div>
             <div class ="send-message">
-                <button class = "message-button" data-id="${itemDescription}" data-email-client="${item.shop_item_email}"> Order <i class="fa fa-cart-arrow-down"></i> </button>
+                <button class = "message-button" data-id="${itemDescription}" data-email-client="${item.shop_item_email}" > Order <i class="fa fa-cart-arrow-down"></i> </button>
             </div>
         </div>`;
     //to append each item to the category list
