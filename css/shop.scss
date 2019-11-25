@@ -32,6 +32,12 @@ $white_color: #ffffff;
   display: flex;
   flex-direction: column;
 }
+.none{
+  display : none;
+}
+.block{
+  display: flex;
+}
 .body{
   position  : relative;
 }
@@ -257,7 +263,7 @@ button:hover {
 }
 
 .category-all__search-field {
-  display: none;
+  // display: none;
 }
 
 .search-form {

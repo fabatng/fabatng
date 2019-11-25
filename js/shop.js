@@ -30,11 +30,12 @@ const formClose = document.querySelector('.form__close');
 const formSection = document.querySelector('.form-section');
 const formElement = document.querySelector('.form');
 const formButton = document.querySelector('.order-button');
+const searchForm = document.querySelector('.search-form');
+const searchButtonTrigger = document.querySelector('.icon-search');
+const searchField = document.querySelector('.category-all__search-field');
+const pageReloadButton = document.querySelector('.button-reset');
+let searchFieldStatus = true;
 
-
-formClose.addEventListener("click",()=>{
-    formSection.style.display = "none";
-});
 
 const formReset = () =>{
     formSection.style.display = "none";
@@ -77,22 +78,7 @@ const sendMessagePop = (item_description,item_email) => {
 }
 
 
-/**
- * initialize parameters and call the mailer function to implement the sendGrid API
- */
 
-formElement.addEventListener("submit",()=>{
-    // event.preventDefault();sam.smith@example
-    const receiver = document.querySelector('#form_email').dataset.clientEmail;
-    const sender = document.querySelector('#form_email').value;
-    const subject = document.querySelector('#order_subject').value;
-    const text = document.querySelector('#order_message').value;
-    const cc = 'calebdeji06@gmail.com';
-    const html= '<strong>and easy to do anywhere, even with Node.js</strong>';
-    const parameters = { receiver, sender , subject , text , html, cc};
-    console.log("para : ", parameters);
-    mailer(parameters);
-});
 
 const searchCategory = (collectionTitle) =>{
     itemContainer.innerHTML = '';
@@ -187,7 +173,64 @@ const navToogle = (status) => {
     }
 }
 
+/**
+ * to close the form field
+ */
+formClose.addEventListener("click",()=>{
+    formSection.style.display = "none";
+});
 
+
+/**
+ * initialize parameters and call the mailer function to implement the sendGrid API
+ */
+
+formElement.addEventListener("submit",()=>{
+    // event.preventDefault();sam.smith@example
+    const receiver = document.querySelector('#form_email').dataset.clientEmail;
+    const sender = document.querySelector('#form_email').value;
+    const subject = document.querySelector('#order_subject').value;
+    const text = document.querySelector('#order_message').value;
+    const cc = 'calebdeji06@gmail.com';
+    const html= '<strong>and easy to do anywhere, even with Node.js</strong>';
+    const parameters = { receiver, sender , subject , text , html, cc};
+    console.log("para : ", parameters);
+    mailer(parameters);
+});
+
+/**
+ * search button trigger that toggles the search field
+ */
+
+searchButtonTrigger.addEventListener("click",()=>{
+    if(searchFieldStatus){
+        searchField.classList.add("none");
+    }
+    else{
+        searchField.classList.remove("none");
+    }
+    searchFieldStatus = !searchFieldStatus;
+});
+
+/**
+ * add event listener onsubmit to the search form
+ */
+searchForm.addEventListener("submit",(event)=>{
+    event.preventDefault();
+    const searchQuery = document.querySelector('#search').value;
+    const ref = firebase.database().ref(`Shop Collection/${searchQuery}`);
+    itemContainer.innerHTML = '';
+    ref.orderByChild('shop_item_name').on("child_added",(snapshot)=>{
+        appendElement(snapshot.val());
+    })
+});
+
+/**
+ * to reload the page
+ */
+pageReloadButton.addEventListener("click",()=>{
+    location.reload();
+})
 window.addEventListener("DOMContentLoaded", (event) => {
     event.preventDefault();
     

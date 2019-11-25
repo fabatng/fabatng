@@ -12,6 +12,14 @@
   flex-direction: column;
 }
 
+.none {
+  display: none;
+}
+
+.block {
+  display: flex;
+}
+
 .body {
   position: relative;
 }
@@ -241,10 +249,6 @@ button:hover {
 
 .icon-search {
   background-color: transparent;
-}
-
-.category-all__search-field {
-  display: none;
 }
 
 .search-form {

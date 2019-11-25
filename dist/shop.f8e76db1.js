@@ -794,9 +794,11 @@ var formClose = document.querySelector('.form__close');
 var formSection = document.querySelector('.form-section');
 var formElement = document.querySelector('.form');
 var formButton = document.querySelector('.order-button');
-formClose.addEventListener("click", function () {
-  formSection.style.display = "none";
-});
+var searchForm = document.querySelector('.search-form');
+var searchButtonTrigger = document.querySelector('.icon-search');
+var searchField = document.querySelector('.category-all__search-field');
+var pageReloadButton = document.querySelector('.button-reset');
+var searchFieldStatus = true;
 
 var formReset = function formReset() {
   formSection.style.display = "none";
@@ -833,30 +835,6 @@ var sendMessagePop = function sendMessagePop(item_description, item_email) {
   var formEmailData = document.querySelector('#form_email');
   formEmailData.dataset.clientEmail = item_email; // console.log("form email data : ", formEmailData);
 };
-/**
- * initialize parameters and call the mailer function to implement the sendGrid API
- */
-
-
-formElement.addEventListener("submit", function () {
-  // event.preventDefault();sam.smith@example
-  var receiver = document.querySelector('#form_email').dataset.clientEmail;
-  var sender = document.querySelector('#form_email').value;
-  var subject = document.querySelector('#order_subject').value;
-  var text = document.querySelector('#order_message').value;
-  var cc = 'calebdeji06@gmail.com';
-  var html = '<strong>and easy to do anywhere, even with Node.js</strong>';
-  var parameters = {
-    receiver: receiver,
-    sender: sender,
-    subject: subject,
-    text: text,
-    html: html,
-    cc: cc
-  };
-  console.log("para : ", parameters);
-  mailer(parameters);
-});
 
 var searchCategory = function searchCategory(collectionTitle) {
   itemContainer.innerHTML = ''; // console.log("collection title is : ",collectionTitle);
@@ -929,7 +907,70 @@ var navToogle = function navToogle(status) {
     }, 200);
   }
 };
+/**
+ * to close the form field
+ */
 
+
+formClose.addEventListener("click", function () {
+  formSection.style.display = "none";
+});
+/**
+ * initialize parameters and call the mailer function to implement the sendGrid API
+ */
+
+formElement.addEventListener("submit", function () {
+  // event.preventDefault();sam.smith@example
+  var receiver = document.querySelector('#form_email').dataset.clientEmail;
+  var sender = document.querySelector('#form_email').value;
+  var subject = document.querySelector('#order_subject').value;
+  var text = document.querySelector('#order_message').value;
+  var cc = 'calebdeji06@gmail.com';
+  var html = '<strong>and easy to do anywhere, even with Node.js</strong>';
+  var parameters = {
+    receiver: receiver,
+    sender: sender,
+    subject: subject,
+    text: text,
+    html: html,
+    cc: cc
+  };
+  console.log("para : ", parameters);
+  mailer(parameters);
+});
+/**
+ * search button trigger that toggles the search field
+ */
+
+searchButtonTrigger.addEventListener("click", function () {
+  if (searchFieldStatus) {
+    searchField.classList.add("none");
+  } else {
+    searchField.classList.remove("none");
+  }
+
+  searchFieldStatus = !searchFieldStatus;
+});
+/**
+ * add event listener onsubmit to the search form
+ */
+
+searchForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+  var searchQuery = document.querySelector('#search').value;
+  var ref = firebase.database().ref("Shop Collection/".concat(searchQuery));
+  itemContainer.innerHTML = '';
+  ref.orderByChild('shop_item_name').on("child_added", function (snapshot) {
+    appendElement(snapshot.val());
+  });
+});
+/**
+ * to reload the page
+ */
+
+pageReloadButton.addEventListener("click", function () {
+  location.reload();
+});
 window.addEventListener("DOMContentLoaded", function (event) {
   event.preventDefault();
   /**
