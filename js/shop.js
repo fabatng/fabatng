@@ -4,32 +4,55 @@
 require('dotenv').config({
     encoding: 'utf8'
 });
-const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(process.env.mailerAPI);
+
+/**
+ * firebase details with the api keys and app details
+ */
+var firebaseConfig = {
+    // eslint-disable-next-line no-undef
+    apiKey: process.env.apiKey,
+    authDomain: process.env.authDomain,
+    databaseURL: process.env.databaseURL,
+    projectId: process.env.projectId,
+    storageBucket: process.env.storageBucket,
+    messagingSenderId: process.env.messagingSenderId,
+    appId: process.env.appId
+};
+// Initialize Firebase
+
+// eslint-disable-next-line no-undef
+firebase.initializeApp(firebaseConfig);
+
 
 
 const itemContainer = document.querySelector(".category-all__item-collection");
 const formClose = document.querySelector('.form__close');
 const formSection = document.querySelector('.form-section');
 const formElement = document.querySelector('.form');
+const formButton = document.querySelector('.order-button');
 
 
 formClose.addEventListener("click",()=>{
     formSection.style.display = "none";
 });
 
+const formReset = () =>{
+    formSection.style.display = "none";
+    formButton.innerHTML = ` Order `;
+    formElement.reset();
+}
+
 
 const mailer = (param) => {
-    const formButton = document.querySelector('.order-button');
     // sgMail.send(param);
     formButton.innerHTML = '<img src="/loading.28bc329d.gif" alt="loading animation" class="loading-gif">';
-    const username = process.env.userName;
+    // const username = process.env.userName;
     Email.send({
         Host : "smtp.elasticemail.com",
         Username : process.env.userName,
         Password : process.env.password,
         To : param.receiver,
-        From : username,
+        From : process.env.userName,
         Subject : param.subject,
         Body : `${param.text} \n from ${param.sender}`
     }).then(
@@ -38,7 +61,7 @@ const mailer = (param) => {
 
         formButton.innerHTML = 'Sent  <i class="fa fa-check modify-icon-button"></>';
         setTimeout(()=>{
-            formSection.style.display = "none";
+            formReset();
         },1000);
     });
 
@@ -50,7 +73,7 @@ const sendMessagePop = (item_description,item_email) => {
     orderSubjectInputElement.value = item_description;  
     const formEmailData = document.querySelector('#form_email');
     formEmailData.dataset.clientEmail = item_email;
-    console.log("form email data : ", formEmailData);
+    // console.log("form email data : ", formEmailData);
 }
 
 
@@ -70,6 +93,27 @@ formElement.addEventListener("submit",()=>{
     console.log("para : ", parameters);
     mailer(parameters);
 });
+
+const searchCategory = (collectionTitle) =>{
+    itemContainer.innerHTML = '';
+    // console.log("collection title is : ",collectionTitle);
+    firebase.database().ref(`Shop Collection/${collectionTitle}`).once('value', (snapshot) => {
+        console.log("snap shot value is : ",snapshot.val());
+        /**
+         * create an object collection of the title subcollection
+         */
+        let collectionTitleObject = snapshot.val();
+        
+        /**
+         * to get the list of object keys in the response
+         */
+        let collectionTitleKeys = Object.keys(collectionTitleObject);
+        console.log("collection title is : ", collectionTitleKeys);
+        collectionTitleKeys.forEach((key)=>{
+            appendElement(collectionTitleObject[key]);
+        });
+    })
+}
 
 
 const appendElement = (item) => {
@@ -109,14 +153,24 @@ const appendElement = (item) => {
     
 }
 
-const processArray = (collection_title) => {
+const processArray = (collectionTitle) => {
     const listSection = document.querySelector(".unordered-list");
-    listSection.innerHTML +=
-        `
-            <li class="item-list">
-                <button class="category__button">${collection_title}</button>
-            </li>
-        `;
+    let uniqueKey = Math.random()*10;
+    uniqueKey = Math.floor(uniqueKey);
+    const eachButton = 
+    `
+        <li class="item-list">
+            <button class="category__button" data-key="${uniqueKey}">${collectionTitle}</button>
+        </li>
+    `
+    listSection.insertAdjacentHTML('beforeend',eachButton);
+    const eachButtonEvent = document.querySelector(`[data-key="${uniqueKey}"]`);
+    // console.log("object")
+    eachButtonEvent.addEventListener("click",()=>{
+        searchCategory(collectionTitle);
+        console.log("unique key : ",uniqueKey, collectionTitle);
+
+    })
 }
 
 
@@ -136,20 +190,7 @@ const navToogle = (status) => {
 
 window.addEventListener("DOMContentLoaded", (event) => {
     event.preventDefault();
-    var firebaseConfig = {
-        // eslint-disable-next-line no-undef
-        apiKey: process.env.apiKey,
-        authDomain: process.env.authDomain,
-        databaseURL: process.env.databaseURL,
-        projectId: process.env.projectId,
-        storageBucket: process.env.storageBucket,
-        messagingSenderId: process.env.messagingSenderId,
-        appId: process.env.appId
-    };
-    // Initialize Firebase
-
-    // eslint-disable-next-line no-undef
-    firebase.initializeApp(firebaseConfig);
+    
     /**
      * referencing the database     
      */
@@ -168,16 +209,15 @@ window.addEventListener("DOMContentLoaded", (event) => {
              * to get the necessary keys needed to access the items
              * 
              */
-            // const keys = Object.keys(all);
             let arrayKeys = Object.keys(all.toJSON());
-            // console.log("array keys is : ", arrayKeys);
-            // console.log("json : ", all.toJSON());
-            for (counter = 0; counter < arrayKeys.length; counter++) {
-                let temp = arrayKeys[counter];
-                let toDisplay = all.toJSON()[temp];
-                appendElement(toDisplay);
-                // console.log("to display is : ", toDisplay);
-            }
+
+            /**
+             * use each key to search the db to populate the page.
+             */
+            arrayKeys.forEach((key)=>{
+                let toDisplay = all.toJSON()[key];
+                appendElement(toDisplay)
+            })
         });
     });
 
