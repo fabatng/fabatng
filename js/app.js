@@ -72,23 +72,12 @@ const screenButtonEffects = () => {
 }
 
 // eslint-disable-next-line no-unused-vars
-function slideFirst() {
+function slide(index) {
     console.log("testimonial id : ", testimonialId);
     clearInterval(testimonialId);
-    automaticSLider(0);
+    automaticSLider(index);
 }
 
-// eslint-disable-next-line no-unused-vars
-function slideSecond() {
-    clearInterval(testimonialId);
-    automaticSLider(1);
-}
-
-// eslint-disable-next-line no-unused-vars
-function slideThird() {
-    clearInterval(testimonialId);
-    automaticSLider(2);
-}
 /**
  * Screen slider
  */
@@ -188,21 +177,16 @@ window.addEventListener("load", () => {
         dropDownStatus = !dropDownStatus;
     });
     /**
-     * This is to concatenate string with the 'slide' word in order to reference the funtions with the string name
+     * this stores the slidder button for the testimonials
      */
-    let wordAssignValue = {
-        0: "First",
-        1: "Second",
-        2: "Third"
-    }
     let testimonialTriggers = document.querySelectorAll(".slider-trigger-button");
+    /**
+     * to add event listener to each button
+     */
     for (let triggerCounter = 0; triggerCounter < testimonialTriggers.length; triggerCounter++) {
 
         testimonialTriggers[triggerCounter].addEventListener("click", () => {
-            let callFunc = `slide` + wordAssignValue[triggerCounter];
-            // `${callFunc= `slide`+wordAssignValue[triggerCounter]}`;
-            let finalCalling = window[callFunc];
-            finalCalling();
+            slide(triggerCounter);
 
         })
     }

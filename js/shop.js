@@ -44,6 +44,10 @@ const formReset = () =>{
 }
 
 
+/** 
+ * this function mails the client's order to the seller 
+ * who is the recipient of the mail
+*/
 const mailer = (param) => {
     // sgMail.send(param);
     formButton.innerHTML = '<img src="/loading.28bc329d.gif" alt="loading animation" class="loading-gif">';
@@ -68,6 +72,15 @@ const mailer = (param) => {
 
 }
 
+
+/**
+ *  this functions pops up the form where the user can specify the item to order 
+ *
+ * @param  item_description   what's the description most probably the title of the item to order
+ * @param item_email what's the email of the sender, 
+ * the mail server won't authorize email from sender 
+ * except it is registered on the server which is not possible 
+ */
 const sendMessagePop = (item_description,item_email) => {
     formSection.style.display = "flex";
     const orderSubjectInputElement = document.querySelector('#order_subject');
@@ -78,10 +91,15 @@ const sendMessagePop = (item_description,item_email) => {
 }
 
 
-
+/**
+ * 
+ * this search function works by searching the firebase db by the title}
+ * @param collectionTitle holds the title of the category to display
+ */
 
 const searchCategory = (collectionTitle) =>{
     itemContainer.innerHTML = '';
+    navToogle(false);
     // console.log("collection title is : ",collectionTitle);
     firebase.database().ref(`Shop Collection/${collectionTitle}`).once('value', (snapshot) => {
         console.log("snap shot value is : ",snapshot.val());
@@ -101,6 +119,12 @@ const searchCategory = (collectionTitle) =>{
     })
 }
 
+
+/**
+ * 
+ *  the main function that displays every item required by the user to the webpage 
+ *  @param item {this parameter holds an object of an item
+ */
 
 const appendElement = (item) => {
     /**
@@ -139,6 +163,11 @@ const appendElement = (item) => {
     
 }
 
+
+/**
+ * this displays the list of the categories in the db to the web page
+ * @param collectionTitle {*} the title of each category 
+ */
 const processArray = (collectionTitle) => {
     const listSection = document.querySelector(".unordered-list");
     let uniqueKey = Math.random()*10;
@@ -159,6 +188,10 @@ const processArray = (collectionTitle) => {
     })
 }
 
+/**
+ * 
+ * @param {*} status this holds the status tot determine the state of the element
+ */
 
 const navToogle = (status) => {
     let linkNavSection = document.querySelector('.main__category');

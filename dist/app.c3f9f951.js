@@ -199,22 +199,10 @@ var screenButtonEffects = function screenButtonEffects() {
 }; // eslint-disable-next-line no-unused-vars
 
 
-function slideFirst() {
+function slide(index) {
   console.log("testimonial id : ", testimonialId);
   clearInterval(testimonialId);
-  automaticSLider(0);
-} // eslint-disable-next-line no-unused-vars
-
-
-function slideSecond() {
-  clearInterval(testimonialId);
-  automaticSLider(1);
-} // eslint-disable-next-line no-unused-vars
-
-
-function slideThird() {
-  clearInterval(testimonialId);
-  automaticSLider(2);
+  automaticSLider(index);
 }
 /**
  * Screen slider
@@ -312,22 +300,17 @@ window.addEventListener("load", function () {
     dropDownStatus = !dropDownStatus;
   });
   /**
-   * This is to concatenate string with the 'slide' word in order to reference the funtions with the string name
+   * this stores the slidder button for the testimonials
    */
 
-  var wordAssignValue = {
-    0: "First",
-    1: "Second",
-    2: "Third"
-  };
   var testimonialTriggers = document.querySelectorAll(".slider-trigger-button");
+  /**
+   * to add event listener to each button
+   */
 
   var _loop3 = function _loop3(triggerCounter) {
     testimonialTriggers[triggerCounter].addEventListener("click", function () {
-      var callFunc = "slide" + wordAssignValue[triggerCounter]; // `${callFunc= `slide`+wordAssignValue[triggerCounter]}`;
-
-      var finalCalling = window[callFunc];
-      finalCalling();
+      slide(triggerCounter);
     });
   };
 
@@ -363,7 +346,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34935" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42683" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

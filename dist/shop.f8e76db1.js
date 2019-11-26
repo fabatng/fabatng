@@ -117,9 +117,9 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
+})({"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
 
-},{}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
+},{}],"../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
 
 // shim for using process in browser
 var process = module.exports = {}; // cached from whatever global is present so that test runners that stub it
@@ -328,7 +328,7 @@ process.chdir = function (dir) {
 process.umask = function () {
   return 0;
 };
-},{}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/path-browserify/index.js":[function(require,module,exports) {
+},{}],"../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/path-browserify/index.js":[function(require,module,exports) {
 var process = require("process");
 // .dirname, .basename, and .extname methods are extracted from Node.js v8.11.1,
 // backported and transplited with Babel, with backwards-compat fixes
@@ -633,7 +633,7 @@ var substr = 'ab'.substr(-1) === 'b'
     }
 ;
 
-},{"process":"../../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/process/browser.js"}],"../node_modules/dotenv/lib/main.js":[function(require,module,exports) {
+},{"process":"../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/process/browser.js"}],"node_modules/dotenv/lib/main.js":[function(require,module,exports) {
 var process = require("process");
 /*::
 
@@ -764,7 +764,7 @@ function config(options
 
 module.exports.config = config;
 module.exports.parse = parse;
-},{"fs":"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/_empty.js","path":"../../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/path-browserify/index.js","process":"../../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/process/browser.js"}],"js/shop.js":[function(require,module,exports) {
+},{"fs":"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/_empty.js","path":"../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/path-browserify/index.js","process":"../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/process/browser.js"}],"js/shop.js":[function(require,module,exports) {
 /* eslint-disable no-undef */
 // eslint-disable-next-line no-undef
 // require('dotenv').config();
@@ -805,6 +805,11 @@ var formReset = function formReset() {
   formButton.innerHTML = " Order ";
   formElement.reset();
 };
+/** 
+ * this function mails the client's order to the seller 
+ * who is the recipient of the mail
+*/
+
 
 var mailer = function mailer(param) {
   // sgMail.send(param);
@@ -827,6 +832,15 @@ var mailer = function mailer(param) {
     }, 1000);
   });
 };
+/**
+ *  this functions pops up the form where the user can specify the item to order 
+ *
+ * @param  item_description   what's the description most probably the title of the item to order
+ * @param item_email what's the email of the sender, 
+ * the mail server won't authorize email from sender 
+ * except it is registered on the server which is not possible 
+ */
+
 
 var sendMessagePop = function sendMessagePop(item_description, item_email) {
   formSection.style.display = "flex";
@@ -835,9 +849,16 @@ var sendMessagePop = function sendMessagePop(item_description, item_email) {
   var formEmailData = document.querySelector('#form_email');
   formEmailData.dataset.clientEmail = item_email; // console.log("form email data : ", formEmailData);
 };
+/**
+ * 
+ * this search function works by searching the firebase db by the title}
+ * @param collectionTitle holds the title of the category to display
+ */
+
 
 var searchCategory = function searchCategory(collectionTitle) {
-  itemContainer.innerHTML = ''; // console.log("collection title is : ",collectionTitle);
+  itemContainer.innerHTML = '';
+  navToogle(false); // console.log("collection title is : ",collectionTitle);
 
   firebase.database().ref("Shop Collection/".concat(collectionTitle)).once('value', function (snapshot) {
     console.log("snap shot value is : ", snapshot.val());
@@ -857,6 +878,12 @@ var searchCategory = function searchCategory(collectionTitle) {
     });
   });
 };
+/**
+ * 
+ *  the main function that displays every item required by the user to the webpage 
+ *  @param item {this parameter holds an object of an item
+ */
+
 
 var appendElement = function appendElement(item) {
   /**
@@ -879,6 +906,11 @@ var appendElement = function appendElement(item) {
     sendMessagePop(item.shop_item_descrpt, item.shop_item_email);
   });
 };
+/**
+ * this displays the list of the categories in the db to the web page
+ * @param collectionTitle {*} the title of each category 
+ */
+
 
 var processArray = function processArray(collectionTitle) {
   var listSection = document.querySelector(".unordered-list");
@@ -893,6 +925,11 @@ var processArray = function processArray(collectionTitle) {
     console.log("unique key : ", uniqueKey, collectionTitle);
   });
 };
+/**
+ * 
+ * @param {*} status this holds the status tot determine the state of the element
+ */
+
 
 var navToogle = function navToogle(status) {
   var linkNavSection = document.querySelector('.main__category');
@@ -1011,7 +1048,7 @@ window.addEventListener("DOMContentLoaded", function (event) {
     navToogle(false);
   });
 });
-},{"dotenv":"../node_modules/dotenv/lib/main.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"dotenv":"node_modules/dotenv/lib/main.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -1039,7 +1076,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34935" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42683" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
