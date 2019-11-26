@@ -245,7 +245,6 @@ body {
   width: 60% !important;
 }
 .grid__image {
-  object-fit: contain;
   height: 500px;
 }
 .mod-icon-feature {
@@ -659,7 +658,6 @@ body {
     width: 29%;
   }
   .grid__image {
-    height: min-content;
     object-fit: contain;
     margin: 0 20px 0 20px;
     width: 200px;
@@ -913,6 +911,10 @@ body {
   }
   .rounded__anchor--modified {
     margin-bottom: 10px;
+  }
+  .main__div-grid {
+    padding-top : 1em;
+    padding-bottom: 1em;
   }
   .grid__each-cell{
     width : 33%;
