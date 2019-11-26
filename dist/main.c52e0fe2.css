@@ -71,7 +71,6 @@ body {
   height: auto;
   outline: none;
 }
-
 .nav-links {
   display: flex;
   flex-direction: row;
@@ -711,10 +710,6 @@ body {
   .brand-logo {
     width: 30%;
   }
-  .brand-logo .nav__image {
-    width: 100%;
-  }
-
   .welcoming__action-links {
     line-height: 1.5;
   }

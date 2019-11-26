@@ -92,6 +92,9 @@ body {
   width: 263px;
   height: auto;
   outline: none;
+  .nav__image{
+
+  }
 }
 .nav-links {
   @include flex_row();
@@ -633,7 +636,7 @@ body {
   .brand-logo {
     width: 30%;
     .nav__image {
-      width: 100%;
+      // width: 100%;
     }
   }
   .welcoming__action-links {

@@ -153,7 +153,7 @@ window.addEventListener("scroll", () => {
     }
 });
 window.addEventListener("load", () => {
-    // animateOnViewPort();
+    animateOnViewPort();
     automaticSLider(0);
     screenButtonEffects();
     let navLinkDropDownTrigger = document.getElementById("nav_link_trigger");
