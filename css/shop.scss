@@ -32,49 +32,49 @@ $white_color: #ffffff;
   display: flex;
   flex-direction: column;
 }
-.none{
-  display : none;
+.none {
+  display: none;
 }
-.block{
+.block {
   display: flex;
 }
-.body{
-  position  : relative;
+.body {
+  position: relative;
 }
-.form-section{
+.form-section {
   position: fixed;
   width: 100%;
   @include flex_row();
   align-items: center;
   z-index: 9999999999;
-  background-color:  rgb(42, 14, 2,0.9);
+  background-color: rgb(42, 14, 2, 0.9);
   display: none;
 }
 
-.form__close{
+.form__close {
   position: absolute;
   right: 15px;
-  top :15px;
+  top: 15px;
   color: $white_color;
   font-size: 20px;
 }
 
-.form{
+.form {
   @include flex_column();
   width: 100%;
 }
-.form__element{
+.form__element {
   margin: auto;
   margin-bottom: 1em;
   border-radius: 10px;
   padding-left: 10px;
   height: 40px;
 }
-.form__textarea{
-  height : 100px !important;
+.form__textarea {
+  height: 100px !important;
   padding-top: 10px;
 }
-.order-button{
+.order-button {
   // display: flex;
   // align-items: center;
   text-align: center;
@@ -83,36 +83,36 @@ $white_color: #ffffff;
   border-radius: 10px;
   height: 30px;
   color: rgba(0, 0, 0);
-  :hover{
+  :hover {
     background-color: $white_color !important;
   }
 }
-.loading-gif{
+.loading-gif {
   width: 30px;
   height: 30px;
 }
-.modify-icon-button{
+.modify-icon-button {
   font-size: 25px !important;
   color: $primary_color;
 }
-@media screen and (min-width:1000px){
-  .form__element{
-    width : 50%;
+@media screen and (min-width: 1000px) {
+  .form__element {
+    width: 50%;
   }
 }
-@media screen and (max-width : 999px){
-  .form__element{
+@media screen and (max-width: 999px) {
+  .form__element {
     width: 70%;
   }
 }
-@media screen and (max-width:600px){
-  .form__element{
+@media screen and (max-width: 600px) {
+  .form__element {
     width: 90%;
   }
 }
-@media screen and (max-width:230px){
-  .order-button{
-    width : 90%;
+@media screen and (max-width: 230px) {
+  .order-button {
+    width: 90%;
   }
 }
 
@@ -260,10 +260,6 @@ button:hover {
 
 .icon-search {
   background-color: transparent;
-}
-
-.category-all__search-field {
-  // display: none;
 }
 
 .search-form {
