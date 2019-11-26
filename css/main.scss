@@ -16,6 +16,7 @@ font-face {
 * {
   box-sizing: border-box;
   font-family: "lato thin", Arial;
+  scroll-behavior: smooth;
 }
 
 a {
@@ -75,6 +76,10 @@ body {
   z-index: 999;
   position: relative;
   // @include backgroundTransparent();
+}
+.brand-logo{
+  display : flex;
+  justify-content: center;
 }
 .navbar--sticky {
   position: fixed;
@@ -254,7 +259,7 @@ body {
   padding: 0.3em 0.3em 0.1em 0.3em;
 }
 .main__section--feature {
-  background-image: url(../asset/images/review__bg.jpg);
+  background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url(../asset/images/review__bg.png);
   color: $white_color;
   font-weight: bold !important;
   background-repeat: repeat;
@@ -322,7 +327,7 @@ body {
   color: $primary_color;
   padding: 10px 20px 20px 50px;
   border-radius: 10px;
-  box-shadow: 2px 3px 5px rgb(161, 224, 245);
+  box-shadow: 2px 3px 5px rgb(42, 42, 42);
 }
 .chat__quoted-paragraph {
   font-size: 20px;
@@ -449,7 +454,7 @@ body {
   // @include flex_column();
   padding-top: 130px;
   justify-content: center;
-  background-image: url(../asset/images/get_app_bg.jpg);
+  background-image: url(../asset/images/get_app_bg.png);
   background-repeat: repeat;
   height: 700px;
   color: $white_color;
@@ -462,12 +467,6 @@ body {
 
   .main__span--color-white {
     background-color: $white_color;
-  }
-  .position-blend {
-    position: absolute;
-    // object-fit: cover;
-    bottom: 0;
-    right: 0;
   }
 }
 .download-links--modify {
@@ -636,7 +635,7 @@ body {
   .brand-logo {
     width: 30%;
     .nav__image {
-      // width: 100%;
+      
     }
   }
   .welcoming__action-links {

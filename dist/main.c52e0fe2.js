@@ -189,7 +189,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./../asset/fonts/lato.hairline.ttf":[["lato.hairline.681e6ecd.ttf","asset/fonts/lato.hairline.ttf"],"asset/fonts/lato.hairline.ttf"],"./../asset/fonts/lato.light.ttf":[["lato.light.e5f8aff4.ttf","asset/fonts/lato.light.ttf"],"asset/fonts/lato.light.ttf"],"./../asset/fonts/lato.thin.ttf":[["lato.thin.67582187.ttf","asset/fonts/lato.thin.ttf"],"asset/fonts/lato.thin.ttf"],"./../asset/images/review__bg.jpg":[["review__bg.077ad28f.jpg","asset/images/review__bg.jpg"],"asset/images/review__bg.jpg"],"./../asset/images/get_app_bg.jpg":[["get_app_bg.5953ed38.jpg","asset/images/get_app_bg.jpg"],"asset/images/get_app_bg.jpg"],"_css_loader":"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./../asset/fonts/lato.hairline.ttf":[["lato.hairline.681e6ecd.ttf","asset/fonts/lato.hairline.ttf"],"asset/fonts/lato.hairline.ttf"],"./../asset/fonts/lato.light.ttf":[["lato.light.e5f8aff4.ttf","asset/fonts/lato.light.ttf"],"asset/fonts/lato.light.ttf"],"./../asset/fonts/lato.thin.ttf":[["lato.thin.67582187.ttf","asset/fonts/lato.thin.ttf"],"asset/fonts/lato.thin.ttf"],"./../asset/images/review__bg.png":[["review__bg.527b0e33.png","asset/images/review__bg.png"],"asset/images/review__bg.png"],"./../asset/images/get_app_bg.png":[["get_app_bg.698a670d.png","asset/images/get_app_bg.png"],"asset/images/get_app_bg.png"],"_css_loader":"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -217,7 +217,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43175" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46807" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
