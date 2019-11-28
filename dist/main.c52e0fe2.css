@@ -999,10 +999,16 @@ body {
     margin-left: 1em;
   }
 }
+@media screen and (min-width: 901px) {
+  .nav-links {
+    display: flex;
+  }
+}
 @media screen and (max-width: 900px) {
   .brand-logo {
     width: 30%;
   }
+
   .welcoming__action-links {
     line-height: 1.5;
   }
@@ -1206,7 +1212,6 @@ body {
 
   .navbar--sticky {
     background-color: #2a0e02;
-    padding: 15px 0 15px 0;
   }
   .navbar--sticky .nav-links {
     bottom: -330px;
@@ -1223,7 +1228,7 @@ body {
       opacity: 0;
     }
     to {
-      bottom: -375px;
+      bottom: -330px;
       opacity: 1;
     }
   }
@@ -1234,13 +1239,13 @@ body {
       opacity: 0;
     }
     to {
-      bottom: -375px;
+      bottom: -330px;
       opacity: 1;
     }
   }
   @-webkit-keyframes linkanimateterminate {
     from {
-      bottom: -375px;
+      bottom: -330px;
       opacity: 1;
     }
     to {
@@ -1251,7 +1256,7 @@ body {
   }
   @keyframes linkanimateterminate {
     from {
-      bottom: -375px;
+      bottom: -330px;
       opacity: 1;
     }
     to {

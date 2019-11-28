@@ -807,6 +807,7 @@ body {
     margin-left: 1em;
   }
 }
+
 @media screen and (max-width: 900px) {
   // justify-content: center;
   .brand-logo {
@@ -993,7 +994,7 @@ body {
   }
   .navbar--sticky {
     background-color: $primary_color;
-    padding: 15px 0 15px 0;
+    // padding: 15px 0 15px 0;
     .nav-links {
       bottom: -330px;
     }
@@ -1009,7 +1010,7 @@ body {
       opacity: 0;
     }
     to {
-      bottom: -375px;
+      bottom: -330px;
       opacity: 1;
     }
   }
@@ -1021,13 +1022,13 @@ body {
       opacity: 0;
     }
     to {
-      bottom: -375px;
+      bottom: -330px;
       opacity: 1;
     }
   }
   @-webkit-keyframes linkanimateterminate {
     from {
-      bottom: -375px;
+      bottom: -330px;
       opacity: 1;
     }
     to {
@@ -1038,7 +1039,7 @@ body {
   }
   @keyframes linkanimateterminate {
     from {
-      bottom: -375px;
+      bottom: -330px;
       opacity: 1;
     }
     to {
