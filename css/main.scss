@@ -725,13 +725,13 @@ body {
         linear,
         left top,
         right bottom,
-        from(rgba(0, 0, 0, 0.9)),
-        to(rgb(0, 0, 0, 0.9))
+        from(rgba(0, 0, 0)),
+        to(rgb(0, 0, 0))
     );
     background-image: linear-gradient(
         to bottom right,
-        rgba(0, 0, 0, 0.9),
-        rgb(0, 0, 0, 0.9)
+        rgba(0, 0, 0),
+        rgb(0, 0, 0)
     );
     padding: 2em 0 2em 0;
 }
