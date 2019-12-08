@@ -854,7 +854,7 @@ body {
     .grid__each-cell {
         margin-bottom: 10px;
         p {
-            font-size: 12px;
+            font-size: 14px;
         }
     }
     .grid__each-sub-cell {
@@ -868,7 +868,7 @@ body {
         -webkit-box-direction: reverse;
         -ms-flex-direction: row-reverse;
         flex-direction: row-reverse;
-        font-size: 12px;
+        font-size: 14px;
     }
     .mod-icon-feature {
         margin: auto;
@@ -1066,6 +1066,9 @@ body {
         .phone-image:nth-child(4) {
             display: none;
         }
+    }
+    .grid__each-cell {
+        width: 45%;
     }
     .grid__cell-image-align {
         display: none !important;

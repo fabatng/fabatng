@@ -1051,7 +1051,7 @@ body {
     margin-bottom: 10px;
   }
   .grid__each-cell p {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .grid__each-sub-cell {
@@ -1065,7 +1065,7 @@ body {
     -webkit-box-direction: reverse;
     -ms-flex-direction: row-reverse;
     flex-direction: row-reverse;
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .mod-icon-feature {
@@ -1273,6 +1273,10 @@ body {
     display: none;
   }
 
+  .grid__each-cell {
+    width: 45%;
+  }
+
   .grid__cell-image-align {
     display: none !important;
   }
@@ -1387,6 +1391,7 @@ body {
   .main__div-grid {
     padding-top: 1em;
     padding-bottom: 1em;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
   }
 
