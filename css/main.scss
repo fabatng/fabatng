@@ -1192,6 +1192,7 @@ body {
     .main__div-grid {
         padding-top: 1em;
         padding-bottom: 1em;
+        -ms-flex-wrap: wrap;
         flex-wrap: wrap;
     }
     .grid__text {
