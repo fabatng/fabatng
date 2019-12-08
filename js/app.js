@@ -36,7 +36,7 @@ const automaticSLider = (counter) => {
         item.style.display = "none";
     });
     triggerSliderButton.forEach(item => {
-        item.style.backgroundColor = "rgb(42, 14, 2)";
+        item.style.backgroundColor = "rgb(0,0,0)";
     });
     testimonialElements[counter].style.display = "flex";
     triggerSliderButton[counter].style.backgroundColor = "#ffffff";
@@ -154,7 +154,7 @@ window.addEventListener("scroll", () => {
 });
 window.addEventListener("load", () => {
 
-    
+
     animateOnViewPort();
     automaticSLider(0);
     screenButtonEffects();
@@ -186,8 +186,8 @@ window.addEventListener("load", () => {
         /**
          * to close the nav container whenever on of the links is clicked for mobile view
          */
-        navLinkELement.forEach((item)=>{
-            item.addEventListener("click",(event)=>{
+        navLinkELement.forEach((item) => {
+            item.addEventListener("click", (event) => {
                 dropDownStatus = false;
                 navLinkContainer.style.display = "none";
             })

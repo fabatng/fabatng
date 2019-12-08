@@ -154,7 +154,7 @@ var automaticSLider = function automaticSLider(counter) {
     item.style.display = "none";
   });
   triggerSliderButton.forEach(function (item) {
-    item.style.backgroundColor = "rgb(42, 14, 2)";
+    item.style.backgroundColor = "rgb(0,0,0)";
   });
   testimonialElements[counter].style.display = "flex";
   triggerSliderButton[counter].style.backgroundColor = "#ffffff";
@@ -358,7 +358,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45769" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41721" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
