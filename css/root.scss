@@ -10,6 +10,7 @@ $white_color: #ffffff;
     flex-direction: row;
     // flex-wrap: wrap;
 }
+
 @mixin flex_column {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -20,22 +21,27 @@ $white_color: #ffffff;
     flex-direction: column;
     // flex-wrap: wrap;
 }
+
 @mixin transistion_duration {
     -webkit-transition-duration: 1s;
     transition-duration: 1s;
 }
+
 font-face {
     src: url("../asset/fonts/lato.hairline.ttf");
     font-family: "lato hairline";
 }
+
 font-face {
     src: url("../asset/fonts/lato.light.ttf");
     font-family: "lato light";
 }
+
 font-face {
     src: url("../asset/fonts/lato.thin.ttf");
     font-family: "lato thin";
 }
+
 * {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -45,6 +51,7 @@ font-face {
 a {
     text-decoration: none !important;
 }
+
 .hover-pointer:hover {
     cursor: pointer;
 }
@@ -61,6 +68,11 @@ body {
     -ms-flex-direction: column;
     flex-direction: column;
 }
+
+button:hover {
+    cursor: pointer;
+}
+
 .button--like {
     @include flex_row();
     @include transistion_duration();
@@ -72,4 +84,19 @@ body {
     &:hover {
         background-color: #ccc3c3 !important;
     }
+}
+
+.display-none {
+    display: none !important;
+}
+
+.display-flex {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+}
+
+input,
+select {
+    font-weight: bold;
 }

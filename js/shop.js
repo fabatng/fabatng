@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line no-undef
 // require('dotenv').config();
-require('dotenv').config({
-    encoding: 'utf8'
+require("dotenv").config({
+    encoding: "utf8"
 });
 
 /**
@@ -23,119 +23,169 @@ var firebaseConfig = {
 // eslint-disable-next-line no-undef
 firebase.initializeApp(firebaseConfig);
 
-
-
 const itemContainer = document.querySelector(".category-all__item-collection");
-const formClose = document.querySelector('.form__close');
-const formSection = document.querySelector('.form-section');
-const formElement = document.querySelector('.form');
-const formButton = document.querySelector('.order-button');
-const searchForm = document.querySelector('.search-form');
-const searchButtonTrigger = document.querySelector('.icon-search');
-const searchField = document.querySelector('.category-all__search-field');
-const pageReloadButton = document.querySelector('.button-reset');
+const formClose = document.querySelector(".form__close");
+const formSection = document.querySelector(".form-section");
+const formElement = document.querySelector(".form");
+const formButton = document.querySelector(".order-button");
+const searchForm = document.querySelector(".search-form");
+const searchButtonTrigger = document.querySelector(".icon-search");
+const searchField = document.querySelector(".category-all__search-field");
+const pageReloadButton = document.querySelector(".button-reset");
 let searchFieldStatus = true;
 
-
-const formReset = () =>{
+const formReset = () => {
     formSection.style.display = "none";
     formButton.innerHTML = ` Order `;
     formElement.reset();
-}
-
-
-/** 
- * this function mails the client's order to the seller 
- * who is the recipient of the mail
-*/
-const mailer = (param) => {
-    // sgMail.send(param);
-    formButton.innerHTML = '<img src="/loading.28bc329d.gif" alt="loading animation" class="loading-gif">';
-    // const username = process.env.userName;
-    Email.send({
-        Host : "smtp.elasticemail.com",
-        Username : process.env.userName,
-        Password : process.env.password,
-        To : param.receiver,
-        From : process.env.userName,
-        Subject : param.subject,
-        Body : `${param.text} \n from ${param.sender}`
-    }).then(
-      message => alert(message)
-    ).then(()=>{
-
-        formButton.innerHTML = 'Sent  <i class="fa fa-check modify-icon-button"></>';
-        setTimeout(()=>{
-            formReset();
-        },1000);
-    });
-
-}
-
+};
 
 /**
- *  this functions pops up the form where the user can specify the item to order 
+ * this function mails the client's order to the seller
+ * who is the recipient of the mail
+ */
+const activatePayment = param => {
+    formButton.innerHTML =
+        '<img src="/loading.28bc329d.gif" alt="loading animation" class="loading-gif">';
+
+    const API_publicKey = process.env.flutterWavePublicKey;
+    var x = getpaidSetup({
+        PBFPubKey: API_publicKey,
+        customer_email: param.clientEmail,
+        amount: param.price,
+        customer_phone: param.phoneNumber,
+        custom_title: `Payment for ${param.subject}`,
+        custom_description: param.description,
+        currency: "NGN",
+        txref: `rave-${Date.now()}`,
+        meta: [{
+            metaname: param.subject
+        }],
+        onclose: function() {
+            console.log("activatePayment on close key is : ", API_publicKey);
+            // closeFormSection();
+            formReset();
+        },
+        callback: function(response) {
+            let txref = response.tx.txRef; // collect txRef returned and pass to a 					server page to complete status check.
+            console.log(
+                `This is the response returned after a charge ${response} and texRef is ${txref}`
+            );
+            if (
+                response.tx.chargeResponseCode == "00" ||
+                response.tx.chargeResponseCode == "0"
+            ) {
+                alert("Payment Successful");
+            } else {
+                alert("payment not successful, try again later");
+            }
+            console.log("Response is : ", response);
+
+            x.close(); // use this to close the modal immediately after payment.
+        }
+    });
+};
+
+/**
+ *  this functions pops up the form where the user can specify the item to order
  *
  * @param  item_description   what's the description most probably the title of the item to order
- * @param item_email what's the email of the sender, 
- * the mail server won't authorize email from sender 
- * except it is registered on the server which is not possible 
+ * @param item_email what's the email of the sender,
+ * the mail server won't authorize email from sender
+ * except it is registered on the server which is not possible
  */
-const sendMessagePop = (item_description,item_email) => {
+const sendMessagePop = (
+    item_name,
+    item_description,
+    item_email,
+    item_price
+) => {
     formSection.style.display = "flex";
-    const orderSubjectInputElement = document.querySelector('#order_subject');
-    orderSubjectInputElement.value = item_description;  
-    const formEmailData = document.querySelector('#form_email');
-    formEmailData.dataset.clientEmail = item_email;
+    const itemPriceElement = document.querySelector("#order_item_price");
+    const orderSubjectInputElement = document.querySelector("#order_subject");
+    const orderDescriptionTextarea = document.querySelector(
+        "#order_description"
+    );
+    orderSubjectInputElement.value = item_name;
+    itemPriceElement.value = item_price;
+    orderDescriptionTextarea.value = item_description;
     // console.log("form email data : ", formEmailData);
-}
+};
 
+const processSnapShot = snapshot => {
+    let uniqueKey = 0;
+    snapshot.forEach(all => {
+        // increase unique key for every added button
+        uniqueKey += 1;
+        /**
+         * this returns the name of each collection
+         */
+        const eachCollectionTitle = all.getRef().getKey();
+        //to populate the list of categories
+        processArray(eachCollectionTitle, uniqueKey);
+
+        /**
+         * to get the necessary keys needed to access the items
+         *
+         */
+        let arrayKeys = Object.keys(all.toJSON());
+
+        /**
+         * use each key to search the db to populate the page.
+         */
+        arrayKeys.forEach(key => {
+            let toDisplay = all.toJSON()[key];
+            appendElement(toDisplay);
+        });
+    });
+};
 
 /**
- * 
+ *
  * this search function works by searching the firebase db by the title}
  * @param collectionTitle holds the title of the category to display
  */
 
-const searchCategory = (collectionTitle) =>{
-    itemContainer.innerHTML = '';
-    navToogle(false);
+const searchCategory = collectionTitle => {
+    itemContainer.innerHTML = "";
+    // navToogle(false);
     // console.log("collection title is : ",collectionTitle);
-    firebase.database().ref(`Shop Collection/${collectionTitle}`).once('value', (snapshot) => {
-        console.log("snap shot value is : ",snapshot.val());
-        /**
-         * create an object collection of the title subcollection
-         */
-        let collectionTitleObject = snapshot.val();
-        
-        /**
-         * to get the list of object keys in the response
-         */
-        let collectionTitleKeys = Object.keys(collectionTitleObject);
-        console.log("collection title is : ", collectionTitleKeys);
-        collectionTitleKeys.forEach((key)=>{
-            appendElement(collectionTitleObject[key]);
-        });
-    })
-}
+    firebase
+        .database()
+        .ref(`Shop Collection/${collectionTitle}`)
+        .once("value", snapshot => {
+            console.log("snap shot value is : ", snapshot.val());
+            /**
+             * create an object collection of the title subcollection
+             */
+            let collectionTitleObject = snapshot.val();
 
+            /**
+             * to get the list of object keys in the response
+             */
+            let collectionTitleKeys = Object.keys(collectionTitleObject);
+            console.log("collection title is : ", collectionTitleKeys);
+            collectionTitleKeys.forEach(key => {
+                appendElement(collectionTitleObject[key]);
+            });
+        });
+};
 
 /**
- * 
- *  the main function that displays every item required by the user to the webpage 
+ *
+ *  the main function that displays every item required by the user to the webpage
  *  @param item {this parameter holds an object of an item
  */
 
-const appendElement = (item) => {
+const appendElement = item => {
     /**
      * to generate ID for each item
      * this temporary, the id should actually be set from the database.
      */
-    let itemDescription = item.shop_item_descrpt.split(' ');
-    itemDescription= itemDescription.join('_');
+    let itemDescription = item.shop_item_descrpt.split(" ");
+    itemDescription = itemDescription.join("_");
     // console.log("desc : ",itemDescription);
-    const eachItem =
-        `<div class="category-all__each-item category-all__each-item--hover">
+    const eachItem = `<div class="category-all__each-item category-all__each-item--hover">
             <div class="category-all__each-item-image-div">
                 <img src = "${item.shop_item_image}" class ="category-all__each-item-image" />
             </div>
@@ -150,96 +200,102 @@ const appendElement = (item) => {
             </div>
         </div>`;
     //to append each item to the category list
-    itemContainer.insertAdjacentHTML('beforeend',eachItem); 
+    itemContainer.insertAdjacentHTML("beforeend", eachItem);
 
     /**
      * the variable that holds the order button when each div is hovered
      * had to do it like this because JS wouldn't let me add the onclick event in the template literal
      */
-    const orderButton = document.querySelector(`[data-id="${itemDescription}"]`);
-    orderButton.addEventListener('click',()=>{
-        sendMessagePop(item.shop_item_descrpt,item.shop_item_email);
+    const orderButton = document.querySelector(
+        `[data-id="${itemDescription}"]`
+    );
+    orderButton.addEventListener("click", () => {
+        sendMessagePop(
+            item.shop_item_name,
+            item.shop_item_descrpt,
+            item.shop_item_email,
+            item.shop_item_price
+        );
     });
-    
-}
-
+};
 
 /**
  * this displays the list of the categories in the db to the web page
- * @param collectionTitle {*} the title of each category 
+ * @param collectionTitle {*} the title of each category
  */
-const processArray = (collectionTitle) => {
+const processArray = (collectionTitle, uniqueKey) => {
     const listSection = document.querySelector(".unordered-list");
-    let uniqueKey = Math.random()*10;
-    uniqueKey = Math.floor(uniqueKey);
-    const eachButton = 
-    `
+    const eachButton = `
         <li class="item-list">
             <button class="category__button" data-key="${uniqueKey}">${collectionTitle}</button>
         </li>
-    `
-    listSection.insertAdjacentHTML('beforeend',eachButton);
+    `;
+    listSection.insertAdjacentHTML("beforeend", eachButton);
     const eachButtonEvent = document.querySelector(`[data-key="${uniqueKey}"]`);
     // console.log("object")
-    eachButtonEvent.addEventListener("click",()=>{
+    eachButtonEvent.addEventListener("click", () => {
         searchCategory(collectionTitle);
-        console.log("unique key : ",uniqueKey, collectionTitle);
-
-    })
-}
+        navToogle(false);
+        console.log("unique key : ", uniqueKey, collectionTitle);
+    });
+};
 
 /**
- * 
+ *
  * @param {*} status this holds the status tot determine the state of the element
  */
 
-const navToogle = (status) => {
-    let linkNavSection = document.querySelector('.main__category');
+const navToogle = status => {
+    let linkNavSection = document.querySelector(".main__category");
     if (status) {
-        linkNavSection.style.display = "flex"
+        linkNavSection.classList.remove("none");
+        linkNavSection.classList.add("block");
     } else {
-        linkNavSection.classList.add("slideback");
-        setTimeout(() => {
-            linkNavSection.style.display = "none";
-            linkNavSection.classList.remove("slideback");
-        }, 200);
+        linkNavSection.classList.remove("block");
     }
-}
+};
 
 /**
  * to close the form field
  */
-formClose.addEventListener("click",()=>{
-    formSection.style.display = "none";
+formClose.addEventListener("click", () => {
+    formReset();
 });
 
-
 /**
- * initialize parameters and call the mailer function to implement the sendGrid API
+ * initialize parameters and call the activatePayment function to implement the sendGrid API
  */
 
-formElement.addEventListener("submit",()=>{
+formElement.addEventListener("submit", () => {
     // event.preventDefault();sam.smith@example
-    const receiver = document.querySelector('#form_email').dataset.clientEmail;
-    const sender = document.querySelector('#form_email').value;
-    const subject = document.querySelector('#order_subject').value;
-    const text = document.querySelector('#order_message').value;
-    const cc = 'calebdeji06@gmail.com';
-    const html= '<strong>and easy to do anywhere, even with Node.js</strong>';
-    const parameters = { receiver, sender , subject , text , html, cc};
-    console.log("para : ", parameters);
-    mailer(parameters);
+    const clientEmail = document.querySelector("#form_email").value;
+    const subject = document.querySelector("#order_subject").value;
+    const phoneNumber = document.querySelector("#form_tel").value;
+    const price = document.querySelector("#order_item_price").value;
+    const description = document.querySelector("#order_description").value;
+    const parameters = {
+        phoneNumber,
+        clientEmail,
+        subject,
+        price,
+        description
+    };
+    console.log(
+        `Para : ${JSON.stringify(parameters)} and publick key = ${
+            process.env.flutterWavePublicKey
+        }`
+    );
+    activatePayment(parameters);
 });
 
 /**
  * search button trigger that toggles the search field
  */
 
-searchButtonTrigger.addEventListener("click",()=>{
-    if(searchFieldStatus){
+searchButtonTrigger.addEventListener("click", () => {
+    if (searchFieldStatus) {
         searchField.classList.add("none");
-    }
-    else{
+    } else {
         searchField.classList.remove("none");
     }
     searchFieldStatus = !searchFieldStatus;
@@ -248,63 +304,55 @@ searchButtonTrigger.addEventListener("click",()=>{
 /**
  * add event listener onsubmit to the search form
  */
-searchForm.addEventListener("submit",(event)=>{
+searchForm.addEventListener("submit", event => {
     event.preventDefault();
-    const searchQuery = document.querySelector('#search').value;
+    const searchQuery = document.querySelector("#search").value;
     const ref = firebase.database().ref(`Shop Collection/${searchQuery}`);
-    itemContainer.innerHTML = '';
-    ref.orderByChild('shop_item_name').on("child_added",(snapshot)=>{
+    itemContainer.innerHTML = "";
+    ref.orderByChild("shop_item_name").on("child_added", snapshot => {
         appendElement(snapshot.val());
-    })
+    });
 });
 
 /**
  * to reload the page
  */
-pageReloadButton.addEventListener("click",()=>{
+pageReloadButton.addEventListener("click", () => {
     location.reload();
-})
-window.addEventListener("DOMContentLoaded", (event) => {
+});
+window.addEventListener("DOMContentLoaded", event => {
     event.preventDefault();
-    
+
     /**
-     * referencing the database     
+     * referencing the database
      */
 
     // eslint-disable-next-line no-undef
-    firebase.database().ref("Shop Collection").once('value', (snapshot) => {
-        snapshot.forEach((all) => {
-            /**
-             * this returns the name of each collection
-             */
-            const eachCollectionTitle = all.getRef().getKey();
-            //to populate the list of categories
-            processArray(eachCollectionTitle);
-
-            /**
-             * to get the necessary keys needed to access the items
-             * 
-             */
-            let arrayKeys = Object.keys(all.toJSON());
-
-            /**
-             * use each key to search the db to populate the page.
-             */
-            arrayKeys.forEach((key)=>{
-                let toDisplay = all.toJSON()[key];
-                appendElement(toDisplay)
-            })
+    firebase
+        .database()
+        .ref("Shop Collection")
+        .once("value", snapshot => {
+            processSnapShot(snapshot);
         });
-    });
 
-
-
-    let linkNavOpeningTrigger = document.querySelector('.main__link-navigator-trigger');
+    let linkNavOpeningTrigger = document.querySelector(
+        ".main__link-navigator-trigger"
+    );
     linkNavOpeningTrigger.addEventListener("click", () => {
         navToogle(true);
-    })
-    let linkNavClosingTrigger = document.querySelector('.main__link-navigator-trigger-close');
+    });
+    let linkNavClosingTrigger = document.querySelector(
+        ".main__link-navigator-trigger-close"
+    );
     linkNavClosingTrigger.addEventListener("click", () => {
         navToogle(false);
     });
+});
+window.addEventListener("resize", () => {
+    let windowsWidth = window.innerWidth;
+    if (windowsWidth > 600) {
+        navToogle(true);
+    } else {
+        navToogle(false);
+    }
 });

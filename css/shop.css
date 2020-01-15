@@ -24,13 +24,13 @@
 }
 
 .none {
-  display: none;
+  display: none !important;
 }
 
 .block {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
 }
 
 .body {
@@ -394,12 +394,13 @@ button:hover {
 .category-all__each-item-image {
   width: 50%;
   margin: auto;
-  -o-object-fit: contain;
-  object-fit: contain;
+  height: 100px;
+  -o-object-fit: cover;
+  object-fit: cover;
 }
 
 .category-all__each-item-text-container {
-  padding: 20px 15px 20px 15px;
+  padding: 20px 15px 30px;
 }
 
 .category-all__each-item-text-container * {
@@ -431,15 +432,19 @@ button:hover {
   -ms-flex-align: center;
   align-items: center;
   position: absolute;
-  bottom: 0px;
-  width: 100%;
+  width: 30%;
   animation: messageslide 0.4s ease-in-out;
   -moz-animation: messageslide 0.4s ease-in-out;
   -o-animation: messageslide 0.4s ease-in-out;
   -webkit-animation: messageslide 0.4s ease-in-out;
-  background-color: black;
+  background-color: #ffffff;
   display: none;
-  height: 100%;
+  height: max-content;
+  right: 0;
+  bottom: 0px;
+  z-index: 999;
+  padding: 0px 5px;
+  border-radius: 5px;
 }
 
 .message-button {
@@ -447,23 +452,23 @@ button:hover {
   width: -moz-min-content;
   width: min-content;
   background-color: unset;
-  color: #ffffff;
+  color: black;
 }
 
 @-webkit-keyframes messageslide {
   from {
-    height: 50%;
+    right: -10px;
   }
   to {
-    height: 100%;
+    right: 0;
   }
 }
 @keyframes messageslide {
   from {
-    height: 50%;
+    right: -10px;
   }
   to {
-    height: 100%;
+    right: 0;
   }
 }
 @-webkit-keyframes slideleft {
@@ -534,6 +539,10 @@ button:hover {
   }
 }
 @media screen and (max-width: 800px) {
+  .category-all__each-item {
+    width: 90%;
+  }
+
   .main {
     padding: 2em 10px 2em 10px;
     -webkit-box-pack: justify;
@@ -586,10 +595,6 @@ button:hover {
     transition: all ease-in-out 4s;
   }
 
-  .category-all__each-item {
-    width: 90%;
-  }
-
   .category__button {
     color: #ffffff;
   }
@@ -602,6 +607,11 @@ button:hover {
 @media screen and (max-width: 360px) {
   .main__category {
     width: 100%;
+  }
+}
+@media (hover: none) and (pointer: coarse) {
+  .send-message {
+    display: flex;
   }
 }
 

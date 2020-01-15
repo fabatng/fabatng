@@ -40,6 +40,10 @@ body {
   flex-direction: column;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 .button--like {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -58,6 +62,19 @@ body {
 }
 .button--like:hover {
   background-color: #ccc3c3 !important;
+}
+
+.display-none {
+  display: none !important;
+}
+
+.display-flex {
+  display: flex !important;
+}
+
+input,
+select {
+  font-weight: bold;
 }
 
 /*# sourceMappingURL=root.css.map */
