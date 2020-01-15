@@ -1,0 +1,207 @@
+.booking {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.7)), to(rgba(0, 0, 0, 0.8)));
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8));
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding-top: 30px;
+  z-index: 999999;
+  display: none;
+}
+
+.booking__container {
+  background-color: white;
+  width: 70%;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding: 10px 40px 20px 40px;
+}
+
+.booking__container__heading {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.booking__icon {
+  font-size: 30px;
+}
+
+.booking__container__tab {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+}
+
+.each-tab {
+  width: 23%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.booking__container button {
+  border: none;
+  background: transparent;
+}
+
+.booking__form-each-stage {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.input-field {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.input-field--column-field {
+  width: 45%;
+}
+
+.input-field--split-column {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.input-field--split-column .booking__form__label::after {
+  content: " : ";
+  margin-right: 5px;
+}
+
+.booking__form__label {
+  font-weight: bold;
+  font-size: 20px;
+  font-family: inherit;
+  margin-bottom: 8px;
+}
+
+.progress {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.progress__element {
+  width: 100%;
+  height: 7px;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+
+.progress__element[value] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.progress__element[value]::-webkit-progress-bar {
+  background: transparent;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+  background-size: 35px 20px, 100% 100%, 100% 100%;
+}
+
+.progress__element[value]::-webkit-progress-value {
+  background-color: black;
+  border-radius: 2px;
+  -webkit-transition: width 0.2s ease;
+  transition: width 0.2s ease;
+}
+
+.booking__form__input-element {
+  border: solid 1px #d6d3d3;
+  border-radius: 3px;
+  padding: 7px 5px;
+  background: transparent;
+}
+
+.each__stage__action-button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.booking__form_each-form .each-stage__button {
+  border-style: solid 1px transparent;
+  font-weight: bolder;
+  background-color: black;
+  color: white;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+  padding: 10px;
+  border-radius: 3px;
+  -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+@media screen and (max-width: 800px) {
+  .booking__container {
+    width: 90%;
+  }
+
+  .each-tab {
+    text-align: center;
+  }
+}
+@media screen and (max-width: 600px) {
+  .input-field--column-field {
+    width: 100%;
+  }
+}
+
+
+
+
+/*# sourceMappingURL=/book.603d3551.css.map */

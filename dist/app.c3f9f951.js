@@ -126,18 +126,17 @@ var navBarSpan = document.querySelectorAll(".nav-link-span");
 // eslint-disable-next-line no-unused-vars
 
 var animateOnViewPort = function animateOnViewPort() {
-  var mainSection = document.querySelectorAll(".main__section");
-  mainSection.forEach(function (item) {
-    /**
-     * scroll reveal function imported from the script requested in the head tag
-     */
-    // eslint-disable-next-line no-undef
-    ScrollReveal({
-      duration: 1000
-    }).reveal(item, {
-      delay: 300
-    });
-  });
+  var mainSection = document.querySelectorAll(".main__section"); // mainSection.forEach((item) => {
+  //     /**
+  //      * scroll reveal function imported from the script requested in the head tag
+  //      */
+  //     // eslint-disable-next-line no-undef
+  //     ScrollReveal({
+  //         duration: 1000
+  //     }).reveal(item, {
+  //         delay: 300
+  //     });
+  // });
 };
 /**
  * Slider effect for the testimonial
@@ -220,8 +219,6 @@ var screenSlider = function screenSlider(determineCounter, index, elementCollect
   for (var elementCounter = 0; elementCounter < elementCollection.length; elementCounter++) {
     elementCollection[elementCounter].style.display = "none";
   }
-
-  console.log("index : ", index);
 
   if (index >= 0 && index < 2) {
     elementCollection[index].style.display = "flex";
@@ -358,7 +355,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46711" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41301" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

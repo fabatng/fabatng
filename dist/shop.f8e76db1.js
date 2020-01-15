@@ -768,8 +768,8 @@ module.exports.parse = parse;
 /* eslint-disable no-undef */
 // eslint-disable-next-line no-undef
 // require('dotenv').config();
-require('dotenv').config({
-  encoding: 'utf8'
+require("dotenv").config({
+  encoding: "utf8"
 });
 /**
  * firebase details with the api keys and app details
@@ -790,14 +790,14 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 var itemContainer = document.querySelector(".category-all__item-collection");
-var formClose = document.querySelector('.form__close');
-var formSection = document.querySelector('.form-section');
-var formElement = document.querySelector('.form');
-var formButton = document.querySelector('.order-button');
-var searchForm = document.querySelector('.search-form');
-var searchButtonTrigger = document.querySelector('.icon-search');
-var searchField = document.querySelector('.category-all__search-field');
-var pageReloadButton = document.querySelector('.button-reset');
+var formClose = document.querySelector(".form__close");
+var formSection = document.querySelector(".form-section");
+var formElement = document.querySelector(".form");
+var formButton = document.querySelector(".order-button");
+var searchForm = document.querySelector(".search-form");
+var searchButtonTrigger = document.querySelector(".icon-search");
+var searchField = document.querySelector(".category-all__search-field");
+var pageReloadButton = document.querySelector(".button-reset");
 var searchFieldStatus = true;
 
 var formReset = function formReset() {
@@ -805,62 +805,108 @@ var formReset = function formReset() {
   formButton.innerHTML = " Order ";
   formElement.reset();
 };
-/** 
- * this function mails the client's order to the seller 
- * who is the recipient of the mail
-*/
-
-
-var mailer = function mailer(param) {
-  // sgMail.send(param);
-  formButton.innerHTML = '<img src="/loading.28bc329d.gif" alt="loading animation" class="loading-gif">'; // const username = process.env.userName;
-
-  Email.send({
-    Host: "smtp.elasticemail.com",
-    Username: "calebdeji06@gmail.com",
-    Password: "4cc0b695-cd4b-42a7-b624-7a33b07f9dc6",
-    To: param.receiver,
-    From: "calebdeji06@gmail.com",
-    Subject: param.subject,
-    Body: "".concat(param.text, " \n from ").concat(param.sender)
-  }).then(function (message) {
-    return alert(message);
-  }).then(function () {
-    formButton.innerHTML = 'Sent  <i class="fa fa-check modify-icon-button"></>';
-    setTimeout(function () {
-      formReset();
-    }, 1000);
-  });
-};
 /**
- *  this functions pops up the form where the user can specify the item to order 
- *
- * @param  item_description   what's the description most probably the title of the item to order
- * @param item_email what's the email of the sender, 
- * the mail server won't authorize email from sender 
- * except it is registered on the server which is not possible 
+ * this function mails the client's order to the seller
+ * who is the recipient of the mail
  */
 
 
-var sendMessagePop = function sendMessagePop(item_description, item_email) {
-  formSection.style.display = "flex";
-  var orderSubjectInputElement = document.querySelector('#order_subject');
-  orderSubjectInputElement.value = item_description;
-  var formEmailData = document.querySelector('#form_email');
-  formEmailData.dataset.clientEmail = item_email; // console.log("form email data : ", formEmailData);
+var activatePayment = function activatePayment(param) {
+  formButton.innerHTML = '<img src="/loading.28bc329d.gif" alt="loading animation" class="loading-gif">';
+  var API_publicKey = "FLWPUBK_TEST-7327d5ab51b38da21237c8d3c78f5067-X";
+  var x = getpaidSetup({
+    PBFPubKey: API_publicKey,
+    customer_email: param.clientEmail,
+    amount: param.price,
+    customer_phone: param.phoneNumber,
+    custom_title: "Payment for ".concat(param.subject),
+    custom_description: param.description,
+    currency: "NGN",
+    txref: "rave-".concat(Date.now()),
+    meta: [{
+      metaname: param.subject
+    }],
+    onclose: function onclose() {
+      console.log("activatePayment on close key is : ", API_publicKey); // closeFormSection();
+
+      formReset();
+    },
+    callback: function callback(response) {
+      var txref = response.tx.txRef; // collect txRef returned and pass to a 					server page to complete status check.
+
+      console.log("This is the response returned after a charge ".concat(response, " and texRef is ").concat(txref));
+
+      if (response.tx.chargeResponseCode == "00" || response.tx.chargeResponseCode == "0") {
+        alert("Payment Successful");
+      } else {
+        alert("payment not successful, try again later");
+      }
+
+      console.log("Response is : ", response);
+      x.close(); // use this to close the modal immediately after payment.
+    }
+  });
 };
 /**
- * 
+ *  this functions pops up the form where the user can specify the item to order
+ *
+ * @param  item_description   what's the description most probably the title of the item to order
+ * @param item_email what's the email of the sender,
+ * the mail server won't authorize email from sender
+ * except it is registered on the server which is not possible
+ */
+
+
+var sendMessagePop = function sendMessagePop(item_name, item_description, item_email, item_price) {
+  formSection.style.display = "flex";
+  var itemPriceElement = document.querySelector("#order_item_price");
+  var orderSubjectInputElement = document.querySelector("#order_subject");
+  var orderDescriptionTextarea = document.querySelector("#order_description");
+  orderSubjectInputElement.value = item_name;
+  itemPriceElement.value = item_price;
+  orderDescriptionTextarea.value = item_description; // console.log("form email data : ", formEmailData);
+};
+
+var processSnapShot = function processSnapShot(snapshot) {
+  var uniqueKey = 0;
+  snapshot.forEach(function (all) {
+    // increase unique key for every added button
+    uniqueKey += 1;
+    /**
+     * this returns the name of each collection
+     */
+
+    var eachCollectionTitle = all.getRef().getKey(); //to populate the list of categories
+
+    processArray(eachCollectionTitle, uniqueKey);
+    /**
+     * to get the necessary keys needed to access the items
+     *
+     */
+
+    var arrayKeys = Object.keys(all.toJSON());
+    /**
+     * use each key to search the db to populate the page.
+     */
+
+    arrayKeys.forEach(function (key) {
+      var toDisplay = all.toJSON()[key];
+      appendElement(toDisplay);
+    });
+  });
+};
+/**
+ *
  * this search function works by searching the firebase db by the title}
  * @param collectionTitle holds the title of the category to display
  */
 
 
 var searchCategory = function searchCategory(collectionTitle) {
-  itemContainer.innerHTML = '';
-  navToogle(false); // console.log("collection title is : ",collectionTitle);
+  itemContainer.innerHTML = ""; // navToogle(false);
+  // console.log("collection title is : ",collectionTitle);
 
-  firebase.database().ref("Shop Collection/".concat(collectionTitle)).once('value', function (snapshot) {
+  firebase.database().ref("Shop Collection/".concat(collectionTitle)).once("value", function (snapshot) {
     console.log("snap shot value is : ", snapshot.val());
     /**
      * create an object collection of the title subcollection
@@ -879,8 +925,8 @@ var searchCategory = function searchCategory(collectionTitle) {
   });
 };
 /**
- * 
- *  the main function that displays every item required by the user to the webpage 
+ *
+ *  the main function that displays every item required by the user to the webpage
  *  @param item {this parameter holds an object of an item
  */
 
@@ -890,58 +936,54 @@ var appendElement = function appendElement(item) {
    * to generate ID for each item
    * this temporary, the id should actually be set from the database.
    */
-  var itemDescription = item.shop_item_descrpt.split(' ');
-  itemDescription = itemDescription.join('_'); // console.log("desc : ",itemDescription);
+  var itemDescription = item.shop_item_descrpt.split(" ");
+  itemDescription = itemDescription.join("_"); // console.log("desc : ",itemDescription);
 
   var eachItem = "<div class=\"category-all__each-item category-all__each-item--hover\">\n            <div class=\"category-all__each-item-image-div\">\n                <img src = \"".concat(item.shop_item_image, "\" class =\"category-all__each-item-image\" />\n            </div>\n            <div class=\"category-all__each-item-text-container\">\n                <h3 class=\"category-all__each-item-text\">").concat(item.shop_item_name, "</h3>\n                <h5 class=\"category-all__each-item-text\">").concat(item.shop_item_descrpt, "</h5>\n                <label for=\"\" class=\"category-all__each-label\">").concat(item.shop_item_price, "</label>\n                <p class = \"category-all__each-item-text\"> Sold By : ").concat(item.shop_item_seller, " </p>\n            </div>\n            <div class =\"send-message\">\n                <button class = \"message-button\" data-id=\"").concat(itemDescription, "\" data-email-client=\"").concat(item.shop_item_email, "\" > Order <i class=\"fa fa-cart-arrow-down\"></i> </button>\n            </div>\n        </div>"); //to append each item to the category list
 
-  itemContainer.insertAdjacentHTML('beforeend', eachItem);
+  itemContainer.insertAdjacentHTML("beforeend", eachItem);
   /**
    * the variable that holds the order button when each div is hovered
    * had to do it like this because JS wouldn't let me add the onclick event in the template literal
    */
 
   var orderButton = document.querySelector("[data-id=\"".concat(itemDescription, "\"]"));
-  orderButton.addEventListener('click', function () {
-    sendMessagePop(item.shop_item_descrpt, item.shop_item_email);
+  orderButton.addEventListener("click", function () {
+    sendMessagePop(item.shop_item_name, item.shop_item_descrpt, item.shop_item_email, item.shop_item_price);
   });
 };
 /**
  * this displays the list of the categories in the db to the web page
- * @param collectionTitle {*} the title of each category 
+ * @param collectionTitle {*} the title of each category
  */
 
 
-var processArray = function processArray(collectionTitle) {
+var processArray = function processArray(collectionTitle, uniqueKey) {
   var listSection = document.querySelector(".unordered-list");
-  var uniqueKey = Math.random() * 10;
-  uniqueKey = Math.floor(uniqueKey);
   var eachButton = "\n        <li class=\"item-list\">\n            <button class=\"category__button\" data-key=\"".concat(uniqueKey, "\">").concat(collectionTitle, "</button>\n        </li>\n    ");
-  listSection.insertAdjacentHTML('beforeend', eachButton);
+  listSection.insertAdjacentHTML("beforeend", eachButton);
   var eachButtonEvent = document.querySelector("[data-key=\"".concat(uniqueKey, "\"]")); // console.log("object")
 
   eachButtonEvent.addEventListener("click", function () {
     searchCategory(collectionTitle);
+    navToogle(false);
     console.log("unique key : ", uniqueKey, collectionTitle);
   });
 };
 /**
- * 
+ *
  * @param {*} status this holds the status tot determine the state of the element
  */
 
 
 var navToogle = function navToogle(status) {
-  var linkNavSection = document.querySelector('.main__category');
+  var linkNavSection = document.querySelector(".main__category");
 
   if (status) {
-    linkNavSection.style.display = "flex";
+    linkNavSection.classList.remove("none");
+    linkNavSection.classList.add("block");
   } else {
-    linkNavSection.classList.add("slideback");
-    setTimeout(function () {
-      linkNavSection.style.display = "none";
-      linkNavSection.classList.remove("slideback");
-    }, 200);
+    linkNavSection.classList.remove("block");
   }
 };
 /**
@@ -950,30 +992,28 @@ var navToogle = function navToogle(status) {
 
 
 formClose.addEventListener("click", function () {
-  formSection.style.display = "none";
+  formReset();
 });
 /**
- * initialize parameters and call the mailer function to implement the sendGrid API
+ * initialize parameters and call the activatePayment function to implement the sendGrid API
  */
 
 formElement.addEventListener("submit", function () {
   // event.preventDefault();sam.smith@example
-  var receiver = document.querySelector('#form_email').dataset.clientEmail;
-  var sender = document.querySelector('#form_email').value;
-  var subject = document.querySelector('#order_subject').value;
-  var text = document.querySelector('#order_message').value;
-  var cc = 'calebdeji06@gmail.com';
-  var html = '<strong>and easy to do anywhere, even with Node.js</strong>';
+  var clientEmail = document.querySelector("#form_email").value;
+  var subject = document.querySelector("#order_subject").value;
+  var phoneNumber = document.querySelector("#form_tel").value;
+  var price = document.querySelector("#order_item_price").value;
+  var description = document.querySelector("#order_description").value;
   var parameters = {
-    receiver: receiver,
-    sender: sender,
+    phoneNumber: phoneNumber,
+    clientEmail: clientEmail,
     subject: subject,
-    text: text,
-    html: html,
-    cc: cc
+    price: price,
+    description: description
   };
-  console.log("para : ", parameters);
-  mailer(parameters);
+  console.log("Para : ".concat(JSON.stringify(parameters), " and publick key = ").concat("FLWPUBK_TEST-7327d5ab51b38da21237c8d3c78f5067-X"));
+  activatePayment(parameters);
 });
 /**
  * search button trigger that toggles the search field
@@ -994,10 +1034,10 @@ searchButtonTrigger.addEventListener("click", function () {
 
 searchForm.addEventListener("submit", function (event) {
   event.preventDefault();
-  var searchQuery = document.querySelector('#search').value;
+  var searchQuery = document.querySelector("#search").value;
   var ref = firebase.database().ref("Shop Collection/".concat(searchQuery));
-  itemContainer.innerHTML = '';
-  ref.orderByChild('shop_item_name').on("child_added", function (snapshot) {
+  itemContainer.innerHTML = "";
+  ref.orderByChild("shop_item_name").on("child_added", function (snapshot) {
     appendElement(snapshot.val());
   });
 });
@@ -1011,42 +1051,30 @@ pageReloadButton.addEventListener("click", function () {
 window.addEventListener("DOMContentLoaded", function (event) {
   event.preventDefault();
   /**
-   * referencing the database     
+   * referencing the database
    */
   // eslint-disable-next-line no-undef
 
-  firebase.database().ref("Shop Collection").once('value', function (snapshot) {
-    snapshot.forEach(function (all) {
-      /**
-       * this returns the name of each collection
-       */
-      var eachCollectionTitle = all.getRef().getKey(); //to populate the list of categories
-
-      processArray(eachCollectionTitle);
-      /**
-       * to get the necessary keys needed to access the items
-       * 
-       */
-
-      var arrayKeys = Object.keys(all.toJSON());
-      /**
-       * use each key to search the db to populate the page.
-       */
-
-      arrayKeys.forEach(function (key) {
-        var toDisplay = all.toJSON()[key];
-        appendElement(toDisplay);
-      });
-    });
+  firebase.database().ref("Shop Collection").once("value", function (snapshot) {
+    processSnapShot(snapshot);
   });
-  var linkNavOpeningTrigger = document.querySelector('.main__link-navigator-trigger');
+  var linkNavOpeningTrigger = document.querySelector(".main__link-navigator-trigger");
   linkNavOpeningTrigger.addEventListener("click", function () {
     navToogle(true);
   });
-  var linkNavClosingTrigger = document.querySelector('.main__link-navigator-trigger-close');
+  var linkNavClosingTrigger = document.querySelector(".main__link-navigator-trigger-close");
   linkNavClosingTrigger.addEventListener("click", function () {
     navToogle(false);
   });
+});
+window.addEventListener("resize", function () {
+  var windowsWidth = window.innerWidth;
+
+  if (windowsWidth > 600) {
+    navToogle(true);
+  } else {
+    navToogle(false);
+  }
 });
 },{"dotenv":"node_modules/dotenv/lib/main.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -1076,7 +1104,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46711" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41301" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
