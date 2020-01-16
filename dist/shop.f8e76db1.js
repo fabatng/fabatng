@@ -633,7 +633,7 @@ var substr = 'ab'.substr(-1) === 'b'
     }
 ;
 
-},{"process":"../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/process/browser.js"}],"../../node_modules/dotenv/lib/main.js":[function(require,module,exports) {
+},{"process":"../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/process/browser.js"}],"../../../node_modules/dotenv/lib/main.js":[function(require,module,exports) {
 var process = require("process");
 /*::
 
@@ -857,14 +857,17 @@ var activatePayment = function activatePayment(param) {
  */
 
 
-var sendMessagePop = function sendMessagePop(item_name, item_description, item_email, item_price) {
+var sendMessagePop = function sendMessagePop(_ref) {
+  var shop_item_name = _ref.shop_item_name,
+      shop_item_descrpt = _ref.shop_item_descrpt,
+      shop_item_price = _ref.shop_item_price;
   formSection.style.display = "flex";
   var itemPriceElement = document.querySelector("#order_item_price");
   var orderSubjectInputElement = document.querySelector("#order_subject");
   var orderDescriptionTextarea = document.querySelector("#order_description");
-  orderSubjectInputElement.value = item_name;
-  itemPriceElement.value = item_price;
-  orderDescriptionTextarea.value = item_description; // console.log("form email data : ", formEmailData);
+  orderSubjectInputElement.value = shop_item_name;
+  itemPriceElement.value = shop_item_price;
+  orderDescriptionTextarea.value = shop_item_descrpt;
 };
 
 var processSnapShot = function processSnapShot(snapshot) {
@@ -939,7 +942,7 @@ var appendElement = function appendElement(item) {
   var itemDescription = item.shop_item_descrpt.split(" ");
   itemDescription = itemDescription.join("_"); // console.log("desc : ",itemDescription);
 
-  var eachItem = "<div class=\"category-all__each-item category-all__each-item--hover\">\n            <div class=\"category-all__each-item-image-div\">\n                <img src = \"".concat(item.shop_item_image, "\" class =\"category-all__each-item-image\" />\n            </div>\n            <div class=\"category-all__each-item-text-container\">\n                <h3 class=\"category-all__each-item-text\">").concat(item.shop_item_name, "</h3>\n                <h5 class=\"category-all__each-item-text\">").concat(item.shop_item_descrpt, "</h5>\n                <label for=\"\" class=\"category-all__each-label\">").concat(item.shop_item_price, "</label>\n                <p class = \"category-all__each-item-text\"> Sold By : ").concat(item.shop_item_seller, " </p>\n            </div>\n            <div class =\"send-message\">\n                <button class = \"message-button\" data-id=\"").concat(itemDescription, "\" data-email-client=\"").concat(item.shop_item_email, "\" > Order <i class=\"fa fa-cart-arrow-down\"></i> </button>\n            </div>\n        </div>"); //to append each item to the category list
+  var eachItem = "<div class=\"category-all__each-item category-all__each-item--hover\">\n            <div class=\"category-all__each-item-image-div\">\n                <img src = \"".concat(item.shop_item_image, "\" class =\"category-all__each-item-image\" />\n            </div>\n            <div class=\"category-all__each-item-text-container\">\n                <h3 class=\"category-all__each-item-text\">").concat(item.shop_item_name, "</h3>\n                <h5 class=\"category-all__each-item-text\">").concat(item.shop_item_descrpt, "</h5>\n                <label for=\"\" class=\"category-all__each-label\">").concat(item.shop_item_price, "</label>\n                <p class = \"category-all__each-item-text\"> Sold By : ").concat(item.shop_item_seller, " </p>\n            </div>\n            <div class =\"send-message\">\n                <button class = \"message-button\" data-id=\"").concat(itemDescription, "\" data-email-client=\"").concat(item.shop_item_email, "\" > <label class=\"order-text\"> Order </label> <i class=\"fa fa-cart-arrow-down\"></i> </button>\n            </div>\n        </div>"); //to append each item to the category list
 
   itemContainer.insertAdjacentHTML("beforeend", eachItem);
   /**
@@ -949,7 +952,7 @@ var appendElement = function appendElement(item) {
 
   var orderButton = document.querySelector("[data-id=\"".concat(itemDescription, "\"]"));
   orderButton.addEventListener("click", function () {
-    sendMessagePop(item.shop_item_name, item.shop_item_descrpt, item.shop_item_email, item.shop_item_price);
+    sendMessagePop(item);
   });
 };
 /**
@@ -1076,7 +1079,7 @@ window.addEventListener("resize", function () {
     navToogle(false);
   }
 });
-},{"dotenv":"../../node_modules/dotenv/lib/main.js"}],"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"dotenv":"../../../node_modules/dotenv/lib/main.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -1104,7 +1107,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "37439" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46695" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -1280,5 +1283,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/shop.js"], null)
+},{}]},{},["../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/shop.js"], null)
 //# sourceMappingURL=/shop.f8e76db1.js.map

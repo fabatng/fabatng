@@ -71,10 +71,7 @@ const activatePayment = param => {
             console.log(
                 `This is the response returned after a charge ${response} and texRef is ${txref}`
             );
-            if (
-                response.tx.chargeResponseCode == "00" ||
-                response.tx.chargeResponseCode == "0"
-            ) {
+            if (response.tx.chargeResponseCode == "00" || response.tx.chargeResponseCode == "0") {
                 alert("Payment Successful");
             } else {
                 alert("payment not successful, try again later");
@@ -94,22 +91,14 @@ const activatePayment = param => {
  * the mail server won't authorize email from sender
  * except it is registered on the server which is not possible
  */
-const sendMessagePop = (
-    item_name,
-    item_description,
-    item_email,
-    item_price
-) => {
+const sendMessagePop = ({ shop_item_name, shop_item_descrpt, shop_item_price }) => {
     formSection.style.display = "flex";
     const itemPriceElement = document.querySelector("#order_item_price");
     const orderSubjectInputElement = document.querySelector("#order_subject");
-    const orderDescriptionTextarea = document.querySelector(
-        "#order_description"
-    );
-    orderSubjectInputElement.value = item_name;
-    itemPriceElement.value = item_price;
-    orderDescriptionTextarea.value = item_description;
-    // console.log("form email data : ", formEmailData);
+    const orderDescriptionTextarea = document.querySelector("#order_description");
+    orderSubjectInputElement.value = shop_item_name;
+    itemPriceElement.value = shop_item_price;
+    orderDescriptionTextarea.value = shop_item_descrpt;
 };
 
 const processSnapShot = snapshot => {
@@ -196,7 +185,7 @@ const appendElement = item => {
                 <p class = "category-all__each-item-text"> Sold By : ${item.shop_item_seller} </p>
             </div>
             <div class ="send-message">
-                <button class = "message-button" data-id="${itemDescription}" data-email-client="${item.shop_item_email}" > Order <i class="fa fa-cart-arrow-down"></i> </button>
+                <button class = "message-button" data-id="${itemDescription}" data-email-client="${item.shop_item_email}" > <label class="order-text"> Order </label> <i class="fa fa-cart-arrow-down"></i> </button>
             </div>
         </div>`;
     //to append each item to the category list
@@ -206,16 +195,9 @@ const appendElement = item => {
      * the variable that holds the order button when each div is hovered
      * had to do it like this because JS wouldn't let me add the onclick event in the template literal
      */
-    const orderButton = document.querySelector(
-        `[data-id="${itemDescription}"]`
-    );
+    const orderButton = document.querySelector(`[data-id="${itemDescription}"]`);
     orderButton.addEventListener("click", () => {
-        sendMessagePop(
-            item.shop_item_name,
-            item.shop_item_descrpt,
-            item.shop_item_email,
-            item.shop_item_price
-        );
+        sendMessagePop(item);
     });
 };
 
@@ -281,9 +263,7 @@ formElement.addEventListener("submit", () => {
         description
     };
     console.log(
-        `Para : ${JSON.stringify(parameters)} and publick key = ${
-            process.env.flutterWavePublicKey
-        }`
+        `Para : ${JSON.stringify(parameters)} and publick key = ${process.env.flutterWavePublicKey}`
     );
     activatePayment(parameters);
 });
@@ -335,15 +315,11 @@ window.addEventListener("DOMContentLoaded", event => {
             processSnapShot(snapshot);
         });
 
-    let linkNavOpeningTrigger = document.querySelector(
-        ".main__link-navigator-trigger"
-    );
+    let linkNavOpeningTrigger = document.querySelector(".main__link-navigator-trigger");
     linkNavOpeningTrigger.addEventListener("click", () => {
         navToogle(true);
     });
-    let linkNavClosingTrigger = document.querySelector(
-        ".main__link-navigator-trigger-close"
-    );
+    let linkNavClosingTrigger = document.querySelector(".main__link-navigator-trigger-close");
     linkNavClosingTrigger.addEventListener("click", () => {
         navToogle(false);
     });

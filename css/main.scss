@@ -539,6 +539,7 @@ body {
     -ms-flex-pack: center;
     justify-content: center;
     margin-bottom: 0.5em;
+    width : 23%;
     &:hover {
         color: rgb(204, 204, 204);
     }
@@ -892,6 +893,9 @@ body {
         width: 100%;
         margin-bottom: 1em;
     }
+    .rounded__anchor--modified{
+        width: 23%;
+    }
     .grid__each-cell {
         width: 29%;
     }
@@ -1167,6 +1171,7 @@ body {
     .rounded__anchor-link {
         font-size: 18px;
         border-radius: 3em;
+        width: 40%;
     }
     .welcoming__image--modify {
         @include flex_row();
@@ -1201,6 +1206,13 @@ body {
 }
 
 @media screen and (max-width: 510px) {
+    .welcoming--mobile-view .rounded__anchor-link{
+        width: 80%;
+    }
+    .div-grid--about .each-cell--vertical{
+        padding-left : 5px;
+        padding-right: 5px;
+    }
     .main__section-label {
         padding-left: 10px;
         padding-right: 10px;

@@ -365,8 +365,14 @@ body {
   -o-transition: 1s;
   width: 80px !important;
   height: 80px !important;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   margin: auto;
   font-size: 35px;
@@ -604,6 +610,7 @@ body {
   -ms-flex-pack: center;
   justify-content: center;
   margin-bottom: 0.5em;
+  width: 23%;
 }
 .rounded__anchor--modified:hover {
   color: #cccccc;
@@ -1030,6 +1037,10 @@ body {
     margin-bottom: 1em;
   }
 
+  .rounded__anchor--modified {
+    width: 23%;
+  }
+
   .grid__each-cell {
     width: 29%;
   }
@@ -1331,6 +1342,7 @@ body {
   .rounded__anchor-link {
     font-size: 18px;
     border-radius: 3em;
+    width: 40%;
   }
 
   .welcoming__image--modify {
@@ -1372,6 +1384,15 @@ body {
   }
 }
 @media screen and (max-width: 510px) {
+  .welcoming--mobile-view .rounded__anchor-link {
+    width: 80%;
+  }
+
+  .div-grid--about .each-cell--vertical {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
   .main__section-label {
     padding-left: 10px;
     padding-right: 10px;

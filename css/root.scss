@@ -73,6 +73,10 @@ button:hover {
     cursor: pointer;
 }
 
+button:hover label {
+    cursor: pointer;
+}
+
 .button--like {
     @include flex_row();
     @include transistion_duration();

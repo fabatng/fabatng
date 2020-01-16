@@ -44,6 +44,10 @@ button:hover {
   cursor: pointer;
 }
 
+button:hover label {
+  cursor: pointer;
+}
+
 .button--like {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -69,6 +73,8 @@ button:hover {
 }
 
 .display-flex {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
   display: flex !important;
 }
 

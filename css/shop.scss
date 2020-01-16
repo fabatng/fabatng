@@ -120,7 +120,7 @@ $white_color: #ffffff;
     border-radius: 10px;
     height: 30px;
     color: rgba(0, 0, 0);
-     :hover {
+    :hover {
         background-color: $white_color !important;
     }
 }
@@ -170,8 +170,9 @@ $white_color: #ffffff;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    background-image: -webkit-gradient( linear, left top, right bottom, from(rgb(0, 0, 0)), to(rgb(0, 0, 0)));
-    background-image: linear-gradient( to bottom right, rgb(0, 0, 0), rgb(0, 0, 0));
+    background-size: cover;
+    background-image: -webkit-gradient( linear, left top, right bottom, from(rgba(0, 0, 0, 0.9)), to(rgb(0, 0, 0, 0.7))), url("../asset/images/review__bg.png");
+    background-image: linear-gradient(to bottom right, rgba(0, 0, 0, 0.9), rgb(0, 0, 0, 0.7)), url("../asset/images/review__bg.png");
     height: 120px;
     padding: 0 50px 0 50px;
     width: 100%;
@@ -431,7 +432,7 @@ button:hover {
 }
 
 .category-all__each-item-text-container {
-    padding: 20px 15px 30px;
+    padding: 20px 15px;
 }
 
 .category-all__each-item-text-container * {
@@ -463,16 +464,14 @@ button:hover {
     -ms-flex-align: center;
     align-items: center;
     position: absolute;
-    width: 30%;
-    @include animation(messageslide, 0.4s, ease-in-out);
-    background-color: $white_color;
+    width: 100%;
+    @include animation(messageslide,
+    0.4s,
+    ease-in-out);
+    background-color: rgba(0, 0, 0, 0.9);
     display: none;
-    height: max-content;
-    right: 0;
-    bottom: 0px;
+    height: 100%;
     z-index: 999;
-    padding: 0px 5px;
-    border-radius: 5px;
 }
 
 .message-button {
@@ -480,7 +479,9 @@ button:hover {
     width: -moz-min-content;
     width: min-content;
     background-color: unset;
-    color: $primary_color;
+    color: $white_color;
+    font-weight: bolder;
+    font-size: 17px;
 }
 
 @-webkit-keyframes messageslide {
@@ -577,6 +578,9 @@ button:hover {
     .category-all__each-item {
         width: 90%;
     }
+    .category-all__each-item-image {
+        height: 200px;
+    }
     .main {
         padding: 2em 10px 2em 10px;
         -webkit-box-pack: justify;
@@ -609,12 +613,16 @@ button:hover {
         color: $white_color;
         padding-left: 20px;
         padding-right: 20px;
-        @include animation(slideleft, 0.4s, ease-in-out);
+        @include animation(slideleft,
+        0.4s,
+        ease-in-out);
         -webkit-transition: all ease-in-out 4s;
         transition: all ease-in-out 4s;
     }
     .slideback {
-        @include animation(slideback, 0.4s, ease-in-out);
+        @include animation(slideback,
+        0.4s,
+        ease-in-out);
         -webkit-transition: all ease-in-out 4s;
         transition: all ease-in-out 4s;
     }
@@ -636,5 +644,28 @@ button:hover {
 @media (hover: none) and (pointer: coarse) {
     .send-message {
         display: flex;
+        width: 100%;
+        height: 43px;
+        right: 0px;
+        left: 0px;
+        margin: auto;
+        bottom: 0px;
+        // padding: 5px;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+    }
+    .message-button {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+    }
+    .order-text {
+        margin-right: 10px;
+    }
+    .category-all__each-item-text-container {
+        padding: 20px 15px 40px;
+    }
+    .category-all__each-item:hover {
+        background-color: $white_color;
     }
 }

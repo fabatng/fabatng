@@ -140,8 +140,9 @@
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  background-image: -webkit-gradient(linear, left top, right bottom, from(black), to(black));
-  background-image: linear-gradient(to bottom right, black, black);
+  background-size: cover;
+  background-image: -webkit-gradient(linear, left top, right bottom, from(rgba(0, 0, 0, 0.9)), to(rgba(0, 0, 0, 0.7))), url("/review__bg.527b0e33.png");
+  background-image: linear-gradient(to bottom right, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7)), url("/review__bg.527b0e33.png");
   height: 120px;
   padding: 0 50px 0 50px;
   width: 100%;
@@ -400,7 +401,7 @@ button:hover {
 }
 
 .category-all__each-item-text-container {
-  padding: 20px 15px 30px;
+  padding: 20px 15px;
 }
 
 .category-all__each-item-text-container * {
@@ -432,19 +433,15 @@ button:hover {
   -ms-flex-align: center;
   align-items: center;
   position: absolute;
-  width: 30%;
+  width: 100%;
   animation: messageslide 0.4s ease-in-out;
   -moz-animation: messageslide 0.4s ease-in-out;
   -o-animation: messageslide 0.4s ease-in-out;
   -webkit-animation: messageslide 0.4s ease-in-out;
-  background-color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.9);
   display: none;
-  height: max-content;
-  right: 0;
-  bottom: 0px;
+  height: 100%;
   z-index: 999;
-  padding: 0px 5px;
-  border-radius: 5px;
 }
 
 .message-button {
@@ -452,7 +449,9 @@ button:hover {
   width: -moz-min-content;
   width: min-content;
   background-color: unset;
-  color: black;
+  color: #ffffff;
+  font-weight: bolder;
+  font-size: 17px;
 }
 
 @-webkit-keyframes messageslide {
@@ -543,6 +542,10 @@ button:hover {
     width: 90%;
   }
 
+  .category-all__each-item-image {
+    height: 200px;
+  }
+
   .main {
     padding: 2em 10px 2em 10px;
     -webkit-box-pack: justify;
@@ -612,6 +615,32 @@ button:hover {
 @media (hover: none) and (pointer: coarse) {
   .send-message {
     display: flex;
+    width: 100%;
+    height: 43px;
+    right: 0px;
+    left: 0px;
+    margin: auto;
+    bottom: 0px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  }
+
+  .message-button {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .order-text {
+    margin-right: 10px;
+  }
+
+  .category-all__each-item-text-container {
+    padding: 20px 15px 40px;
+  }
+
+  .category-all__each-item:hover {
+    background-color: #ffffff;
   }
 }
 
