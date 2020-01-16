@@ -359,9 +359,11 @@ var handleFormPrevious = function handleFormPrevious(event, index) {
   handleRenderedBookingStage(formToDisplayCorrespondingIndex);
 };
 
-var bookId = document.getElementById("book_service");
-bookId.addEventListener("click", function () {
-  bookingPopUp();
+var bookServiceButtonQuery = document.querySelectorAll('.book_service');
+bookServiceButtonQuery.forEach(function (bookServiceButton) {
+  bookServiceButton.addEventListener("click", function () {
+    bookingPopUp();
+  });
 });
 var closeBookId = document.getElementById("close_bookPopUp");
 closeBookId.addEventListener("click", function () {

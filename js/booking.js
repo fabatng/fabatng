@@ -266,10 +266,13 @@ const handleFormPrevious = (event, index) => {
     handleRenderedBookingStage(formToDisplayCorrespondingIndex);
 };
 
-let bookId = document.getElementById("book_service");
-bookId.addEventListener("click", () => {
-    bookingPopUp();
-});
+let bookServiceButtonQuery = document.querySelectorAll('.book_service');
+bookServiceButtonQuery.forEach((bookServiceButton) => {
+    bookServiceButton.addEventListener("click", () => {
+        bookingPopUp();
+    });
+})
+
 
 let closeBookId = document.getElementById("close_bookPopUp");
 closeBookId.addEventListener("click", () => {

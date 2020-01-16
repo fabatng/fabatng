@@ -787,7 +787,7 @@ body {
     @include flex_column();
     background-image: -webkit-gradient( linear, left top, right bottom, from(rgba(0, 0, 0)), to(rgb(0, 0, 0)));
     background-image: linear-gradient( to bottom right, rgba(0, 0, 0), rgb(0, 0, 0));
-    padding: 2em 0 2em 0;
+    padding: 2em 0 4em 0;
 }
 
 .brand-logo--adjust {
@@ -973,7 +973,7 @@ body {
         margin: auto;
     }
     .grid--link-alike--modify {
-        padding: 12px;
+        // padding: 12px;
         margin: 0 20px 0 0;
     }
     .footer__text {

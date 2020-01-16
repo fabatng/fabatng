@@ -907,7 +907,7 @@ body {
   flex-direction: column;
   background-image: -webkit-gradient(linear, left top, right bottom, from(black), to(black));
   background-image: linear-gradient(to bottom right, black, black);
-  padding: 2em 0 2em 0;
+  padding: 2em 0 4em 0;
 }
 
 .brand-logo--adjust {
@@ -1134,7 +1134,6 @@ body {
   }
 
   .grid--link-alike--modify {
-    padding: 12px;
     margin: 0 20px 0 0;
   }
 
