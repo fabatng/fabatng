@@ -36,13 +36,10 @@ const sendMail = templateParams => {
     emailjs.send("default_service", templateId, templateParams).then(
         function(response) {
             console.log("SUCCESS!", response.status, response.text);
-            setTimeout(() => {
-                estimateButton.classList.remove("estimate-button--modify");
-                estimateButton.innerHTML = "Get Estimate";
-                alert("Your details have been sent, we will reply you shortly");
-
-                closeBookingPopUp();
-            }, 10000);
+            estimateButton.classList.remove("estimate-button--modify");
+            estimateButton.innerHTML = "Get Estimate";
+            alert("Your details have been sent, we will reply you shortly");
+            closeBookingPopUp();
         },
         function(error) {
             console.log("FAILED...", error);
