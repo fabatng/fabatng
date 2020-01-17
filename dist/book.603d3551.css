@@ -192,11 +192,20 @@
 
 .estimate-button--modify {
   padding: 0 !important;
+  background-color: wheat;
 }
 
 .loading-gif {
   width: 50px;
   height: 50px;
+}
+
+.confirmation__section {
+  font-weight: bold;
+}
+
+.confirmation__container__estimate-details {
+  padding-bottom: 20px;
 }
 
 @media screen and (max-width: 800px) {

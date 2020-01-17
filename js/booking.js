@@ -196,13 +196,13 @@ const renderEstimate = () => {
             <p>Mobile : ${userDetailsAndDateBooked.mobileTel}</p>
             <p>Date Booked : ${userDetailsAndDateBooked.dateBooked}</p>
         </div>
-        <div class="confrimation-section">
+        <div class="confirmation__section">
             <p>Car Scan</p>
             <p> ${userDetailsAndDateBooked.carMake}</p>
             <p> ${userDetailsAndDateBooked.carModel}</p>
             <p> ${userDetailsAndDateBooked.carYear}</p>
         </div>
-        <div class="confirmation-section">
+        <div class="confirmation__section">
             <p>Where you require the service?</p>
             <p> ${userDetailsAndDateBooked.userAddress}</p>
             <p>
@@ -210,8 +210,8 @@ const renderEstimate = () => {
                 professionals reach you on time.
             </p>
         </div>
-        <div class="confirmation-section">
-            <a href="tel:+2348188354753"></a>
+        <div class="confirmation__section">
+            <a href="tel:+2348188354753"> Call us here for more details</a>
         </div>
     `;
     confirmationSectionTabPage.insertAdjacentHTML("afterbegin", estimateParsed);

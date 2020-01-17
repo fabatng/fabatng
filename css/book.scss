@@ -200,8 +200,12 @@
     height: 50px;
 }
 
-.confirmation-section {
+.confirmation__section {
     font-weight: bold;
+}
+
+.confirmation__container__estimate-details {
+    padding-bottom: 20px;
 }
 
 @media screen and (max-width: 800px) {

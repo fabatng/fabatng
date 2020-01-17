@@ -165,12 +165,10 @@ var sendMail = function sendMail(templateParams) {
 
   emailjs.send("default_service", templateId, templateParams).then(function (response) {
     console.log("SUCCESS!", response.status, response.text);
-    setTimeout(function () {
-      estimateButton.classList.remove("estimate-button--modify");
-      estimateButton.innerHTML = "Get Estimate";
-      alert("Your details have been sent, we will reply you shortly");
-      closeBookingPopUp();
-    }, 10000);
+    estimateButton.classList.remove("estimate-button--modify");
+    estimateButton.innerHTML = "Get Estimate";
+    alert("Your details have been sent, we will reply you shortly");
+    closeBookingPopUp();
   }, function (error) {
     console.log("FAILED...", error);
     alert("Service down, try again later");
@@ -320,7 +318,7 @@ var renderEstimate = function renderEstimate() {
   confirmationSectionTabPage.innerHTML = "";
   var userDetailsAndDateBooked = getEstimate();
   console.log("user details is : ", userDetailsAndDateBooked);
-  var estimateParsed = "\n        <h2>Booking Summary</h2>\n        <div class=\"confirmation__section\">\n            <p>Name : ".concat(userDetailsAndDateBooked.name, "</p>\n            <p>Mobile : ").concat(userDetailsAndDateBooked.mobileTel, "</p>\n            <p>Date Booked : ").concat(userDetailsAndDateBooked.dateBooked, "</p>\n        </div>\n        <div class=\"confrimation-section\">\n            <p>Car Scan</p>\n            <p> ").concat(userDetailsAndDateBooked.carMake, "</p>\n            <p> ").concat(userDetailsAndDateBooked.carModel, "</p>\n            <p> ").concat(userDetailsAndDateBooked.carYear, "</p>\n        </div>\n        <div class=\"confirmation-section\">\n            <p>Where you require the service?</p>\n            <p> ").concat(userDetailsAndDateBooked.userAddress, "</p>\n            <p>\n                Note: Your correct locality helps our\n                professionals reach you on time.\n            </p>\n        </div>\n        <div class=\"confirmation-section\">\n            <a href=\"tel:+2348188354753\"></a>\n        </div>\n    ");
+  var estimateParsed = "\n        <h2>Booking Summary</h2>\n        <div class=\"confirmation__section\">\n            <p>Name : ".concat(userDetailsAndDateBooked.name, "</p>\n            <p>Mobile : ").concat(userDetailsAndDateBooked.mobileTel, "</p>\n            <p>Date Booked : ").concat(userDetailsAndDateBooked.dateBooked, "</p>\n        </div>\n        <div class=\"confirmation__section\">\n            <p>Car Scan</p>\n            <p> ").concat(userDetailsAndDateBooked.carMake, "</p>\n            <p> ").concat(userDetailsAndDateBooked.carModel, "</p>\n            <p> ").concat(userDetailsAndDateBooked.carYear, "</p>\n        </div>\n        <div class=\"confirmation__section\">\n            <p>Where you require the service?</p>\n            <p> ").concat(userDetailsAndDateBooked.userAddress, "</p>\n            <p>\n                Note: Your correct locality helps our\n                professionals reach you on time.\n            </p>\n        </div>\n        <div class=\"confirmation__section\">\n            <a href=\"tel:+2348188354753\"> Call us here for more details</a>\n        </div>\n    ");
   confirmationSectionTabPage.insertAdjacentHTML("afterbegin", estimateParsed);
 };
 
@@ -447,7 +445,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45799" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41539" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
