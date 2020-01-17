@@ -6,6 +6,60 @@ require("dotenv").config({
 let navBarElement = document.querySelector(".navbar");
 let navBarSpan = document.querySelectorAll(".nav-link-span");
 
+const parseInputDateElement = () => {
+    let inputDateElement = document.getElementById("date");
+    let todayDate = new Date().toISOString().split("T")[0];
+    inputDateElement.setAttribute("min", todayDate);
+};
+
+const addEventListenterToSlidderButton = () => {
+    /**
+     * this stores the slidder button for the testimonials
+     */
+    let testimonialTriggers = document.querySelectorAll(".slider-trigger-button");
+    /**
+     * to add event listener to each button
+     */
+    for (let triggerCounter = 0; triggerCounter < testimonialTriggers.length; triggerCounter++) {
+        testimonialTriggers[triggerCounter].addEventListener("click", () => {
+            slide(triggerCounter);
+        });
+    }
+};
+
+const processNavLinkDropDown = () => {
+    let navLinkDropDownTrigger = document.getElementById("nav_link_trigger");
+    const navLinkContainer = document.querySelector(".nav-links");
+    const navLinkELement = document.querySelectorAll(".nav-links .nav-links__div");
+    let dropDownStatus = false;
+
+    navLinkDropDownTrigger.addEventListener("click", () => {
+        if (dropDownStatus == false) {
+            navLinkContainer.classList.add("link-animate");
+            navLinkContainer.style.display = "flex";
+            console.log("should effect");
+        } else {
+            navLinkContainer.classList.remove("link-animate");
+            navLinkContainer.classList.add("link-animate-close");
+
+            setTimeout(() => {
+                navLinkContainer.classList.remove("link-animate-close");
+                navLinkContainer.style.display = "none";
+            }, 900);
+        }
+        dropDownStatus = !dropDownStatus;
+        /**
+         * to close the nav container whenever on of the links is clicked for mobile view
+         */
+        navLinkELement.forEach(item => {
+            item.addEventListener("click", () => {
+                dropDownStatus = false;
+                navLinkContainer.style.display = "none";
+            });
+        });
+    });
+};
+
 /**
  * To animate the div section on appearing on the vieport
  */
@@ -169,47 +223,8 @@ window.addEventListener("load", () => {
     animateOnViewPort();
     automaticSLider(0);
     screenButtonEffects();
+    processNavLinkDropDown();
+    addEventListenterToSlidderButton();
 
-    let navLinkDropDownTrigger = document.getElementById("nav_link_trigger");
-    const navLinkContainer = document.querySelector(".nav-links");
-    const navLinkELement = document.querySelectorAll(".nav-links .nav-links__div");
-    let dropDownStatus = false;
-
-    navLinkDropDownTrigger.addEventListener("click", () => {
-        if (dropDownStatus == false) {
-            navLinkContainer.classList.add("link-animate");
-            navLinkContainer.style.display = "flex";
-            console.log("should effect");
-        } else {
-            navLinkContainer.classList.remove("link-animate");
-            navLinkContainer.classList.add("link-animate-close");
-
-            setTimeout(() => {
-                navLinkContainer.classList.remove("link-animate-close");
-                navLinkContainer.style.display = "none";
-            }, 900);
-        }
-        dropDownStatus = !dropDownStatus;
-        /**
-         * to close the nav container whenever on of the links is clicked for mobile view
-         */
-        navLinkELement.forEach(item => {
-            item.addEventListener("click", () => {
-                dropDownStatus = false;
-                navLinkContainer.style.display = "none";
-            });
-        });
-    });
-    /**
-     * this stores the slidder button for the testimonials
-     */
-    let testimonialTriggers = document.querySelectorAll(".slider-trigger-button");
-    /**
-     * to add event listener to each button
-     */
-    for (let triggerCounter = 0; triggerCounter < testimonialTriggers.length; triggerCounter++) {
-        testimonialTriggers[triggerCounter].addEventListener("click", () => {
-            slide(triggerCounter);
-        });
-    }
+    parseInputDateElement();
 });

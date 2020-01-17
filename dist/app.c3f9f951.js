@@ -772,10 +772,70 @@ require("dotenv").config({
 
 var navBarElement = document.querySelector(".navbar");
 var navBarSpan = document.querySelectorAll(".nav-link-span");
+
+var parseInputDateElement = function parseInputDateElement() {
+  var inputDateElement = document.getElementById("date");
+  var todayDate = new Date().toISOString().split("T")[0];
+  inputDateElement.setAttribute("min", todayDate);
+};
+
+var addEventListenterToSlidderButton = function addEventListenterToSlidderButton() {
+  /**
+   * this stores the slidder button for the testimonials
+   */
+  var testimonialTriggers = document.querySelectorAll(".slider-trigger-button");
+  /**
+   * to add event listener to each button
+   */
+
+  var _loop = function _loop(triggerCounter) {
+    testimonialTriggers[triggerCounter].addEventListener("click", function () {
+      slide(triggerCounter);
+    });
+  };
+
+  for (var triggerCounter = 0; triggerCounter < testimonialTriggers.length; triggerCounter++) {
+    _loop(triggerCounter);
+  }
+};
+
+var processNavLinkDropDown = function processNavLinkDropDown() {
+  var navLinkDropDownTrigger = document.getElementById("nav_link_trigger");
+  var navLinkContainer = document.querySelector(".nav-links");
+  var navLinkELement = document.querySelectorAll(".nav-links .nav-links__div");
+  var dropDownStatus = false;
+  navLinkDropDownTrigger.addEventListener("click", function () {
+    if (dropDownStatus == false) {
+      navLinkContainer.classList.add("link-animate");
+      navLinkContainer.style.display = "flex";
+      console.log("should effect");
+    } else {
+      navLinkContainer.classList.remove("link-animate");
+      navLinkContainer.classList.add("link-animate-close");
+      setTimeout(function () {
+        navLinkContainer.classList.remove("link-animate-close");
+        navLinkContainer.style.display = "none";
+      }, 900);
+    }
+
+    dropDownStatus = !dropDownStatus;
+    /**
+     * to close the nav container whenever on of the links is clicked for mobile view
+     */
+
+    navLinkELement.forEach(function (item) {
+      item.addEventListener("click", function () {
+        dropDownStatus = false;
+        navLinkContainer.style.display = "none";
+      });
+    });
+  });
+};
 /**
  * To animate the div section on appearing on the vieport
  */
 // eslint-disable-next-line no-unused-vars
+
 
 var animateOnViewPort = function animateOnViewPort() {
   var mainSection = document.querySelectorAll(".main__section"); // mainSection.forEach((item) => {
@@ -829,8 +889,8 @@ var screenButtonEffects = function screenButtonEffects() {
   var screensButton = document.querySelectorAll(".rounded__anchor-screens");
   var sliderScreenImageCollection = document.querySelectorAll(".slider__screen-image");
 
-  var _loop = function _loop(screenButtonItem) {
-    var _loop2 = function _loop2(sliderScreenImageElement) {
+  var _loop2 = function _loop2(screenButtonItem) {
+    var _loop3 = function _loop3(sliderScreenImageElement) {
       if (screenButtonItem == sliderScreenImageElement) {
         screensButton[screenButtonItem].addEventListener("click", function () {
           screensButton.forEach(function (item) {
@@ -846,12 +906,12 @@ var screenButtonEffects = function screenButtonEffects() {
     };
 
     for (var sliderScreenImageElement = 0; sliderScreenImageElement < sliderScreenImageCollection.length; sliderScreenImageElement++) {
-      _loop2(sliderScreenImageElement);
+      _loop3(sliderScreenImageElement);
     }
   };
 
   for (var screenButtonItem = 0; screenButtonItem < screensButton.length; screenButtonItem++) {
-    _loop(screenButtonItem);
+    _loop2(screenButtonItem);
   }
 }; // eslint-disable-next-line no-unused-vars
 
@@ -937,54 +997,9 @@ window.addEventListener("load", function () {
   animateOnViewPort();
   automaticSLider(0);
   screenButtonEffects();
-  var navLinkDropDownTrigger = document.getElementById("nav_link_trigger");
-  var navLinkContainer = document.querySelector(".nav-links");
-  var navLinkELement = document.querySelectorAll(".nav-links .nav-links__div");
-  var dropDownStatus = false;
-  navLinkDropDownTrigger.addEventListener("click", function () {
-    if (dropDownStatus == false) {
-      navLinkContainer.classList.add("link-animate");
-      navLinkContainer.style.display = "flex";
-      console.log("should effect");
-    } else {
-      navLinkContainer.classList.remove("link-animate");
-      navLinkContainer.classList.add("link-animate-close");
-      setTimeout(function () {
-        navLinkContainer.classList.remove("link-animate-close");
-        navLinkContainer.style.display = "none";
-      }, 900);
-    }
-
-    dropDownStatus = !dropDownStatus;
-    /**
-     * to close the nav container whenever on of the links is clicked for mobile view
-     */
-
-    navLinkELement.forEach(function (item) {
-      item.addEventListener("click", function () {
-        dropDownStatus = false;
-        navLinkContainer.style.display = "none";
-      });
-    });
-  });
-  /**
-   * this stores the slidder button for the testimonials
-   */
-
-  var testimonialTriggers = document.querySelectorAll(".slider-trigger-button");
-  /**
-   * to add event listener to each button
-   */
-
-  var _loop3 = function _loop3(triggerCounter) {
-    testimonialTriggers[triggerCounter].addEventListener("click", function () {
-      slide(triggerCounter);
-    });
-  };
-
-  for (var triggerCounter = 0; triggerCounter < testimonialTriggers.length; triggerCounter++) {
-    _loop3(triggerCounter);
-  }
+  processNavLinkDropDown();
+  addEventListenterToSlidderButton();
+  parseInputDateElement();
 });
 },{"dotenv":"node_modules/dotenv/lib/main.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -1014,7 +1029,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36771" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44149" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

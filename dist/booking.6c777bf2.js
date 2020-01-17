@@ -157,6 +157,7 @@ var closeBookingPopUp = function closeBookingPopUp() {
 
 var sendMail = function sendMail(templateParams) {
   var estimateButton = document.querySelector(".estimate-button");
+  estimateButton.classList.add("estimate-button--modify");
   estimateButton.innerHTML = '<img src="/loading.28bc329d.gif" alt="loading animation" class="loading-gif">';
   console.log("mailer parameter is : ", templateParams); // eslint-disable-next-line no-undef
 
@@ -164,44 +165,17 @@ var sendMail = function sendMail(templateParams) {
 
   emailjs.send("default_service", templateId, templateParams).then(function (response) {
     console.log("SUCCESS!", response.status, response.text);
-    alert("Your details have been sent, we will reply you shortly");
-    closeBookingPopUp();
+    setTimeout(function () {
+      estimateButton.classList.remove("estimate-button--modify");
+      estimateButton.innerHTML = "Get Estimate";
+      alert("Your details have been sent, we will reply you shortly");
+      closeBookingPopUp();
+    }, 10000);
   }, function (error) {
     console.log("FAILED...", error);
     alert("Service down, try again later");
     closeBookingPopUp();
   });
-};
-
-var adjustBookingContainer = function adjustBookingContainer() {// const bookingContainer = document.querySelector(".booking");
-  // const bookingInnerContainer = document.querySelector(".booking__container");
-  // let bookingInnerContainerHeight = bookingInnerContainer.style.height;
-  // let bookingContainerHeight = bookingContainer.style.height;
-  // if (fillStatus) {
-  //     bookingContainerHeight = "100%";
-  // } else {
-  //     if (bookingInnerContainer.style.height > window.innerHeight) {
-  //         bookingContainer.style.height = "max-content";
-  //         console.log(
-  //             " greater than : bookingContainerHeight is : ",
-  //             bookingInnerContainer.style.height,
-  //             bookingInnerContainer,
-  //             "and windows height is : ",
-  //             window.innerHeight
-  //         );
-  //     } else {
-  //         bookingContainer.style.height = window.innerHeight + "px";
-  //         console.log(
-  //             "less than : bookingContainerHeight is : ",
-  //             bookingInnerContainerHeight,
-  //             bookingInnerContainer,
-  //             "and windows height is : ",
-  //             window.innerHeight
-  //         );
-  //     }
-  // }
-
-  var fillStatus = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 };
 /**
  *
@@ -248,10 +222,7 @@ var handleRenderedBookingStage = function handleRenderedBookingStage(indexPassed
   var indexForConfirmationTabPage = 3;
 
   if (indexPassed === indexForConfirmationTabPage) {
-    adjustBookingContainer();
     renderEstimate();
-  } else {
-    adjustBookingContainer(true);
   }
 };
 
@@ -476,7 +447,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36771" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44149" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

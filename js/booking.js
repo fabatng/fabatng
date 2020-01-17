@@ -25,6 +25,7 @@ const closeBookingPopUp = () => {
 
 const sendMail = templateParams => {
     let estimateButton = document.querySelector(".estimate-button");
+    estimateButton.classList.add("estimate-button--modify");
     estimateButton.innerHTML =
         '<img src="/loading.28bc329d.gif" alt="loading animation" class="loading-gif">';
 
@@ -35,8 +36,13 @@ const sendMail = templateParams => {
     emailjs.send("default_service", templateId, templateParams).then(
         function(response) {
             console.log("SUCCESS!", response.status, response.text);
-            alert("Your details have been sent, we will reply you shortly");
-            closeBookingPopUp();
+            setTimeout(() => {
+                estimateButton.classList.remove("estimate-button--modify");
+                estimateButton.innerHTML = "Get Estimate";
+                alert("Your details have been sent, we will reply you shortly");
+
+                closeBookingPopUp();
+            }, 10000);
         },
         function(error) {
             console.log("FAILED...", error);
@@ -44,36 +50,6 @@ const sendMail = templateParams => {
             closeBookingPopUp();
         }
     );
-};
-
-const adjustBookingContainer = (fillStatus = false) => {
-    // const bookingContainer = document.querySelector(".booking");
-    // const bookingInnerContainer = document.querySelector(".booking__container");
-    // let bookingInnerContainerHeight = bookingInnerContainer.style.height;
-    // let bookingContainerHeight = bookingContainer.style.height;
-    // if (fillStatus) {
-    //     bookingContainerHeight = "100%";
-    // } else {
-    //     if (bookingInnerContainer.style.height > window.innerHeight) {
-    //         bookingContainer.style.height = "max-content";
-    //         console.log(
-    //             " greater than : bookingContainerHeight is : ",
-    //             bookingInnerContainer.style.height,
-    //             bookingInnerContainer,
-    //             "and windows height is : ",
-    //             window.innerHeight
-    //         );
-    //     } else {
-    //         bookingContainer.style.height = window.innerHeight + "px";
-    //         console.log(
-    //             "less than : bookingContainerHeight is : ",
-    //             bookingInnerContainerHeight,
-    //             bookingInnerContainer,
-    //             "and windows height is : ",
-    //             window.innerHeight
-    //         );
-    //     }
-    // }
 };
 
 /**
@@ -109,10 +85,7 @@ const handleRenderedBookingStage = indexPassed => {
     });
     const indexForConfirmationTabPage = 3;
     if (indexPassed === indexForConfirmationTabPage) {
-        adjustBookingContainer();
         renderEstimate();
-    } else {
-        adjustBookingContainer(true);
     }
 };
 
