@@ -1,11 +1,7 @@
 const bookingPopUp = () => {
     let bookingContainer = document.querySelector(".booking");
-    let bookingStageBackButtonCollection = document.querySelector(
-        ".each-stage__button--back"
-    );
-    const elementToFixPositionOnPopUp = document.querySelectorAll(
-        ".fix-on-booking-pop-up"
-    );
+    let bookingStageBackButtonCollection = document.querySelector(".each-stage__button--back");
+    const elementToFixPositionOnPopUp = document.querySelectorAll(".fix-on-booking-pop-up");
     elementToFixPositionOnPopUp.forEach(elementToFix => {
         elementToFix.style.position = "fixed";
     });
@@ -21,12 +17,63 @@ const closeBookingPopUp = () => {
     bookingContainer.classList.remove("display-flex");
 
     bookingContainer.classList.add("display-none");
-    const elementToFixPositionOnPopUp = document.querySelectorAll(
-        ".fix-on-booking-pop-up"
-    );
+    const elementToFixPositionOnPopUp = document.querySelectorAll(".fix-on-booking-pop-up");
     elementToFixPositionOnPopUp.forEach(elementToFix => {
         elementToFix.style.position = "static";
     });
+};
+
+const sendMail = templateParams => {
+    let estimateButton = document.querySelector(".estimate-button");
+    estimateButton.innerHTML =
+        '<img src="/loading.28bc329d.gif" alt="loading animation" class="loading-gif">';
+
+    console.log("mailer parameter is : ", templateParams);
+    // eslint-disable-next-line no-undef
+    const templateId = process.env.templateID;
+    // eslint-disable-next-line no-undef
+    emailjs.send("default_service", templateId, templateParams).then(
+        function(response) {
+            console.log("SUCCESS!", response.status, response.text);
+            alert("Your details have been sent, we will reply you shortly");
+            closeBookingPopUp();
+        },
+        function(error) {
+            console.log("FAILED...", error);
+            alert("Service down, try again later");
+            closeBookingPopUp();
+        }
+    );
+};
+
+const adjustBookingContainer = (fillStatus = false) => {
+    // const bookingContainer = document.querySelector(".booking");
+    // const bookingInnerContainer = document.querySelector(".booking__container");
+    // let bookingInnerContainerHeight = bookingInnerContainer.style.height;
+    // let bookingContainerHeight = bookingContainer.style.height;
+    // if (fillStatus) {
+    //     bookingContainerHeight = "100%";
+    // } else {
+    //     if (bookingInnerContainer.style.height > window.innerHeight) {
+    //         bookingContainer.style.height = "max-content";
+    //         console.log(
+    //             " greater than : bookingContainerHeight is : ",
+    //             bookingInnerContainer.style.height,
+    //             bookingInnerContainer,
+    //             "and windows height is : ",
+    //             window.innerHeight
+    //         );
+    //     } else {
+    //         bookingContainer.style.height = window.innerHeight + "px";
+    //         console.log(
+    //             "less than : bookingContainerHeight is : ",
+    //             bookingInnerContainerHeight,
+    //             bookingInnerContainer,
+    //             "and windows height is : ",
+    //             window.innerHeight
+    //         );
+    //     }
+    // }
 };
 
 /**
@@ -36,9 +83,7 @@ const closeBookingPopUp = () => {
  *
  */
 const handleRenderedBookingStage = indexPassed => {
-    const bookingStageContainer = document.querySelectorAll(
-        ".booking__form-each-stage"
-    );
+    const bookingStageContainer = document.querySelectorAll(".booking__form-each-stage");
     const progressElement = document.querySelector(".progress__element");
     const progress = [
         { index: 0, value: 0 },
@@ -47,10 +92,7 @@ const handleRenderedBookingStage = indexPassed => {
         { index: 3, value: 0.75 },
         { index: 4, value: 1.0 }
     ];
-    console.log(
-        "index seen in handle rendered booking stage is : ",
-        indexPassed
-    );
+    console.log("index seen in handle rendered booking stage is : ", indexPassed);
     bookingStageContainer.forEach((eachBookingStage, index) => {
         eachBookingStage.classList.remove("display-none");
 
@@ -67,7 +109,10 @@ const handleRenderedBookingStage = indexPassed => {
     });
     const indexForConfirmationTabPage = 3;
     if (indexPassed === indexForConfirmationTabPage) {
+        adjustBookingContainer();
         renderEstimate();
+    } else {
+        adjustBookingContainer(true);
     }
 };
 
@@ -106,6 +151,13 @@ const getEstimate = () => {
                         };
                         console.log("date seen : ", returnValue);
 
+                        break;
+                    case "email":
+                        returnValue = {
+                            ...returnValue,
+                            userEmail: eachDataFieldValue
+                        };
+                        console.log("email : ", returnValue);
                         break;
                 }
             });
@@ -162,8 +214,9 @@ const getEstimate = () => {
 
 const renderEstimate = () => {
     const confirmationSectionTabPage = document.querySelector(
-        ".confirmation__container"
+        ".confirmation__container__estimate-details"
     );
+    confirmationSectionTabPage.innerHTML = "";
     let userDetailsAndDateBooked = getEstimate();
     console.log("user details is : ", userDetailsAndDateBooked);
     const estimateParsed = `
@@ -190,14 +243,8 @@ const renderEstimate = () => {
         <div class="confirmation-section">
             <a href="tel:+2348188354753"></a>
         </div>
-        <div class="each__stage__action-button">
-            <button type="button" class="each-stage__button each-stage__button--back">Back</button>
-            <button class="each-stage__button" type="button">
-                Get Estimate
-            </button>
-        </div>
     `;
-    confirmationSectionTabPage.innerHTML = estimateParsed;
+    confirmationSectionTabPage.insertAdjacentHTML("afterbegin", estimateParsed);
 };
 
 let formValuesCollection = [];
@@ -247,12 +294,11 @@ const handleFormSubmit = (event, elements, index) => {
 
 const handleFormPrevious = (event, index) => {
     let formToDisplayCorrespondingIndex = index - 1;
-    let formToDisplayAfterStageRendered = document.querySelectorAll(
-        ".booking__form_each-form"
-    )[formToDisplayCorrespondingIndex];
+    let formToDisplayAfterStageRendered = document.querySelectorAll(".booking__form_each-form")[
+        formToDisplayCorrespondingIndex
+    ];
     let formToDisplayElements = formToDisplayAfterStageRendered.elements;
-    let correspondingFormData =
-        formValuesCollection[formToDisplayCorrespondingIndex];
+    let correspondingFormData = formValuesCollection[formToDisplayCorrespondingIndex];
     let correspondingFormDataFilteredIndex = correspondingFormData.data;
     [...formToDisplayElements].map(eachElement => {
         correspondingFormDataFilteredIndex.forEach(eachData => {
@@ -266,34 +312,36 @@ const handleFormPrevious = (event, index) => {
     handleRenderedBookingStage(formToDisplayCorrespondingIndex);
 };
 
-let bookServiceButtonQuery = document.querySelectorAll('.book_service');
-bookServiceButtonQuery.forEach((bookServiceButton) => {
+let bookServiceButtonQuery = document.querySelectorAll(".book_service");
+bookServiceButtonQuery.forEach(bookServiceButton => {
     bookServiceButton.addEventListener("click", () => {
         bookingPopUp();
     });
-})
-
+});
 
 let closeBookId = document.getElementById("close_bookPopUp");
 closeBookId.addEventListener("click", () => {
     closeBookingPopUp();
 });
 
-let bookingStageBackButtonCollection = document.querySelectorAll(
-    ".each-stage__button--back"
-);
+let bookingStageBackButtonCollection = document.querySelectorAll(".each-stage__button--back");
 bookingStageBackButtonCollection.forEach((eachBackButton, index) => {
     eachBackButton.addEventListener("click", event => {
         handleFormPrevious(event, index);
     });
 });
 
-let bookingFormCollection = document.querySelectorAll(
-    ".booking__form_each-form"
-);
+let bookingFormCollection = document.querySelectorAll(".booking__form_each-form");
 bookingFormCollection.forEach((eachBookingForm, index) => {
     eachBookingForm.addEventListener("submit", event => {
         event.preventDefault();
+        console.log("Each booking form elements is : ", eachBookingForm.elements);
         handleFormSubmit(event, eachBookingForm.elements, index);
     });
+});
+
+let estimateButton = document.querySelector(".estimate-button");
+estimateButton.addEventListener("click", () => {
+    const mailerParam = getEstimate();
+    sendMail(mailerParam);
 });

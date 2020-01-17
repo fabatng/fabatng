@@ -1,3 +1,8 @@
+// eslint-disable-next-line no-undef
+require("dotenv").config({
+    encoding: "utf8"
+});
+
 let navBarElement = document.querySelector(".navbar");
 let navBarSpan = document.querySelectorAll(".nav-link-span");
 
@@ -44,38 +49,33 @@ const automaticSLider = counter => {
     }, 3500);
 };
 
+// eslint-disable-next-line no-unused-vars
+const initiateEMailJS = () => {
+    // eslint-disable-next-line no-undef
+    emailjs.init(process.env.emailID);
+};
+
 /**
  * screen button clicked effect
  */
 const screenButtonEffects = () => {
     let screensButton = document.querySelectorAll(".rounded__anchor-screens");
-    let sliderScreenImageCollection = document.querySelectorAll(
-        ".slider__screen-image"
-    );
-    for (
-        let screenButtonItem = 0; screenButtonItem < screensButton.length; screenButtonItem++
-    ) {
+    let sliderScreenImageCollection = document.querySelectorAll(".slider__screen-image");
+    for (let screenButtonItem = 0; screenButtonItem < screensButton.length; screenButtonItem++) {
         for (
             let sliderScreenImageElement = 0; sliderScreenImageElement < sliderScreenImageCollection.length; sliderScreenImageElement++
         ) {
             if (screenButtonItem == sliderScreenImageElement) {
-                screensButton[screenButtonItem].addEventListener(
-                    "click",
-                    () => {
-                        screensButton.forEach(item => {
-                            item.classList.remove("active-anchor");
-                        });
-                        sliderScreenImageCollection.forEach(item => {
-                            item.style.display = "none";
-                        });
-                        screensButton[screenButtonItem].classList.add(
-                            "active-anchor"
-                        );
-                        sliderScreenImageCollection[
-                            sliderScreenImageElement
-                        ].style.display = "flex";
-                    }
-                );
+                screensButton[screenButtonItem].addEventListener("click", () => {
+                    screensButton.forEach(item => {
+                        item.classList.remove("active-anchor");
+                    });
+                    sliderScreenImageCollection.forEach(item => {
+                        item.style.display = "none";
+                    });
+                    screensButton[screenButtonItem].classList.add("active-anchor");
+                    sliderScreenImageCollection[sliderScreenImageElement].style.display = "flex";
+                });
             }
         }
     }
@@ -93,18 +93,12 @@ function slide(index) {
  */
 let firstSlideScreenButtonLeft = document.querySelector("#screenButtonLeft");
 let firstSlideScreenButtonRight = document.querySelector("#screenButtonRight");
-let secondSlideScreenButtonLeft = document.querySelector(
-    "#secondScreenButtonLeft"
-);
-let secondSlideScreenButtonRight = document.querySelector(
-    "#secondScreenButtonRight"
-);
+let secondSlideScreenButtonLeft = document.querySelector("#secondScreenButtonLeft");
+let secondSlideScreenButtonRight = document.querySelector("#secondScreenButtonRight");
 let counter = 0;
 let secondCounter = 0;
 const screenSlider = (determineCounter, index, elementCollection) => {
-    for (
-        let elementCounter = 0; elementCounter < elementCollection.length; elementCounter++
-    ) {
+    for (let elementCounter = 0; elementCounter < elementCollection.length; elementCounter++) {
         elementCollection[elementCounter].style.display = "none";
     }
     if (index >= 0 && index < 2) {
@@ -171,15 +165,14 @@ window.addEventListener("scroll", () => {
     }
 });
 window.addEventListener("load", () => {
+    initiateEMailJS();
     animateOnViewPort();
     automaticSLider(0);
     screenButtonEffects();
 
     let navLinkDropDownTrigger = document.getElementById("nav_link_trigger");
     const navLinkContainer = document.querySelector(".nav-links");
-    const navLinkELement = document.querySelectorAll(
-        ".nav-links .nav-links__div"
-    );
+    const navLinkELement = document.querySelectorAll(".nav-links .nav-links__div");
     let dropDownStatus = false;
 
     navLinkDropDownTrigger.addEventListener("click", () => {
@@ -201,7 +194,7 @@ window.addEventListener("load", () => {
          * to close the nav container whenever on of the links is clicked for mobile view
          */
         navLinkELement.forEach(item => {
-            item.addEventListener("click", event => {
+            item.addEventListener("click", () => {
                 dropDownStatus = false;
                 navLinkContainer.style.display = "none";
             });
@@ -210,15 +203,11 @@ window.addEventListener("load", () => {
     /**
      * this stores the slidder button for the testimonials
      */
-    let testimonialTriggers = document.querySelectorAll(
-        ".slider-trigger-button"
-    );
+    let testimonialTriggers = document.querySelectorAll(".slider-trigger-button");
     /**
      * to add event listener to each button
      */
-    for (
-        let triggerCounter = 0; triggerCounter < testimonialTriggers.length; triggerCounter++
-    ) {
+    for (let triggerCounter = 0; triggerCounter < testimonialTriggers.length; triggerCounter++) {
         testimonialTriggers[triggerCounter].addEventListener("click", () => {
             slide(triggerCounter);
         });

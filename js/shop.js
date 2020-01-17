@@ -62,8 +62,6 @@ const activatePayment = param => {
             metaname: param.subject
         }],
         onclose: function() {
-            console.log("activatePayment on close key is : ", API_publicKey);
-            // closeFormSection();
             formReset();
         },
         callback: function(response) {
@@ -76,7 +74,6 @@ const activatePayment = param => {
             } else {
                 alert("payment not successful, try again later");
             }
-            console.log("Response is : ", response);
 
             x.close(); // use this to close the modal immediately after payment.
         }

@@ -154,6 +154,55 @@ var closeBookingPopUp = function closeBookingPopUp() {
     elementToFix.style.position = "static";
   });
 };
+
+var sendMail = function sendMail(templateParams) {
+  var estimateButton = document.querySelector(".estimate-button");
+  estimateButton.innerHTML = '<img src="/loading.28bc329d.gif" alt="loading animation" class="loading-gif">';
+  console.log("mailer parameter is : ", templateParams); // eslint-disable-next-line no-undef
+
+  var templateId = "template_7JmuZoeD"; // eslint-disable-next-line no-undef
+
+  emailjs.send("default_service", templateId, templateParams).then(function (response) {
+    console.log("SUCCESS!", response.status, response.text);
+    alert("Your details have been sent, we will reply you shortly");
+    closeBookingPopUp();
+  }, function (error) {
+    console.log("FAILED...", error);
+    alert("Service down, try again later");
+    closeBookingPopUp();
+  });
+};
+
+var adjustBookingContainer = function adjustBookingContainer() {// const bookingContainer = document.querySelector(".booking");
+  // const bookingInnerContainer = document.querySelector(".booking__container");
+  // let bookingInnerContainerHeight = bookingInnerContainer.style.height;
+  // let bookingContainerHeight = bookingContainer.style.height;
+  // if (fillStatus) {
+  //     bookingContainerHeight = "100%";
+  // } else {
+  //     if (bookingInnerContainer.style.height > window.innerHeight) {
+  //         bookingContainer.style.height = "max-content";
+  //         console.log(
+  //             " greater than : bookingContainerHeight is : ",
+  //             bookingInnerContainer.style.height,
+  //             bookingInnerContainer,
+  //             "and windows height is : ",
+  //             window.innerHeight
+  //         );
+  //     } else {
+  //         bookingContainer.style.height = window.innerHeight + "px";
+  //         console.log(
+  //             "less than : bookingContainerHeight is : ",
+  //             bookingInnerContainerHeight,
+  //             bookingInnerContainer,
+  //             "and windows height is : ",
+  //             window.innerHeight
+  //         );
+  //     }
+  // }
+
+  var fillStatus = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+};
 /**
  *
  * @param indexPassed this denotes the index of the booking stage that needs to be displayed
@@ -199,7 +248,10 @@ var handleRenderedBookingStage = function handleRenderedBookingStage(indexPassed
   var indexForConfirmationTabPage = 3;
 
   if (indexPassed === indexForConfirmationTabPage) {
+    adjustBookingContainer();
     renderEstimate();
+  } else {
+    adjustBookingContainer(true);
   }
 };
 
@@ -235,6 +287,13 @@ var getEstimate = function getEstimate() {
               dateBooked: eachDataFieldValue
             });
             console.log("date seen : ", returnValue);
+            break;
+
+          case "email":
+            returnValue = _objectSpread({}, returnValue, {
+              userEmail: eachDataFieldValue
+            });
+            console.log("email : ", returnValue);
             break;
         }
       });
@@ -286,11 +345,12 @@ var getEstimate = function getEstimate() {
 };
 
 var renderEstimate = function renderEstimate() {
-  var confirmationSectionTabPage = document.querySelector(".confirmation__container");
+  var confirmationSectionTabPage = document.querySelector(".confirmation__container__estimate-details");
+  confirmationSectionTabPage.innerHTML = "";
   var userDetailsAndDateBooked = getEstimate();
   console.log("user details is : ", userDetailsAndDateBooked);
-  var estimateParsed = "\n        <h2>Booking Summary</h2>\n        <div class=\"confirmation__section\">\n            <p>Name : ".concat(userDetailsAndDateBooked.name, "</p>\n            <p>Mobile : ").concat(userDetailsAndDateBooked.mobileTel, "</p>\n            <p>Date Booked : ").concat(userDetailsAndDateBooked.dateBooked, "</p>\n        </div>\n        <div class=\"confrimation-section\">\n            <p>Car Scan</p>\n            <p> ").concat(userDetailsAndDateBooked.carMake, "</p>\n            <p> ").concat(userDetailsAndDateBooked.carModel, "</p>\n            <p> ").concat(userDetailsAndDateBooked.carYear, "</p>\n        </div>\n        <div class=\"confirmation-section\">\n            <p>Where you require the service?</p>\n            <p> ").concat(userDetailsAndDateBooked.userAddress, "</p>\n            <p>\n                Note: Your correct locality helps our\n                professionals reach you on time.\n            </p>\n        </div>\n        <div class=\"confirmation-section\">\n            <a href=\"tel:+2348188354753\"></a>\n        </div>\n        <div class=\"each__stage__action-button\">\n            <button type=\"button\" class=\"each-stage__button each-stage__button--back\">Back</button>\n            <button class=\"each-stage__button\" type=\"button\">\n                Get Estimate\n            </button>\n        </div>\n    ");
-  confirmationSectionTabPage.innerHTML = estimateParsed;
+  var estimateParsed = "\n        <h2>Booking Summary</h2>\n        <div class=\"confirmation__section\">\n            <p>Name : ".concat(userDetailsAndDateBooked.name, "</p>\n            <p>Mobile : ").concat(userDetailsAndDateBooked.mobileTel, "</p>\n            <p>Date Booked : ").concat(userDetailsAndDateBooked.dateBooked, "</p>\n        </div>\n        <div class=\"confrimation-section\">\n            <p>Car Scan</p>\n            <p> ").concat(userDetailsAndDateBooked.carMake, "</p>\n            <p> ").concat(userDetailsAndDateBooked.carModel, "</p>\n            <p> ").concat(userDetailsAndDateBooked.carYear, "</p>\n        </div>\n        <div class=\"confirmation-section\">\n            <p>Where you require the service?</p>\n            <p> ").concat(userDetailsAndDateBooked.userAddress, "</p>\n            <p>\n                Note: Your correct locality helps our\n                professionals reach you on time.\n            </p>\n        </div>\n        <div class=\"confirmation-section\">\n            <a href=\"tel:+2348188354753\"></a>\n        </div>\n    ");
+  confirmationSectionTabPage.insertAdjacentHTML("afterbegin", estimateParsed);
 };
 
 var formValuesCollection = [];
@@ -359,7 +419,7 @@ var handleFormPrevious = function handleFormPrevious(event, index) {
   handleRenderedBookingStage(formToDisplayCorrespondingIndex);
 };
 
-var bookServiceButtonQuery = document.querySelectorAll('.book_service');
+var bookServiceButtonQuery = document.querySelectorAll(".book_service");
 bookServiceButtonQuery.forEach(function (bookServiceButton) {
   bookServiceButton.addEventListener("click", function () {
     bookingPopUp();
@@ -379,8 +439,14 @@ var bookingFormCollection = document.querySelectorAll(".booking__form_each-form"
 bookingFormCollection.forEach(function (eachBookingForm, index) {
   eachBookingForm.addEventListener("submit", function (event) {
     event.preventDefault();
+    console.log("Each booking form elements is : ", eachBookingForm.elements);
     handleFormSubmit(event, eachBookingForm.elements, index);
   });
+});
+var estimateButton = document.querySelector(".estimate-button");
+estimateButton.addEventListener("click", function () {
+  var mailerParam = getEstimate();
+  sendMail(mailerParam);
 });
 },{}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -410,7 +476,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34961" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36771" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
