@@ -838,17 +838,18 @@ var processNavLinkDropDown = function processNavLinkDropDown() {
 
 
 var animateOnViewPort = function animateOnViewPort() {
-  var mainSection = document.querySelectorAll(".main__section"); // mainSection.forEach((item) => {
-  //     /**
-  //      * scroll reveal function imported from the script requested in the head tag
-  //      */
-  //     // eslint-disable-next-line no-undef
-  //     ScrollReveal({
-  //         duration: 1000
-  //     }).reveal(item, {
-  //         delay: 300
-  //     });
-  // });
+  var mainSection = document.querySelectorAll(".main__section");
+  mainSection.forEach(function (item) {
+    /**
+     * scroll reveal function imported from the script requested in the head tag
+     */
+    // eslint-disable-next-line no-undef
+    ScrollReveal({
+      duration: 1000
+    }).reveal(item, {
+      delay: 300
+    });
+  });
 };
 /**
  * Slider effect for the testimonial
@@ -1029,7 +1030,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44149" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45799" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
