@@ -222,3 +222,13 @@
         width: 100%;
     }
 }
+
+@media screen and (max-width: 4509px) {
+    .booking__container {
+        width: 98%;
+        padding: 10px 10px 20px;
+    }
+    .booking__icon {
+        font-size: 20px;
+    }
+}
