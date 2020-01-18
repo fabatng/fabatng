@@ -4,7 +4,9 @@
   "description": "A mechanic website",
   "main": "index.html",
   "scripts": {
-    "test": "build"
+    "test": "build",
+    "dev": "parcel index.html",
+    "build": "parcel build index.html"
   },
   "repository": {
     "type": "git",

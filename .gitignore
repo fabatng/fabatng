@@ -5,3 +5,6 @@
 .env
 ### node modules ###
 /node_modules
+
+### build folder ###
+/dist
