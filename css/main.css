@@ -415,6 +415,7 @@ body {
   color: #ffffff;
   font-weight: bold !important;
   background-repeat: repeat;
+  background-size: cover;
   padding-bottom: 3em;
 }
 .main__section--feature .main__span--color-white {
@@ -682,6 +683,8 @@ body {
 .phone-image .phone-image__each {
   width: 100%;
   margin-bottom: 2em;
+  height: 379.5px;
+  object-fit: contain;
 }
 
 .single-phone-image {

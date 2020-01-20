@@ -366,6 +366,7 @@ body {
     color: $white_color;
     font-weight: bold !important;
     background-repeat: repeat;
+    background-size: cover;
     .main__span--color-white {
         background-color: $white_color;
     }
@@ -598,6 +599,8 @@ body {
     .phone-image__each {
         width: 100%;
         margin-bottom: 2em;
+        height: 379.5px;
+        object-fit: contain;
     }
 }
 
