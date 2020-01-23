@@ -1,5 +1,5 @@
-# mechanic-worshop
+# Fabt NG
 
 ## Developer : @calebdeji
 
-Github repository for the mechanic website I am working on
+Github repository for the fabas website I am employed to work on
