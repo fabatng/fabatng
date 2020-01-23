@@ -287,6 +287,71 @@ body {
     font-size: 25px;
 }
 
+
+// Carousel
+.carousel{
+    @include flex_row();
+    padding: 50px 0px 30px 0px;
+    overflow-x: scroll;
+    background: $white_color;
+}
+.carousel::-webkit-scrollbar {
+    display: none;
+}
+.carousel__each-section{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    animation: animatecarousel 0.4s ease-in-out;
+    position: relative;
+}
+.carousel__each-section:nth-child(1){
+    display: flex;
+}
+.carousel__each-div{
+    width: 200px;
+    border: solid 1px rgb(200, 198, 198,0.3);
+    box-shadow:  0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -2px rgba(0, 0, 0, 0.05);
+    @include flex_column();
+    justify-content: center;
+    text-align: center;
+    padding-bottom: 10px;
+    margin: 0 20px 0 20px;
+}
+.carousel__image{
+    width:  100%;
+    object-fit: contain;
+}
+
+.carousel__buttons{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+.carousel__button__button-element{
+    border-style: solid;
+    border-width: none;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    @include transistion_duration();
+    margin-right: 10px;
+    background-color: $primary_color;
+    &:hover {
+        cursor: pointer;
+    }
+}
+@keyframes animatecarousel{
+    from{
+        right: -20px ;
+    }
+    to{
+        right: 0;
+    }
+}
+
 .main__div-grid {
     @include flex_row();
     -webkit-box-pack: space-evenly;
@@ -917,6 +982,7 @@ body {
 }
 
 @media screen and (max-width: 800px) {
+    
     .grid__each-cell {
         margin-bottom: 10px;
         p {
@@ -1188,6 +1254,7 @@ body {
         object-fit: contain;
         width: 180px;
     }
+
     .div-grid--about {
         -ms-flex-wrap: wrap;
         flex-wrap: wrap;
