@@ -1261,6 +1261,10 @@ body {
     display: none;
   }
 
+  .carousel__each-div {
+    width: 300px;
+  }
+
   .slider-screen .phone-image:nth-child(3),
 .slider-screen .phone-image:nth-child(4) {
     display: none;
