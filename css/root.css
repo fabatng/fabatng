@@ -78,6 +78,14 @@ button:hover label {
   display: flex !important;
 }
 
+.nav__image,
+.footer__brand-image,
+.shop-nav__image {
+  width: 75px;
+  height: 75px;
+  object-fit: contain;
+}
+
 input,
 select {
   font-weight: bold;

@@ -1,106 +1,112 @@
 $primary_color: rgb(42, 14, 2);
 $white_color: #ffffff;
 @mixin flex_row {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    // flex-wrap: wrap;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: row;
+	flex-direction: row;
+	// flex-wrap: wrap;
 }
 
 @mixin flex_column {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    // flex-wrap: wrap;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	// flex-wrap: wrap;
 }
 
 @mixin transistion_duration {
-    -webkit-transition-duration: 1s;
-    transition-duration: 1s;
+	-webkit-transition-duration: 1s;
+	transition-duration: 1s;
 }
 
 font-face {
-    src: url("../asset/fonts/lato.hairline.ttf");
-    font-family: "lato hairline";
+	src: url("../asset/fonts/lato.hairline.ttf");
+	font-family: "lato hairline";
 }
 
 font-face {
-    src: url("../asset/fonts/lato.light.ttf");
-    font-family: "lato light";
+	src: url("../asset/fonts/lato.light.ttf");
+	font-family: "lato light";
 }
 
 font-face {
-    src: url("../asset/fonts/lato.thin.ttf");
-    font-family: "lato thin";
+	src: url("../asset/fonts/lato.thin.ttf");
+	font-family: "lato thin";
 }
 
 * {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    font-family: "lato thin", Arial;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	font-family: "lato thin", Arial;
 }
 
 a {
-    text-decoration: none !important;
+	text-decoration: none !important;
 }
 
 .hover-pointer:hover {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 body {
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
 }
 
 button:hover {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 button:hover label {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .button--like {
-    @include flex_row();
-    @include transistion_duration();
-    background-color: $white_color;
-    border-radius: 10px;
-    outline: none;
-    padding-right: 20px;
-    padding-left: 20px;
-    &:hover {
-        background-color: #ccc3c3 !important;
-    }
+	@include flex_row();
+	@include transistion_duration();
+	background-color: $white_color;
+	border-radius: 10px;
+	outline: none;
+	padding-right: 20px;
+	padding-left: 20px;
+	&:hover {
+		background-color: #ccc3c3 !important;
+	}
 }
 
 .display-none {
-    display: none !important;
+	display: none !important;
 }
 
 .display-flex {
-    display: -webkit-box !important;
-    display: -ms-flexbox !important;
-    display: flex !important;
+	display: -webkit-box !important;
+	display: -ms-flexbox !important;
+	display: flex !important;
 }
-
+.nav__image,
+.footer__brand-image,
+.shop-nav__image {
+	width: 75px;
+	height: 75px;
+	object-fit: contain;
+}
 input,
 select {
-    font-weight: bold;
+	font-weight: bold;
 }
