@@ -87,7 +87,8 @@ button:hover label {
 }
 
 input,
-select {
+select,
+textarea {
   font-weight: bold;
 }
 

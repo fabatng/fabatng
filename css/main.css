@@ -23,10 +23,6 @@ a {
   text-decoration: none !important;
 }
 
-.hover-pointer:hover {
-  cursor: pointer;
-}
-
 body {
   padding: 0 !important;
   margin: 0 !important;
@@ -112,27 +108,6 @@ body {
   height: -webkit-min-content;
   height: -moz-min-content;
   height: min-content;
-}
-.nav-links__div:hover .nav-link-span {
-  -webkit-transition-duration: 1s;
-  transition-duration: 1s;
-  -moz-transition-duration: 1s;
-  -webkit-transition: 1s;
-  -o-transition: 1s;
-  display: block;
-  width: 30px;
-  height: 5px;
-  background-color: #ffffff;
-  margin-left: 0.5em;
-  border-radius: 10px;
-}
-.nav-links__div:hover .nav-link-span--backgroundColor {
-  display: block;
-  width: 30px;
-  height: 5px;
-  background-color: black;
-  margin-left: 0.5em;
-  border-radius: 10px;
 }
 
 .nav__anchor-links {
@@ -228,9 +203,6 @@ body {
   -moz-transition-duration: 1s;
   -webkit-transition: 1s;
   -o-transition: 1s;
-}
-.rounded__anchor-link:hover {
-  background-color: black;
 }
 
 .rounded__margin-top {
@@ -361,9 +333,6 @@ body {
   margin-right: 10px;
   background-color: black;
 }
-.carousel__button__button-element:hover {
-  cursor: pointer;
-}
 
 @-webkit-keyframes animatecarousel {
   from {
@@ -436,11 +405,6 @@ body {
   border-style: solid;
   border-width: 2px;
   border-radius: 100%;
-}
-.grid--link-alike:hover {
-  background-color: black;
-  color: #ffffff;
-  cursor: pointer;
 }
 
 .each-cell--horizontal {
@@ -620,9 +584,6 @@ body {
   -o-transition: 1s;
   background-color: black;
 }
-.slider-trigger-button:hover {
-  cursor: pointer;
-}
 
 .screens-links {
   display: -webkit-box;
@@ -650,9 +611,6 @@ body {
   justify-content: center;
   margin-bottom: 0.5em;
   width: 23%;
-}
-.rounded__anchor--modified:hover {
-  color: #cccccc;
 }
 
 .active-anchor {
@@ -810,9 +768,6 @@ body {
   align-items: center;
   z-index: 99;
 }
-.download-links--modify .rounded__anchor-link label:hover {
-  cursor: pointer;
-}
 .download-links--modify .rounded__anchor-link .fa {
   font-size: 40px;
 }
@@ -864,10 +819,15 @@ body {
   -webkit-transition: 1s;
   -o-transition: 1s;
 }
-.submit-button:hover {
-  background-color: black;
-  cursor: pointer;
-  color: #ffffff;
+
+.submit-button--no-padding {
+  padding: 0px !important;
+}
+
+.submit-button .loading-gif {
+  width: 50px;
+  height: 30px;
+  object-fit: contain;
 }
 
 .location {
@@ -878,6 +838,7 @@ body {
   -webkit-box-direction: normal;
   flex-direction: column;
   margin-left: 2em;
+  align-items: flex-start;
 }
 
 .location__subsequent-div {
@@ -966,10 +927,6 @@ body {
   -moz-transition-duration: 1s;
   -webkit-transition: 1s;
   -o-transition: 1s;
-}
-.social-media__link:hover {
-  background-color: #ffffff;
-  color: black;
 }
 
 .footer__text {
@@ -1444,6 +1401,70 @@ body {
 
   .button-slide--right {
     right: 7px !important;
+  }
+}
+@media (hover: hover) {
+  .hover-pointer:hover {
+    cursor: pointer;
+  }
+
+  .nav-links__div:hover .nav-link-span {
+    -webkit-transition-duration: 1s;
+    transition-duration: 1s;
+    -moz-transition-duration: 1s;
+    -webkit-transition: 1s;
+    -o-transition: 1s;
+    display: block;
+    width: 30px;
+    height: 5px;
+    background-color: #ffffff;
+    margin-left: 0.5em;
+    border-radius: 10px;
+  }
+  .nav-links__div:hover .nav-link-span--backgroundColor {
+    display: block;
+    width: 30px;
+    height: 5px;
+    background-color: black;
+    margin-left: 0.5em;
+    border-radius: 10px;
+  }
+
+  .rounded__anchor-link:hover {
+    background-color: black;
+  }
+
+  .carousel__button__button-element:hover {
+    cursor: pointer;
+  }
+
+  .grid--link-alike:hover {
+    background-color: black;
+    color: #ffffff;
+    cursor: pointer;
+  }
+
+  .slider-trigger-button:hover {
+    cursor: pointer;
+  }
+
+  .rounded__anchor--modified:hover {
+    color: #cccccc;
+  }
+
+  .rounded__anchor-link label:hover {
+    cursor: pointer;
+  }
+
+  .submit-button:hover {
+    background-color: black;
+    cursor: pointer;
+    color: #ffffff;
+  }
+
+  .social-media__link:hover {
+    background-color: #ffffff;
+    color: black;
   }
 }
 

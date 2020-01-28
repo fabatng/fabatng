@@ -1,3 +1,4 @@
+import LoadingGif from "../asset/images/loading.gif";
 const bookingPopUp = () => {
 	let bookingContainer = document.querySelector(".booking");
 	let bookingStageBackButtonCollection = document.querySelector(".each-stage__button--back");
@@ -15,11 +16,10 @@ const closeBookingPopUp = () => {
 	bookingContainer.classList.add("display-none");
 };
 
-const sendMail = templateParams => {
+const sendBookingMail = templateParams => {
 	let estimateButton = document.querySelector(".estimate-button");
 	estimateButton.classList.add("estimate-button--modify");
-	estimateButton.innerHTML =
-		'<img src="/loading.28bc329d.gif" alt="loading animation" class="loading-gif">';
+	estimateButton.innerHTML = `<img src=${LoadingGif} alt="loading animation" class="loading-gif">`;
 
 	console.log("mailer parameter is : ", templateParams);
 	// eslint-disable-next-line no-undef
@@ -40,7 +40,31 @@ const sendMail = templateParams => {
 		}
 	);
 };
+const sendSupportMail = templateParams => {
+	const supportButton = document.querySelector(".support__submit-button");
+	supportButton.classList.add("submit-button--no-padding");
+	supportButton.innerHTML = `<img src=${LoadingGif} alt="loading animation" class="loading-gif">`;
+	// eslint-disable-next-line no-undef
+	const supportMailTemplateId = process.env.bookingTemplateID;
+	// eslint-disable-next-line no-undef
+	emailjs.send("default_service", supportMailTemplateId, templateParams).then(
+		response => {
+			console.log("Success : Support mail sent ", response.status, response.text);
+			alert("Message Sent, thank you!");
+			resetSupportForm();
+			// supportButton.classList.remove("submit-button--no-padding");
+			supportButton.innerHTML = "<p>Submit</p>";
+		},
+		error => {
+			console.log("Support mail sending failed ...", error);
+			alert("Service down, try again later");
+		}
+	);
+};
 
+const resetSupportForm = () => {
+	supportForm.reset();
+};
 /**
  *
  * @param indexPassed this denotes the index of the booking stage that needs to be displayed
@@ -305,5 +329,15 @@ bookingFormCollection.forEach((eachBookingForm, index) => {
 let estimateButton = document.querySelector(".estimate-button");
 estimateButton.addEventListener("click", () => {
 	const mailerParam = getEstimate();
-	sendMail(mailerParam);
+	sendBookingMail(mailerParam);
+});
+
+let supportForm = document.querySelector("#support_form");
+supportForm.addEventListener("submit", event => {
+	event.preventDefault();
+	const userName = document.querySelector("#support_mail_userName").value;
+	const userEmail = document.querySelector("#support_mail_userEmail").value;
+	const userSupportText = document.querySelector("#support_mail_userSupportText").value;
+	const templateParams = { userName, userEmail, userSupportText };
+	sendSupportMail(templateParams);
 });

@@ -25,10 +25,6 @@ a {
 	text-decoration: none !important;
 }
 
-.hover-pointer:hover {
-	cursor: pointer;
-}
-
 @mixin flex_row {
 	display: -webkit-box;
 	display: flex;
@@ -146,15 +142,6 @@ body {
 	height: -webkit-min-content;
 	height: -moz-min-content;
 	height: min-content;
-	&:hover {
-		.nav-link-span {
-			@include transistion_duration();
-			@include span_decorate(30px, $white_color);
-		}
-		.nav-link-span--backgroundColor {
-			@include span_decorate(30px, $primary_color);
-		}
-	}
 }
 
 .nav__anchor-links {
@@ -231,9 +218,6 @@ body {
 	font-weight: bolder;
 	width: 40%;
 	@include transistion_duration();
-	&:hover {
-		background-color: $primary_color;
-	}
 }
 
 .rounded__margin-top {
@@ -335,9 +319,6 @@ body {
 	@include transistion_duration();
 	margin-right: 10px;
 	background-color: $primary_color;
-	&:hover {
-		cursor: pointer;
-	}
 }
 @-webkit-keyframes animatecarousel {
 	from {
@@ -399,11 +380,6 @@ body {
 	border-style: solid;
 	border-width: 2px;
 	border-radius: 100%;
-	&:hover {
-		background-color: $primary_color;
-		color: $white_color;
-		cursor: pointer;
-	}
 }
 
 .each-cell--horizontal {
@@ -578,9 +554,6 @@ body {
 	height: 30px;
 	@include transistion_duration();
 	background-color: $primary_color;
-	&:hover {
-		cursor: pointer;
-	}
 }
 
 .screens-links {
@@ -601,9 +574,6 @@ body {
 	justify-content: center;
 	margin-bottom: 0.5em;
 	width: 23%;
-	&:hover {
-		color: rgb(204, 204, 204);
-	}
 }
 
 .active-anchor {
@@ -745,11 +715,6 @@ body {
 		-webkit-box-align: center;
 		align-items: center;
 		z-index: 99;
-		label {
-			&:hover {
-				cursor: pointer;
-			}
-		}
 		.fa {
 			font-size: 40px;
 		}
@@ -795,17 +760,21 @@ body {
 	background-color: $white_color;
 	border-radius: 25px;
 	@include transistion_duration();
-	&:hover {
-		background-color: $primary_color;
-		cursor: pointer;
-		color: $white_color;
-	}
+}
+.submit-button--no-padding {
+	padding: 0px !important;
+}
+.submit-button .loading-gif {
+	width: 50px;
+	height: 30px;
+	object-fit: contain;
 }
 
 .location {
 	width: 30%;
 	@include flex_column();
 	margin-left: 2em;
+	align-items: flex-start;
 }
 
 .location__subsequent-div {
@@ -876,10 +845,6 @@ body {
 	-webkit-box-align: center;
 	align-items: center;
 	@include transistion_duration();
-	&:hover {
-		background-color: $white_color;
-		color: $primary_color;
-	}
 }
 
 .footer__text {
@@ -1311,5 +1276,69 @@ body {
 	}
 	.button-slide--right {
 		right: 7px !important;
+	}
+}
+
+@media (hover: hover) {
+	.hover-pointer:hover {
+		cursor: pointer;
+	}
+	.nav-links__div {
+		&:hover {
+			.nav-link-span {
+				@include transistion_duration();
+				@include span_decorate(30px, $white_color);
+			}
+			.nav-link-span--backgroundColor {
+				@include span_decorate(30px, $primary_color);
+			}
+		}
+	}
+	.rounded__anchor-link {
+		&:hover {
+			background-color: $primary_color;
+		}
+	}
+	.carousel__button__button-element {
+		&:hover {
+			cursor: pointer;
+		}
+	}
+	.grid--link-alike {
+		&:hover {
+			background-color: $primary_color;
+			color: $white_color;
+			cursor: pointer;
+		}
+	}
+	.slider-trigger-button {
+		&:hover {
+			cursor: pointer;
+		}
+	}
+	.rounded__anchor--modified {
+		&:hover {
+			color: rgb(204, 204, 204);
+		}
+	}
+	.rounded__anchor-link {
+		label {
+			&:hover {
+				cursor: pointer;
+			}
+		}
+	}
+	.submit-button {
+		&:hover {
+			background-color: $primary_color;
+			cursor: pointer;
+			color: $white_color;
+		}
+	}
+	.social-media__link {
+		&:hover {
+			background-color: $white_color;
+			color: $primary_color;
+		}
 	}
 }

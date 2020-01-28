@@ -1155,29 +1155,32 @@
                 </div>
 
                 <div class="main__div-grid div-grid--form-modified">
-                    <form action="" class="form">
+                    <form action="javascript:void(0)" class="form" id="support_form">
                         <input
                             type="text"
                             placeholder="Your name *"
-                            required="required"
+                            required
                             class="form__element"
+                            id="support_mail_userName"
                         />
 
                         <input
                             type="email"
                             name=""
-                            id=""
                             placeholder="Your email *"
                             class="form__element"
+                            required
+                            id="support_mail_userEmail"
                         />
 
                         <textarea
                             name=""
-                            id=""
                             class="form__element text-area"
+                            required
+                            id="support_mail_userSupportText"
                         ></textarea>
 
-                        <button type="submit" class="submit-button">
+                        <button type="submit" class="submit-button support__submit-button">
                             Submit
                         </button>
                     </form>
