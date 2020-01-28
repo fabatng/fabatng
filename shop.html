@@ -1,92 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="stylesheet" href="./css/root.css" />
+		<link rel="stylesheet" href="./css/shop.css" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+		/>
+		<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-database.js"></script>
+		<script src="./js/require.js"></script>
+		<script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
+		<title>Shop | Fabat</title>
+	</head>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="./css/root.css" />
-    <link rel="stylesheet" href="./css/shop.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-database.js"></script>
-    <script src="./js/require.js"></script>
-    <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
-    <title>Shop | Mechanics</title>
-</head>
+	<body class="body">
+		<section class="form-section">
+			<script>
+				const formField = document.querySelector(".form-section");
+				const adjustHieght = () => {
+					let height = window.innerHeight;
+					formField.style.height = height + "px";
+				};
+				window.addEventListener("load", () => {
+					adjustHieght();
+				});
+				window.addEventListener("resize", () => {
+					adjustHieght();
+				});
+			</script>
+			<a href="javascript:void(0)" class="form__close"><i class="fa fa-window-close"></i></a>
 
-<body class="body">
-    <section class="form-section">
-        <script>
-            const formField = document.querySelector(".form-section");
-            const adjustHieght = () => {
-                let height = window.innerHeight;
-                formField.style.height = height + "px";
-            };
-            window.addEventListener("load", () => {
-                adjustHieght();
-            });
-            window.addEventListener("resize", () => {
-                adjustHieght();
-            });
-        </script>
-        <a href="javascript:void(0)" class="form__close"><i class="fa fa-window-close"></i
-            ></a>
+			<form action="javascript:void(0)" method="POST" class="form">
+				<input
+					type="email"
+					placeholder="Your email"
+					class="form__element"
+					id="form_email"
+					required
+                    aria-required="true"
+                    aria-label="Your Email"
+				/>
+				<input
+					type="tel"
+					id="form_tel"
+					class="form__element"
+					placeholder="Your Phone Number e.g 09033460988"
+					required
+                    aria-required="true"
+                    aria-label="Your phone number"
+				/>
+				<input type="number" id="order_item_price" hidden aria-hidden="true" aria-label="Item Price"/>
+				<input
+					type="text"
+					id="order_subject"
+					class="form__element"
+					disabled
+					required
+					aria-required="true"
+                    aria-disabled="true"
+                    aria-label="Item"
+				/>
+				<input
+					type="text"
+					name="user_address"
+					id="user_address"
+					class="form__element"
+					placeholder="Address e.g Your address helps us locate you"
+					required
+                    aria-required="true"
+                    aria-label="Address"
+				/>
+				<select name="userCity" id="userCity" class="form__element" required aria-label="Your city">
+					<option value="Ibadan">Ibadan</option>
+					<option value="Lagos"> Lagos </option>
+				</select>
+				<input
+					type="number"
+					name="postal_code"
+					id="postal_code"
+					class="form__element"
+					placeholder="Postal Code e.g 920001"
+					required
+                    aria-required="true"
+                    aria-label="postal code"
+				/>
 
-        <form action="javascript:void(0)" method="POST" class="form">
-            <input type="email" placeholder="Your email" class="form__element" id="form_email" required />
-            <input type="tel" id="form_tel" class="form__element" placeholder="Your Phone Number e.g 09033460988" required />
-            <input type="number" id="order_item_price" hidden />
-            <input type="text" id="order_subject" class="form__element" disabled required />
-            <textarea name="order descriptioin" id="order_description" class="form__element form__textarea" hidden></textarea>
-            <button type="submit" class="order-button">Order</button>
-        </form>
-    </section>
-    <nav class="shop-nav row">
-        <a href="./"><img src="./asset/images/logo.png" alt="" class="shop-nav__image" /></a>
-        <a href="./" class="button--like shop-nav__link">Home</a>
-    </nav>
-    <main class="main row">
-        <a href="javascript:void(0)" class="main__link-navigator-trigger"><i class="fa fa-bars"></i
-            ></a>
-        <section class="main__category main__category-element column">
-            <a href="javascript:void(0)" class="main__link-navigator-trigger-close"><i class="fa fa-window-close"></i
-                ></a>
-            <div class="category__header-text column">
-                <h1 class="main--modified-heading">CATEGORY</h1>
+				<textarea
+					name="order descriptioin"
+					id="order_description"
+					class="form__element form__textarea"
+                    hidden
+                    aria-label="Order Description"
+                    aria-hidden="true"
+				></textarea>
+				<button type="submit" class="order-button">Order</button>
+			</form>
+		</section>
+		<nav class="shop-nav row">
+			<a href="./"><img src="./asset/images/logo.png" alt="" class="shop-nav__image"/></a>
+			<a href="./" class="button--like shop-nav__link">Home</a>
+		</nav>
+		<main class="main row">
+			<a href="javascript:void(0)" class="main__link-navigator-trigger"
+				><i class="fa fa-bars"></i
+			></a>
+			<section class="main__category main__category-element column">
+				<a href="javascript:void(0)" class="main__link-navigator-trigger-close"
+					><i class="fa fa-window-close"></i
+				></a>
+				<div class="category__header-text column">
+					<h1 class="main--modified-heading">CATEGORY</h1>
 
-                <span class="main__span"></span>
-            </div>
-            <ul class="unordered-list"></ul>
-        </section>
-        <section class="main__category-all main__category-element">
-            <div class="category-all__header row">
-                <div class="category-all__header-text category__header-text column">
-                    <h1 class="main--modified-heading">ALL CATEGORY</h1>
+					<span class="main__span"></span>
+				</div>
+				<ul class="unordered-list"></ul>
+			</section>
+			<section class="main__category-all main__category-element">
+				<div class="category-all__header row">
+					<div class="category-all__header-text category__header-text column">
+						<h1 class="main--modified-heading">ALL CATEGORY</h1>
 
-                    <span class="main__span"></span>
-                </div>
-                <div class="category-all__header-form row">
-                    <button class="button-reset">Reset</button>
-                    <button class="icon-search">
-                            <i class="fa fa-search fa--customized"></i>
-                        </button>
-                </div>
-            </div>
-            <div class="category-all__search-field">
-                <form action="" class="search-form">
-                    <input type="search" name="" id="search" placeholder="search" class="search-input" />
-                </form>
-            </div>
-            <div class="category-all__item-collection"></div>
-        </section>
-    </main>
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
+						<span class="main__span"></span>
+					</div>
+					<div class="category-all__header-form row">
+						<button class="button-reset">Reset</button>
+						<button class="icon-search">
+							<i class="fa fa-search fa--customized"></i>
+						</button>
+					</div>
+				</div>
+				<div class="category-all__search-field">
+					<form action="" class="search-form">
+						<input
+							type="search"
+							name=""
+							id="search"
+							placeholder="search"
+							class="search-input"
+						/>
+					</form>
+				</div>
+				<div class="category-all__item-collection"></div>
+			</section>
+		</main>
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
 
-    <!-- TODO: Add SDKs for Firebase products that you want to use
+		<!-- TODO: Add SDKs for Firebase products that you want to use
         https://firebase.google.com/docs/web/setup#available-libraries -->
 
-    <script src="./js/shop.js"></script>
-</body>
-
+		<script src="./js/shop.js"></script>
+	</body>
 </html>
