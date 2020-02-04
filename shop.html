@@ -41,8 +41,9 @@
 					class="form__element"
 					id="form_email"
 					required
-                    aria-required="true"
-                    aria-label="Your Email"
+					aria-required="true"
+					aria-label="Your Email"
+					title="Please fill in your email"
 				/>
 				<input
 					type="tel"
@@ -50,10 +51,17 @@
 					class="form__element"
 					placeholder="Your Phone Number e.g 09033460988"
 					required
-                    aria-required="true"
-                    aria-label="Your phone number"
+					aria-required="true"
+					aria-label="Your phone number"
+					title="Please fill in your phone number"
 				/>
-				<input type="number" id="order_item_price" hidden aria-hidden="true" aria-label="Item Price"/>
+				<input
+					type="number"
+					id="order_item_price"
+					hidden
+					aria-hidden="true"
+					aria-label="Item Price"
+				/>
 				<input
 					type="text"
 					id="order_subject"
@@ -61,8 +69,8 @@
 					disabled
 					required
 					aria-required="true"
-                    aria-disabled="true"
-                    aria-label="Item"
+					aria-disabled="true"
+					aria-label="Item"
 				/>
 				<input
 					type="text"
@@ -71,10 +79,18 @@
 					class="form__element"
 					placeholder="Address e.g Your address helps us locate you"
 					required
-                    aria-required="true"
-                    aria-label="Address"
+					aria-required="true"
+					aria-label="Address"
+					title="Please fill in your correct address"
 				/>
-				<select name="userCity" id="userCity" class="form__element" required aria-label="Your city">
+				<select
+					name="userCity"
+					id="userCity"
+					class="form__element"
+					required
+					aria-label="Your city"
+					title="Please fill in your city"
+				>
 					<option value="Ibadan">Ibadan</option>
 					<option value="Lagos"> Lagos </option>
 				</select>
@@ -85,18 +101,35 @@
 					class="form__element"
 					placeholder="Postal Code e.g 920001"
 					required
-                    aria-required="true"
-                    aria-label="postal code"
+					aria-required="true"
+					aria-label="postal code"
+					title="Please fill in your postal code"
 				/>
 
 				<textarea
 					name="order descriptioin"
 					id="order_description"
 					class="form__element form__textarea"
-                    hidden
-                    aria-label="Order Description"
-                    aria-hidden="true"
+					hidden
+					aria-label="Order Description"
+					aria-hidden="true"
 				></textarea>
+				<div class="form__consent-agreement form__element">
+					<input
+						type="checkbox"
+						name="agree to terms and condition"
+						id="termsAndCondition"
+						required
+						aria-required="true"
+						aria-label="Agree to terms and conditions"
+					/>
+					<span class="consent-agreement__text">
+						I agree to the
+						<a href="./TermsAndCondition.pdf" class="consent-agreement__link">
+							Terms and Condition
+						</a>
+					</span>
+				</div>
 				<button type="submit" class="order-button">Order</button>
 			</form>
 		</section>

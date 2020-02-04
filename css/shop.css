@@ -88,6 +88,20 @@
   padding-top: 10px;
 }
 
+.form__consent-agreement {
+  background: transparent;
+}
+
+.consent-agreement__text {
+  color: #ffffff;
+  font-weight: bolder;
+}
+
+.consent-agreement__link {
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration-line: underline !important;
+}
+
 .order-button {
   text-align: center;
   width: 200px;

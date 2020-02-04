@@ -1225,6 +1225,16 @@
                                 Ibadan, Oyo State
                             </address>
                         </div>
+                        <div class="location__subsequent-div">
+                            <div
+                                class="grid--link-alike grid--link-alike--modify"
+                            >
+                            <i class="fas fa-phone-alt"></i>
+                            </div>
+                        <a href="tel:08188354753" class="location__paragraph telephone-number__link">
+                                08188354753
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1254,10 +1264,14 @@
             </div>
 
             <p class="footer__text">
+                FABAT is a registered trademark of FABAT Management - RC 2953107  <br/>
                 <script>
                     let currentYear = new Date().getFullYear();
                     let footerTextELement = document.querySelector('.footer__text');
-                    footerTextELement.innerText = '© '+currentYear+' FABAT - All Rights Reserved'
+                    footerTextELement.innerHTML += 
+                    `Copywrite &copy; ${currentYear} FABAT Management  All Rights Reserved . 
+                     <a href= './TermsAndCondition.pdf' target= '_blank' class='footer__text__terms-link'>Terms and Privacy </a>
+                    `
                 </script>
             </p>
         </footer>

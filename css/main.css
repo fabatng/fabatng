@@ -391,8 +391,8 @@ body {
   -moz-transition-duration: 1s;
   -webkit-transition: 1s;
   -o-transition: 1s;
-  width: 80px !important;
-  height: 80px !important;
+  width: 80px;
+  height: 80px;
   display: -webkit-box;
   display: flex;
   -webkit-box-pack: center;
@@ -850,9 +850,9 @@ body {
 }
 
 .grid--link-alike--modify {
-  width: 80px;
-  height: 80px;
-  font-size: 40px;
+  width: 60px;
+  height: 60px;
+  font-size: 30px;
   display: -webkit-box;
   display: flex;
   -webkit-box-orient: horizontal;
@@ -866,6 +866,11 @@ body {
 
 .location__paragraph {
   margin-left: 10px;
+}
+
+.telephone-number__link {
+  color: #000000;
+  text-decoration-line: underline !important;
 }
 
 .footer {
@@ -934,6 +939,11 @@ body {
   text-align: center;
   color: #ffffff;
   font-weight: normal;
+}
+
+.footer__text__terms-link {
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration-line: underline !important;
 }
 
 @media screen and (max-width: 999px) {

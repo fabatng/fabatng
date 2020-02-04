@@ -366,8 +366,8 @@ body {
 
 .grid--link-alike {
 	@include transistion_duration();
-	width: 80px !important;
-	height: 80px !important;
+	width: 80px;
+	height: 80px;
 	display: -webkit-box;
 	display: flex;
 	-webkit-box-pack: center;
@@ -786,9 +786,9 @@ body {
 }
 
 .grid--link-alike--modify {
-	width: 80px;
-	height: 80px;
-	font-size: 40px;
+	width: 60px;
+	height: 60px;
+	font-size: 30px;
 	@include flex_row();
 	-webkit-box-pack: center;
 	justify-content: center;
@@ -798,6 +798,10 @@ body {
 
 .location__paragraph {
 	margin-left: 10px;
+}
+.telephone-number__link {
+	color: #000000;
+	text-decoration-line: underline !important;
 }
 
 .footer {
@@ -853,7 +857,10 @@ body {
 	color: $white_color;
 	font-weight: normal;
 }
-
+.footer__text__terms-link {
+	color: rgba(255, 255, 255, 0.5);
+	text-decoration-line: underline !important;
+}
 @media screen and (max-width: 999px) {
 	.welcoming__landing-banner {
 		font-size: 40px;
