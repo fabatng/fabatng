@@ -733,7 +733,7 @@ body {
 .form {
 	@include flex_column();
 	width: 50%;
-	// justify-items: center;
+	align-self: center;
 }
 
 .form__element {

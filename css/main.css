@@ -788,6 +788,7 @@ body {
   -webkit-box-direction: normal;
   flex-direction: column;
   width: 50%;
+  align-self: center;
 }
 
 .form__element {
