@@ -37,7 +37,7 @@ const processNavLinkDropDown = () => {
 		if (dropDownStatus == false) {
 			navLinkContainer.classList.add("link-animate");
 			navLinkContainer.style.display = "flex";
-			console.log("should effect");
+			// console.log("should effect");
 		} else {
 			navLinkContainer.classList.remove("link-animate");
 			navLinkContainer.classList.add("link-animate-close");
@@ -86,7 +86,6 @@ const animateOnViewPort = () => {
 let testimonialId;
 let triggerSliderButton = document.querySelectorAll(".slider-trigger-button");
 const automaticSLider = counter => {
-	// console.log(counter)
 	let testimonialElements = document.querySelectorAll(".slider__testimonial");
 
 	testimonialElements.forEach(item => {
@@ -139,7 +138,7 @@ const screenButtonEffects = () => {
 
 // eslint-disable-next-line no-unused-vars
 function slide(index) {
-	console.log("testimonial id : ", testimonialId);
+	// console.log("testimonial id : ", testimonialId);
 	clearInterval(testimonialId);
 	automaticSLider(index);
 }
@@ -166,7 +165,7 @@ const screenSlider = (determineCounter, index, elementCollection) => {
 		}
 	} else {
 		index = index % 2 == 0 ? 0 : 1;
-		console.log("Index else block : ", index);
+		// console.log("Index else block : ", index);
 		elementCollection[index].style.display = "flex";
 		if (determineCounter == "counter") {
 			counter = counter % 2 == 0 ? 0 : 1;

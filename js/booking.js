@@ -21,20 +21,20 @@ const sendBookingMail = templateParams => {
 	estimateButton.classList.add("estimate-button--modify");
 	estimateButton.innerHTML = `<img src=${LoadingGif} alt="loading animation" class="loading-gif">`;
 
-	console.log("mailer parameter is : ", templateParams);
+	// console.log("mailer parameter is : ", templateParams);
 	// eslint-disable-next-line no-undef
 	const templateId = process.env.templateID;
 	// eslint-disable-next-line no-undef
 	emailjs.send("default_service", templateId, templateParams).then(
 		function(response) {
-			console.log("SUCCESS!", response.status, response.text);
+			// console.log("SUCCESS!", response.status, response.text);
 			estimateButton.classList.remove("estimate-button--modify");
 			estimateButton.innerHTML = "Get Estimate";
 			alert("Your details have been sent, we will reply you shortly");
 			closeBookingPopUp();
 		},
 		function(error) {
-			console.log("FAILED...", error);
+			// console.log("FAILED...", error);
 			alert("Service down, try again later");
 			closeBookingPopUp();
 		}
@@ -49,14 +49,14 @@ const sendSupportMail = templateParams => {
 	// eslint-disable-next-line no-undef
 	emailjs.send("default_service", supportMailTemplateId, templateParams).then(
 		response => {
-			console.log("Success : Support mail sent ", response.status, response.text);
+			// console.log("Success : Support mail sent ", response.status, response.text);
 			alert("Message Sent, thank you!");
 			resetSupportForm();
 			// supportButton.classList.remove("submit-button--no-padding");
 			supportButton.innerHTML = "<p>Submit</p>";
 		},
 		error => {
-			console.log("Support mail sending failed ...", error);
+			// console.log("Support mail sending failed ...", error);
 			alert("Service down, try again later");
 		}
 	);
@@ -81,7 +81,7 @@ const handleRenderedBookingStage = indexPassed => {
 		{ index: 3, value: 0.75 },
 		{ index: 4, value: 1.0 }
 	];
-	console.log("index seen in handle rendered booking stage is : ", indexPassed);
+	// console.log("index seen in handle rendered booking stage is : ", indexPassed);
 	bookingStageContainer.forEach((eachBookingStage, index) => {
 		eachBookingStage.classList.remove("display-none");
 
@@ -114,36 +114,40 @@ const getEstimate = () => {
 				const eachDataFieldValue = eachDataField.value;
 				switch (eachDataField.name) {
 					case "name":
-						returnValue = {
-							...returnValue,
-							name: eachDataFieldValue
-						};
-						console.log("name seen : ", returnValue);
+						returnValue = updateReturnValue(returnValue, "name", eachDataFieldValue);
+
+						// console.log("name seen : ", returnValue);
 
 						break;
 
 					case "tel":
-						returnValue = {
-							...returnValue,
-							mobileTel: eachDataFieldValue
-						};
-						console.log("tel seen : ", returnValue);
+						returnValue = updateReturnValue(
+							returnValue,
+							"mobileTel",
+							eachDataFieldValue
+						);
+
+						// console.log("tel seen : ", returnValue);
 
 						break;
 					case "date":
-						returnValue = {
-							...returnValue,
-							dateBooked: eachDataFieldValue
-						};
-						console.log("date seen : ", returnValue);
+						returnValue = updateReturnValue(
+							returnValue,
+							"dateBooked",
+							eachDataFieldValue
+						);
+
+						// console.log("date seen : ", returnValue);
 
 						break;
 					case "email":
-						returnValue = {
-							...returnValue,
-							userEmail: eachDataFieldValue
-						};
-						console.log("email : ", returnValue);
+						returnValue = updateReturnValue(
+							returnValue,
+							"userEmail",
+							eachDataFieldValue
+						);
+
+						// console.log("email : ", returnValue);
 						break;
 				}
 			});
@@ -152,59 +156,60 @@ const getEstimate = () => {
 				const eachDataFieldValue = eachDataField.value;
 				switch (eachDataField.name) {
 					case "user_address":
-						returnValue = {
-							...returnValue,
-							userAddress: eachDataFieldValue
-						};
-						console.log("user address : ", returnValue);
+						returnValue = updateReturnValue(
+							returnValue,
+							"userAddress",
+							eachDataFieldValue
+						);
+
+						// console.log("user address : ", returnValue);
 
 						break;
 				}
 			});
 		} else if (eachFormValue.UUID == carDetailsUUID) {
-			console.log("car details value is : ", data);
+			// console.log("car details value is : ", data);
 			data.map(eachDataField => {
 				const eachDataFieldValue = eachDataField.value;
 				switch (eachDataField.name) {
 					case "car_make":
-						returnValue = {
-							...returnValue,
-							carMake: eachDataFieldValue
-						};
-						console.log("car  make seen : ", returnValue);
+						// console.log("car  make seen : ", returnValue);
+						returnValue = updateReturnValue(returnValue, "carMake", eachDataFieldValue);
 						break;
 					case "car_model":
-						returnValue = {
-							...returnValue,
-							carModel: eachDataFieldValue
-						};
-						console.log("car model   : ", returnValue);
+						returnValue = updateReturnValue(
+							returnValue,
+							"carModel",
+							eachDataFieldValue
+						);
+
+						// console.log("car model   : ", returnValue);
 
 						break;
 
 					case "car_year":
-						returnValue = {
-							...returnValue,
-							carYear: eachDataFieldValue
-						};
-						console.log("car year : ", returnValue);
+						returnValue = updateReturnValue(returnValue, "carYear", eachDataFieldValue);
+
+						// console.log("car year : ", returnValue);
 
 						break;
 				}
 			});
 		}
 	});
-	console.log("return value is : ", returnValue);
+	// console.log("return value is : ", returnValue);
 	return returnValue;
 };
-
+const updateReturnValue = (value, newObjectKey, newObjectValue) => {
+	return { ...value, [newObjectKey]: newObjectValue };
+};
 const renderEstimate = () => {
 	const confirmationSectionTabPage = document.querySelector(
 		".confirmation__container__estimate-details"
 	);
 	confirmationSectionTabPage.innerHTML = "";
 	let userDetailsAndDateBooked = getEstimate();
-	console.log("user details is : ", userDetailsAndDateBooked);
+	// console.log("user details is : ", userDetailsAndDateBooked);
 	const estimateParsed = `
         <h2>Booking Summary</h2>
         <div class="confirmation__section">
@@ -242,7 +247,7 @@ let formValuesCollection = [];
  * @param {*} index
  */
 const handleFormSubmit = (event, elements, index) => {
-	console.log("elements on submit is  : ", elements);
+	// console.log("elements on submit is  : ", elements);
 
 	let removeButtonFromFormData = [...elements].filter(eachElement => {
 		return eachElement.type != "submit";
@@ -274,7 +279,7 @@ const handleFormSubmit = (event, elements, index) => {
 			}
 		];
 	}
-	console.log("final form value collection is : ", formValuesCollection);
+	// console.log("final form value collection is : ", formValuesCollection);
 	handleRenderedBookingStage(index + 1);
 };
 
@@ -293,7 +298,7 @@ const handleFormPrevious = (event, index) => {
 			}
 		});
 	});
-	console.log("index reversed is : ", formToDisplayCorrespondingIndex);
+	// console.log("index reversed is : ", formToDisplayCorrespondingIndex);
 
 	handleRenderedBookingStage(formToDisplayCorrespondingIndex);
 };
@@ -321,7 +326,7 @@ let bookingFormCollection = document.querySelectorAll(".booking__form_each-form"
 bookingFormCollection.forEach((eachBookingForm, index) => {
 	eachBookingForm.addEventListener("submit", event => {
 		event.preventDefault();
-		console.log("Each booking form elements is : ", eachBookingForm.elements);
+		// console.log("Each booking form elements is : ", eachBookingForm.elements);
 		handleFormSubmit(event, eachBookingForm.elements, index);
 	});
 });
