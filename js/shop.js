@@ -44,8 +44,18 @@ const formReset = () => {
  * this function mails the client's order to the seller
  * who is the recipient of the mail
  */
-const activatePayment = ({ phoneNumber, clientEmail, subject, price, description, address, postalCode, city }) => {
-	formButton.innerHTML = '<img src="/loading.28bc329d.gif" alt="loading animation" class="loading-gif" />';
+const activatePayment = ({
+	phoneNumber,
+	clientEmail,
+	subject,
+	price,
+	description,
+	address,
+	postalCode,
+	city
+}) => {
+	formButton.innerHTML =
+		'<img src="/loading.28bc329d.gif" alt="loading animation" class="loading-gif" />';
 
 	const API_publicKey = process.env.flutterWavePublicKey;
 	var x = getpaidSetup({
@@ -70,7 +80,9 @@ const activatePayment = ({ phoneNumber, clientEmail, subject, price, description
 		},
 		callback: function(response) {
 			let txref = response.tx.txRef; // collect txRef returned and pass to a server page to complete status check.
-			console.log(`This is the response returned after a charge ${response} and texRef is ${txref}`);
+			console.log(
+				`This is the response returned after a charge ${response} and texRef is ${txref}`
+			);
 			if (response.tx.chargeResponseCode == "00" || response.tx.chargeResponseCode == "0") {
 				alert("Payment Successful");
 			} else {
@@ -167,24 +179,34 @@ const searchCategory = collectionTitle => {
 
 const appendElement = item => {
 	/**
-	 * to generate ID for each item
-	 * this temporary, the id should actually be set from the database.
+	 * object destrucring of item
 	 */
-	let itemDescription = item.shop_item_descrpt.split(" ");
-	itemDescription = itemDescription.join("_");
+	let {
+		shop_item_ID: itemID,
+		shop_item_image: itemImage,
+		shop_item_name: itemName,
+		shop_item_descrpt: itemDescription,
+		shop_item_price: itemPrice,
+		shop_item_seller: itemSeller,
+		shop_item_email: itemEmail
+	} = item;
+	const shortenStringLength = 200;
 	// console.log("desc : ",itemDescription);
 	const eachItem = `<div class="category-all__each-item category-all__each-item--hover">
             <div class="category-all__each-item-image-div">
-                <img src = "${item.shop_item_image}" class ="category-all__each-item-image" />
+                <img src = "${itemImage}" class ="category-all__each-item-image" />
             </div>
             <div class="category-all__each-item-text-container">
-                <h3 class="category-all__each-item-text">${item.shop_item_name}</h3>
-                <h5 class="category-all__each-item-text">${item.shop_item_descrpt}</h5>
-                <label for="" class="category-all__each-label">${item.shop_item_price}</label>
-                <p class = "category-all__each-item-text"> Sold By : ${item.shop_item_seller} </p>
+                <h3 class="category-all__each-item-text">${itemName}</h3>
+                <h5 class="category-all__each-item-text">${itemDescription.substring(
+					0,
+					shortenStringLength
+				)} ...</h5>
+                <label for="" class="category-all__each-label">${itemPrice}</label>
+                <p class = "category-all__each-item-text"> Sold By : ${itemSeller} </p>
             </div>
             <div class ="send-message">
-                <button class = "message-button" data-id="${itemDescription}" data-email-client="${item.shop_item_email}" > <label class="order-text"> Order </label> <i class="fa fa-cart-arrow-down"></i> </button>
+                <button class = "message-button" data-id="${itemID}" data-email-client="${itemEmail}" > <label class="order-text"> Order </label> <i class="fa fa-cart-arrow-down"></i> </button>
             </div>
         </div>`;
 	//to append each item to the category list
@@ -194,7 +216,7 @@ const appendElement = item => {
 	 * the variable that holds the order button when each div is hovered
 	 * had to do it like this because JS wouldn't let me add the onclick event in the template literal
 	 */
-	const orderButton = document.querySelector(`[data-id="${itemDescription}"]`);
+	const orderButton = document.querySelector(`[data-id="${itemID}"]`);
 	orderButton.addEventListener("click", () => {
 		sendMessagePop(item);
 	});
