@@ -191,6 +191,12 @@ const appendElement = item => {
 		shop_item_email: itemEmail
 	} = item;
 	const shortenStringLength = 200;
+	let stringAppended;
+	if (itemDescription.length > 200) {
+		stringAppended = "...";
+	} else {
+		stringAppended = "";
+	}
 	// console.log("desc : ",itemDescription);
 	const eachItem = `<div class="category-all__each-item category-all__each-item--hover">
             <div class="category-all__each-item-image-div">
@@ -201,7 +207,7 @@ const appendElement = item => {
                 <h5 class="category-all__each-item-text">${itemDescription.substring(
 					0,
 					shortenStringLength
-				)} ...</h5>
+				)} ${stringAppended}</h5>
                 <label for="" class="category-all__each-label">${itemPrice}</label>
                 <p class = "category-all__each-item-text"> Sold By : ${itemSeller} </p>
             </div>
