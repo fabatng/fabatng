@@ -192,11 +192,8 @@ const appendElement = item => {
 	} = item;
 	const shortenStringLength = 200;
 	let stringAppended;
-	if (itemDescription.length > 200) {
-		stringAppended = "...";
-	} else {
-		stringAppended = "";
-	}
+
+	itemDescription.length > shortenStringLength ? (stringAppended = "...") : (stringAppended = "");
 	// console.log("desc : ",itemDescription);
 	const eachItem = `<div class="category-all__each-item category-all__each-item--hover">
             <div class="category-all__each-item-image-div">
