@@ -330,6 +330,12 @@ button:hover {
   width: 100%;
 }
 
+.search-form__loading-gif {
+  width: 30px;
+  margin-right: 10px;
+  display: none;
+}
+
 .search-input {
   border-radius: 10px;
   border: solid rgba(197, 194, 194, 0.9) thin;

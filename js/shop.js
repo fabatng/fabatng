@@ -361,8 +361,8 @@ searchForm.addEventListener("submit", event => {
 	// 	appendElement(snapshot.val());
 	// });
 
-	const searchQuery = document.querySelector("#search").value;
-
+	const searchQuery = querySelectorValue("#search");
+	document.querySelector(".search-form__loading-gif").style.display = "block";
 	console.log("Search Query is ", searchQuery);
 	index.search(searchQuery).then(({ hits }) => {
 		itemContainer.innerHTML = "";
@@ -372,7 +372,7 @@ searchForm.addEventListener("submit", event => {
 			});
 		} else {
 			console.log("No object found");
-			
+
 			fetchFirebaseDatabase();
 			let noObjectFoundElement = document.querySelector(".no-object-found");
 			noObjectFoundElement.style.display = "flex";
@@ -380,6 +380,7 @@ searchForm.addEventListener("submit", event => {
 				noObjectFoundElement.style.display = " none";
 			}, 3000);
 		}
+		document.querySelector(".search-form__loading-gif").style.display = "none";
 	});
 });
 
