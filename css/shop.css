@@ -469,6 +469,32 @@ button:hover {
   font-size: 17px;
 }
 
+.no-object-found {
+  width: 200px;
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background-color: black;
+  position: fixed;
+  bottom: 20px;
+  right: 10px;
+  font-weight: bolder;
+  z-index: 99999;
+  display: none;
+  animation: messageslide 0.2s ease-in-out;
+  -moz-animation: messageslide 0.2s ease-in-out;
+  -o-animation: messageslide 0.2s ease-in-out;
+  -webkit-animation: messageslide 0.2s ease-in-out;
+}
+
 @-webkit-keyframes messageslide {
   from {
     right: -10px;

@@ -501,6 +501,23 @@ button:hover {
 	font-size: 17px;
 }
 
+.no-object-found {
+	width: 200px;
+	height: 50px;
+	@include flex_row();
+	align-items: center;
+	justify-content: center;
+	color: $white_color;
+	background-color: $primary_color;
+	position: fixed;
+	bottom: 20px;
+	right: 10px;
+	font-weight: bolder;
+
+	z-index: 99999;
+	display: none;
+	@include animation(messageslide, 0.2s, ease-in-out);
+}
 @-webkit-keyframes messageslide {
 	from {
 		right: -10px;

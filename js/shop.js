@@ -4,6 +4,7 @@
 require("dotenv").config({
 	encoding: "utf8"
 });
+const algoliaSearch = require("algoliasearch");
 
 /**
  * firebase details with the api keys and app details
@@ -23,6 +24,58 @@ var firebaseConfig = {
 // eslint-disable-next-line no-undef
 firebase.initializeApp(firebaseConfig);
 
+//configure algolia
+const algolia = algoliaSearch(process.env.ALGOLIA_APP_ID, process.env.ALGOLIA_API_KEY);
+const index = algolia.initIndex(process.env.ALGOLIA_INDEX_NAME);
+
+// //console.log("Application id is ", process.env.ALGOLIA_APP_ID);
+
+/**
+ * Save firebase db contents to algolia server
+ */
+
+const saveToAlgolia = () => {
+	firebase
+		.database()
+		.ref("Shop Collection")
+		.once("value", shopCategory => {
+			const records = [];
+			let arrayKeys = Object.keys(shopCategory.toJSON());
+			arrayKeys.forEach(shopItem => {
+				//console.log("Shop item is : ", shopItem);
+				let shopItemRecords = shopCategory.toJSON()[shopItem];
+				let recordKeys = Object.keys(shopItemRecords);
+				recordKeys.forEach(eachKey => {
+					let toAddToRecord = shopItemRecords[eachKey];
+					//console.log("To add to record is ", toAddToRecord);
+					records.push({ objectID: eachKey, ...toAddToRecord });
+				});
+			});
+			index
+				.saveObjects(records)
+				.then(() => {
+					//console.log("Contacts imported into Algolia");
+				})
+				.catch(error => {
+					console.error(
+						"Error when importing contact into Algolia",
+						error,
+						" and records added is ",
+						records
+					);
+					process.exit(1);
+				});
+		});
+};
+const fetchFirebaseDatabase = () => {
+	firebase
+		.database()
+		.ref("Shop Collection")
+		.once("value", snapshot => {
+			processSnapShot(snapshot);
+		});
+};
+
 const itemContainer = document.querySelector(".category-all__item-collection");
 const formClose = document.querySelector(".form__close");
 const formSection = document.querySelector(".form-section");
@@ -34,15 +87,25 @@ const searchField = document.querySelector(".category-all__search-field");
 const pageReloadButton = document.querySelector(".button-reset");
 let searchFieldStatus = true;
 
-const formReset = () => {
+const closeForm = () => {
 	formSection.style.display = "none";
 	formButton.innerHTML = ` Order `;
 	formElement.reset();
+	document.removeEventListener("keydown", closeFormWhenEscapeKeyIsPressed);
 };
+const closeFormWhenEscapeKeyIsPressed = event => {
+	//console.log("Event key is : ", event);
+	switch (event.key) {
+		case "Escape":
+			closeForm();
+			break;
 
+		default:
+			break;
+	}
+};
 /**
- * this function mails the client's order to the seller
- * who is the recipient of the mail
+ * this activate flutterwave payment integration
  */
 const activatePayment = ({
 	phoneNumber,
@@ -76,13 +139,13 @@ const activatePayment = ({
 			}
 		],
 		onclose: function() {
-			formReset();
+			closeForm();
 		},
 		callback: function(response) {
 			let txref = response.tx.txRef; // collect txRef returned and pass to a server page to complete status check.
-			console.log(
-				`This is the response returned after a charge ${response} and texRef is ${txref}`
-			);
+			//console.log(
+			// 	`This is the response returned after a charge ${response} and texRef is ${txref}`
+			// );
 			if (response.tx.chargeResponseCode == "00" || response.tx.chargeResponseCode == "0") {
 				alert("Payment Successful");
 			} else {
@@ -103,72 +166,44 @@ const activatePayment = ({
  * except it is registered on the server which is not possible
  */
 const sendMessagePop = ({ shop_item_name, shop_item_descrpt, shop_item_price }) => {
-	formSection.style.display = "flex";
 	const itemPriceElement = document.querySelector("#order_item_price");
 	const orderSubjectInputElement = document.querySelector("#order_subject");
 	const orderDescriptionTextarea = document.querySelector("#order_description");
 	orderSubjectInputElement.value = shop_item_name;
 	itemPriceElement.value = shop_item_price;
 	orderDescriptionTextarea.value = shop_item_descrpt;
+	formSection.style.display = "flex";
+	document.addEventListener("keydown", closeFormWhenEscapeKeyIsPressed);
 };
 
 const processSnapShot = snapshot => {
-	let uniqueKey = 0;
+	// let uniqueKey = 0;
 	snapshot.forEach(all => {
 		// increase unique key for every added button
-		uniqueKey += 1;
-		/**
-		 * this returns the name of each collection
-		 */
-		const eachCollectionTitle = all.getRef().getKey();
-		//to populate the list of categories
-		processArray(eachCollectionTitle, uniqueKey);
+		// uniqueKey += 1;
+		// /**
+		//  * this returns the name of each collection
+		//  */
+		// const eachCollectionTitle = all.getRef().getKey();
+		// //console.log("Each collection title is : ", eachCollectionTitle);
+		// //to populate the list of categories
+		// processArray(eachCollectionTitle, uniqueKey);
 
 		/**
-		 * to get the necessary keys needed to access the items
+		 * to get the necessary keys needed to access the items in each category
 		 *
 		 */
 		let arrayKeys = Object.keys(all.toJSON());
+		//console.log("Array keys is : ", arrayKeys);
 
 		/**
 		 * use each key to search the db to populate the page.
 		 */
 		arrayKeys.forEach(key => {
 			let toDisplay = all.toJSON()[key];
-			appendElement(toDisplay);
+			appendElement(toDisplay, key);
 		});
 	});
-};
-
-/**
- *
- * this search function works by searching the firebase db by the title}
- * @param collectionTitle holds the title of the category to display
- */
-
-const searchCategory = collectionTitle => {
-	itemContainer.innerHTML = "";
-	// navToogle(false);
-	// console.log("collection title is : ",collectionTitle);
-	firebase
-		.database()
-		.ref(`Shop Collection/${collectionTitle}`)
-		.once("value", snapshot => {
-			console.log("snap shot value is : ", snapshot.val());
-			/**
-			 * create an object collection of the title subcollection
-			 */
-			let collectionTitleObject = snapshot.val();
-
-			/**
-			 * to get the list of object keys in the response
-			 */
-			let collectionTitleKeys = Object.keys(collectionTitleObject);
-			console.log("collection title is : ", collectionTitleKeys);
-			collectionTitleKeys.forEach(key => {
-				appendElement(collectionTitleObject[key]);
-			});
-		});
 };
 
 /**
@@ -177,12 +212,11 @@ const searchCategory = collectionTitle => {
  *  @param item {this parameter holds an object of an item
  */
 
-const appendElement = item => {
+const appendElement = (item, key) => {
 	/**
 	 * object destrucring of item
 	 */
 	let {
-		shop_item_ID: itemID,
 		shop_item_image: itemImage,
 		shop_item_name: itemName,
 		shop_item_descrpt: itemDescription,
@@ -194,7 +228,7 @@ const appendElement = item => {
 	let stringAppended;
 
 	itemDescription.length > shortenStringLength ? (stringAppended = "...") : (stringAppended = "");
-	// console.log("desc : ",itemDescription);
+	// //console.log("desc : ",itemDescription);
 	const eachItem = `<div class="category-all__each-item category-all__each-item--hover">
             <div class="category-all__each-item-image-div">
                 <img src = "${itemImage}" class ="category-all__each-item-image" />
@@ -209,7 +243,7 @@ const appendElement = item => {
                 <p class = "category-all__each-item-text"> Sold By : ${itemSeller} </p>
             </div>
             <div class ="send-message">
-                <button class = "message-button" data-id="${itemID}" data-email-client="${itemEmail}" > <label class="order-text"> Order </label> <i class="fa fa-cart-arrow-down"></i> </button>
+                <button class = "message-button" data-id="${key}" data-email-client="${itemEmail}" > <label class="order-text"> Order </label> <i class="fa fa-cart-arrow-down"></i> </button>
             </div>
         </div>`;
 	//to append each item to the category list
@@ -219,7 +253,7 @@ const appendElement = item => {
 	 * the variable that holds the order button when each div is hovered
 	 * had to do it like this because JS wouldn't let me add the onclick event in the template literal
 	 */
-	const orderButton = document.querySelector(`[data-id="${itemID}"]`);
+	const orderButton = document.querySelector(`[data-id="${key}"]`);
 	orderButton.addEventListener("click", () => {
 		sendMessagePop(item);
 	});
@@ -229,43 +263,43 @@ const appendElement = item => {
  * this displays the list of the categories in the db to the web page
  * @param collectionTitle {*} the title of each category
  */
-const processArray = (collectionTitle, uniqueKey) => {
-	const listSection = document.querySelector(".unordered-list");
-	const eachButton = `
-        <li class="item-list">
-            <button class="category__button" data-key="${uniqueKey}">${collectionTitle}</button>
-        </li>
-    `;
-	listSection.insertAdjacentHTML("beforeend", eachButton);
-	const eachButtonEvent = document.querySelector(`[data-key="${uniqueKey}"]`);
-	// console.log("object")
-	eachButtonEvent.addEventListener("click", () => {
-		searchCategory(collectionTitle);
-		navToogle(false);
-		console.log("unique key : ", uniqueKey, collectionTitle);
-	});
-};
+// const processArray = (collectionTitle, uniqueKey) => {
+// 	const listSection = document.querySelector(".unordered-list");
+// 	const eachButton = `
+//         <li class="item-list">
+//             <button class="category__button" data-key="${uniqueKey}">${collectionTitle}</button>
+//         </li>
+//     `;
+// 	listSection.insertAdjacentHTML("beforeend", eachButton);
+// 	const eachButtonEvent = document.querySelector(`[data-key="${uniqueKey}"]`);
+// 	// //console.log("object")
+// 	eachButtonEvent.addEventListener("click", () => {
+// 		searchCategory(collectionTitle);
+// 		navToogle(false);
+// 		//console.log("unique key : ", uniqueKey, collectionTitle);
+// 	});
+// };
 
 /**
  *
  * @param {*} status this holds the status tot determine the state of the element
  */
 
-const navToogle = status => {
-	let linkNavSection = document.querySelector(".main__category");
-	if (status) {
-		linkNavSection.classList.remove("none");
-		linkNavSection.classList.add("block");
-	} else {
-		linkNavSection.classList.remove("block");
-	}
-};
+// const navToogle = status => {
+// 	let linkNavSection = document.querySelector(".main__category");
+// 	if (status) {
+// 		linkNavSection.classList.remove("none");
+// 		linkNavSection.classList.add("block");
+// 	} else {
+// 		linkNavSection.classList.remove("block");
+// 	}
+// };
 
 /**
  * to close the form field
  */
 formClose.addEventListener("click", () => {
-	formReset();
+	closeForm();
 });
 
 /**
@@ -274,13 +308,14 @@ formClose.addEventListener("click", () => {
 
 formElement.addEventListener("submit", () => {
 	// event.preventDefault();sam.smith@example
-	const clientEmail = document.querySelector("#form_email").value;
-	const subject = document.querySelector("#order_subject").value;
-	const phoneNumber = document.querySelector("#form_tel").value;
-	const price = document.querySelector("#order_item_price").value;
-	const description = document.querySelector("#order_description").value;
-	const address = document.querySelector("#user_address").value;
-	const postalCode = document.querySelector("#postal_code").value;
+	// const clientEmail = document.querySelector("#form_email").value;
+	const clientEmail = querySelectorValue("#form_email");
+	const subject = querySelectorValue("#order_subject");
+	const phoneNumber = querySelectorValue("#form_tel");
+	const price = querySelectorValue("#order_item_price");
+	const description = querySelectorValue("#order_description");
+	const address = querySelectorValue("#user_address");
+	const postalCode = querySelectorValue("#postal_code");
 	const citySelectedIndex = document.querySelector("#userCity").selectedIndex;
 	const city = document.querySelector("#userCity").options[citySelectedIndex].value;
 	const parameters = {
@@ -293,9 +328,13 @@ formElement.addEventListener("submit", () => {
 		postalCode,
 		city
 	};
-	console.log(`Para : ${JSON.stringify(parameters)} `);
+	//console.log(`Para : ${JSON.stringify(parameters)} `);
 	activatePayment(parameters);
 });
+
+const querySelectorValue = query => {
+	return document.querySelector(query).value;
+};
 
 /**
  * search button trigger that toggles the search field
@@ -315,11 +354,32 @@ searchButtonTrigger.addEventListener("click", () => {
  */
 searchForm.addEventListener("submit", event => {
 	event.preventDefault();
+	// const searchQuery = document.querySelector("#search").value;
+	// const ref = firebase.database().ref(`Shop Collection/${searchQuery}`);
+	// itemContainer.innerHTML = "";
+	// ref.orderByChild("shop_item_name").on("child_added", snapshot => {
+	// 	appendElement(snapshot.val());
+	// });
+
 	const searchQuery = document.querySelector("#search").value;
-	const ref = firebase.database().ref(`Shop Collection/${searchQuery}`);
-	itemContainer.innerHTML = "";
-	ref.orderByChild("shop_item_name").on("child_added", snapshot => {
-		appendElement(snapshot.val());
+
+	console.log("Search Query is ", searchQuery);
+	index.search(searchQuery).then(({ hits }) => {
+		itemContainer.innerHTML = "";
+		if (hits.length !== 0) {
+			hits.forEach(hit => {
+				appendElement(hit, hit.objectID);
+			});
+		} else {
+			console.log("No object found");
+			
+			fetchFirebaseDatabase();
+			let noObjectFoundElement = document.querySelector(".no-object-found");
+			noObjectFoundElement.style.display = "flex";
+			setTimeout(() => {
+				noObjectFoundElement.style.display = " none";
+			}, 3000);
+		}
 	});
 });
 
@@ -337,27 +397,23 @@ window.addEventListener("DOMContentLoaded", event => {
 	 */
 
 	// eslint-disable-next-line no-undef
-	firebase
-		.database()
-		.ref("Shop Collection")
-		.once("value", snapshot => {
-			processSnapShot(snapshot);
-		});
+	fetchFirebaseDatabase();
+	saveToAlgolia();
 
-	let linkNavOpeningTrigger = document.querySelector(".main__link-navigator-trigger");
-	linkNavOpeningTrigger.addEventListener("click", () => {
-		navToogle(true);
-	});
-	let linkNavClosingTrigger = document.querySelector(".main__link-navigator-trigger-close");
-	linkNavClosingTrigger.addEventListener("click", () => {
-		navToogle(false);
-	});
+	// let linkNavOpeningTrigger = document.querySelector(".main__link-navigator-trigger");
+	// linkNavOpeningTrigger.addEventListener("click", () => {
+	// 	navToogle(true);
+	// });
+	// let linkNavClosingTrigger = document.querySelector(".main__link-navigator-trigger-close");
+	// // linkNavClosingTrigger.addEventListener("click", () => {
+	// // 	navToogle(false);
+	// // });
 });
-window.addEventListener("resize", () => {
-	let windowsWidth = window.innerWidth;
-	if (windowsWidth > 600) {
-		navToogle(true);
-	} else {
-		navToogle(false);
-	}
-});
+// window.addEventListener("resize", () => {
+// 	let windowsWidth = window.innerWidth;
+// 	// if (windowsWidth > 600) {
+// 	// 	navToogle(true);
+// 	// } else {
+// 	// 	navToogle(false);
+// 	// }
+// });

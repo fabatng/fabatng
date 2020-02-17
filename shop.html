@@ -186,10 +186,10 @@
 			<a href="./" class="button--like shop-nav__link">Home</a>
 		</nav>
 		<main class="main row">
-			<a href="javascript:void(0)" class="main__link-navigator-trigger"
+			<a href="javascript:void(0)" class="main__link-navigator-trigger" style="display : none" 
 				><i class="fa fa-bars"></i
 			></a>
-			<section class="main__category main__category-element column">
+			<section class="main__category main__category-element column" style="display : none"
 				<a href="javascript:void(0)" class="main__link-navigator-trigger-close"
 					><i class="fa fa-window-close"></i
 				></a>
@@ -200,7 +200,7 @@
 				</div>
 				<ul class="unordered-list"></ul>
 			</section>
-			<section class="main__category-all main__category-element">
+			<section class="main__category-all main__category-element" style="width : 100%">
 				<div class="category-all__header row">
 					<div class="category-all__header-text category__header-text column">
 						<h1 class="main--modified-heading">ALL CATEGORY</h1>
@@ -226,8 +226,12 @@
 					</form>
 				</div>
 				<div class="category-all__item-collection"></div>
+
 			</section>
 		</main>
+		<div class="no-object-found">
+			<p> No item found </p>
+		</div>
 		<!-- The core Firebase JS SDK is always required and must be listed first -->
 
 		<!-- TODO: Add SDKs for Firebase products that you want to use

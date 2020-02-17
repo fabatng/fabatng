@@ -24,6 +24,7 @@
   "homepage": "https://github.com/calebdeji/mechanic-worshop#readme",
   "dependencies": {
     "@sendgrid/mail": "^6.4.0",
+    "algoliasearch": "^4.0.3",
     "dotenv": "^8.2.0"
   },
   "devDependencies": {
