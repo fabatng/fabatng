@@ -16,6 +16,13 @@ const closeBookingPopUp = () => {
 	bookingContainer.classList.add("display-none");
 };
 
+const resetEstimateButton = () => {
+	let estimateButton = document.querySelector(".estimate-button");
+	estimateButton.classList.remove("estimate-button--modify");
+
+	estimateButton.innerHTML = `Get Estimate`;
+};
+
 const sendBookingMail = templateParams => {
 	let estimateButton = document.querySelector(".estimate-button");
 	estimateButton.classList.add("estimate-button--modify");
@@ -28,15 +35,16 @@ const sendBookingMail = templateParams => {
 	emailjs.send("default_service", templateId, templateParams).then(
 		function(response) {
 			// console.log("SUCCESS!", response.status, response.text);
-			estimateButton.classList.remove("estimate-button--modify");
 			estimateButton.innerHTML = "Get Estimate";
 			alert("Your details have been sent, we will reply you shortly");
 			closeBookingPopUp();
+			resetEstimateButton();
 		},
 		function(error) {
 			// console.log("FAILED...", error);
 			alert("Service down, try again later");
 			closeBookingPopUp();
+			resetEstimateButton();
 		}
 	);
 };

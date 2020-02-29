@@ -85,7 +85,6 @@ const searchForm = document.querySelector(".search-form");
 const searchButtonTrigger = document.querySelector(".icon-search");
 const searchField = document.querySelector(".category-all__search-field");
 const pageReloadButton = document.querySelector(".button-reset");
-let searchFieldStatus = true;
 
 const closeForm = () => {
 	formSection.style.display = "none";
@@ -341,12 +340,7 @@ const querySelectorValue = query => {
  */
 
 searchButtonTrigger.addEventListener("click", () => {
-	if (searchFieldStatus) {
-		searchField.classList.add("none");
-	} else {
-		searchField.classList.remove("none");
-	}
-	searchFieldStatus = !searchFieldStatus;
+	searchField.classList.toggle("none");
 });
 
 /**

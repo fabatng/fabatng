@@ -61,6 +61,30 @@ const processNavLinkDropDown = () => {
 };
 
 /**
+ *
+ * @param {*} item
+ * @param {*} item1
+ */
+
+const slideMainSectionCarousel = () => {
+	let mainSectionCarouselContainer = document.querySelector(".main__section.carousel");
+	let mainSectionCarouselChild = document.querySelector(".carousel__each-section");
+	let mainSectionCarouselChildrenLength = mainSectionCarouselChild.childElementCount;
+	let childrenCounter = 0;
+	setInterval(() => {
+		// console.log("main section carousel length : ", mainSectionCarouselChildrenLength);
+		if (childrenCounter < mainSectionCarouselChildrenLength) {
+			// console.log("To scroll");
+			mainSectionCarouselContainer.scrollBy(100, 0);
+			childrenCounter++;
+		} else {
+			mainSectionCarouselContainer.scrollTo(0, 0);
+			childrenCounter = 0;
+		}
+	}, 1000);
+};
+
+/**
  * To animate the div section on appearing on the vieport
  */
 // eslint-disable-next-line no-unused-vars
@@ -220,6 +244,7 @@ window.addEventListener("scroll", () => {
 	}
 });
 window.addEventListener("load", () => {
+	slideMainSectionCarousel();
 	initiateEMailJS();
 	animateOnViewPort();
 	automaticSLider(0);

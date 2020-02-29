@@ -274,10 +274,6 @@ body {
 	flex-direction: row;
 	align-items: stretch;
 }
-.carousel__each-section:nth-child(1) {
-	display: -webkit-box;
-	display: flex;
-}
 .carousel__each-div {
 	width: 200px;
 	border: solid 1px rgb(200, 198, 198, 0.3);
@@ -728,7 +724,7 @@ body {
 .div-grid--form-modified {
 	-webkit-box-pack: center;
 	justify-content: center;
-}   
+}
 
 .form {
 	@include flex_column();
