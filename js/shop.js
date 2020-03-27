@@ -57,12 +57,7 @@ const saveToAlgolia = () => {
 					//console.log("Contacts imported into Algolia");
 				})
 				.catch(error => {
-					console.error(
-						"Error when importing contact into Algolia",
-						error,
-						" and records added is ",
-						records
-					);
+					console.error("Error when importing contact into Algolia", error);
 					process.exit(1);
 				});
 		});
