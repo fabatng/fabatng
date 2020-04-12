@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-undef
 require("dotenv").config({
-	encoding: "utf8"
+	encoding: "utf8",
 });
 
 let navBarElement = document.querySelector(".navbar");
@@ -51,7 +51,7 @@ const processNavLinkDropDown = () => {
 		/**
 		 * to close the nav container whenever on of the links is clicked for mobile view
 		 */
-		navLinkELement.forEach(item => {
+		navLinkELement.forEach((item) => {
 			item.addEventListener("click", () => {
 				dropDownStatus = false;
 				navLinkContainer.style.display = "none";
@@ -65,23 +65,30 @@ const processNavLinkDropDown = () => {
  * @param {*} item
  * @param {*} item1
  */
-
+const clearScrollInterval = (intervalId) => {
+	clearInterval(intervalId);
+	// slideMainSectionCarousel();
+};
 const slideMainSectionCarousel = () => {
 	let mainSectionCarouselContainer = document.querySelector(".main__section.carousel");
 	let mainSectionCarouselChild = document.querySelector(".carousel__each-section");
 	let mainSectionCarouselChildrenLength = mainSectionCarouselChild.childElementCount;
 	let childrenCounter = 0;
-	setInterval(() => {
+	let intervalId = setInterval(() => {
 		// console.log("main section carousel length : ", mainSectionCarouselChildrenLength);
 		if (childrenCounter < mainSectionCarouselChildrenLength) {
 			// console.log("To scroll");
-			mainSectionCarouselContainer.scrollBy(100, 0);
+			mainSectionCarouselContainer.scrollBy(+100, 0);
 			childrenCounter++;
 		} else {
 			mainSectionCarouselContainer.scrollTo(0, 0);
 			childrenCounter = 0;
 		}
 	}, 1000);
+
+	window.addEventListener("scroll", () => {
+		clearScrollInterval(intervalId);
+	});
 };
 
 /**
@@ -90,15 +97,15 @@ const slideMainSectionCarousel = () => {
 // eslint-disable-next-line no-unused-vars
 const animateOnViewPort = () => {
 	let mainSection = document.querySelectorAll(".main__section");
-	mainSection.forEach(item => {
+	mainSection.forEach((item) => {
 		/**
 		 * scroll reveal function imported from the script requested in the head tag
 		 */
 		// eslint-disable-next-line no-undef
 		ScrollReveal({
-			duration: 1000
+			duration: 1000,
 		}).reveal(item, {
-			delay: 300
+			delay: 300,
 		});
 	});
 };
@@ -109,13 +116,13 @@ const animateOnViewPort = () => {
 
 let testimonialId;
 let triggerSliderButton = document.querySelectorAll(".slider-trigger-button");
-const automaticSLider = counter => {
+const automaticSLider = (counter) => {
 	let testimonialElements = document.querySelectorAll(".slider__testimonial");
 
-	testimonialElements.forEach(item => {
+	testimonialElements.forEach((item) => {
 		item.style.display = "none";
 	});
-	triggerSliderButton.forEach(item => {
+	triggerSliderButton.forEach((item) => {
 		item.style.backgroundColor = "rgb(0,0,0)";
 	});
 	testimonialElements[counter].style.display = "flex";
@@ -146,10 +153,10 @@ const screenButtonEffects = () => {
 		) {
 			if (screenButtonItem == sliderScreenImageElement) {
 				screensButton[screenButtonItem].addEventListener("click", () => {
-					screensButton.forEach(item => {
+					screensButton.forEach((item) => {
 						item.classList.remove("active-anchor");
 					});
-					sliderScreenImageCollection.forEach(item => {
+					sliderScreenImageCollection.forEach((item) => {
 						item.style.display = "none";
 					});
 					screensButton[screenButtonItem].classList.add("active-anchor");
@@ -230,13 +237,13 @@ secondSlideScreenButtonRight.addEventListener("click", () => {
 window.addEventListener("scroll", () => {
 	if (window.pageYOffset > navBarElement.offsetTop) {
 		navBarElement.classList.add("navbar--sticky");
-		navBarSpan.forEach(item => {
+		navBarSpan.forEach((item) => {
 			item.classList.add("nav-link-span--backgroundColor");
 		});
 		document.querySelector(".header").style.paddingTop = "0px";
 	} else {
 		navBarElement.classList.remove("navbar--sticky");
-		navBarSpan.forEach(item => {
+		navBarSpan.forEach((item) => {
 			item.classList.remove("nav-link-span--backgroundColor");
 		});
 		document.querySelector(".header").style.paddingTop = "40px";
