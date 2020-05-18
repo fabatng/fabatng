@@ -2,7 +2,7 @@
 // eslint-disable-next-line no-undef
 // require('dotenv').config();
 require("dotenv").config({
-	encoding: "utf8"
+	encoding: "utf8",
 });
 const algoliaSearch = require("algoliasearch");
 
@@ -17,7 +17,7 @@ var firebaseConfig = {
 	projectId: process.env.projectId,
 	storageBucket: process.env.storageBucket,
 	messagingSenderId: process.env.messagingSenderId,
-	appId: process.env.appId
+	appId: process.env.appId,
 };
 // Initialize Firebase
 
@@ -38,14 +38,14 @@ const saveToAlgolia = () => {
 	firebase
 		.database()
 		.ref("Shop Collection")
-		.once("value", shopCategory => {
+		.once("value", (shopCategory) => {
 			const records = [];
 			let arrayKeys = Object.keys(shopCategory.toJSON());
-			arrayKeys.forEach(shopItem => {
+			arrayKeys.forEach((shopItem) => {
 				//console.log("Shop item is : ", shopItem);
 				let shopItemRecords = shopCategory.toJSON()[shopItem];
 				let recordKeys = Object.keys(shopItemRecords);
-				recordKeys.forEach(eachKey => {
+				recordKeys.forEach((eachKey) => {
 					let toAddToRecord = shopItemRecords[eachKey];
 					//console.log("To add to record is ", toAddToRecord);
 					records.push({ objectID: eachKey, ...toAddToRecord });
@@ -56,7 +56,7 @@ const saveToAlgolia = () => {
 				.then(() => {
 					//console.log("Contacts imported into Algolia");
 				})
-				.catch(error => {
+				.catch((error) => {
 					console.error("Error when importing contact into Algolia", error);
 					process.exit(1);
 				});
@@ -66,7 +66,7 @@ const fetchFirebaseDatabase = () => {
 	firebase
 		.database()
 		.ref("Shop Collection")
-		.once("value", snapshot => {
+		.once("value", (snapshot) => {
 			processSnapShot(snapshot);
 		});
 };
@@ -87,7 +87,7 @@ const closeForm = () => {
 	formElement.reset();
 	document.removeEventListener("keydown", closeFormWhenEscapeKeyIsPressed);
 };
-const closeFormWhenEscapeKeyIsPressed = event => {
+const closeFormWhenEscapeKeyIsPressed = (event) => {
 	//console.log("Event key is : ", event);
 	switch (event.key) {
 		case "Escape":
@@ -109,7 +109,7 @@ const activatePayment = ({
 	description,
 	address,
 	postalCode,
-	city
+	city,
 }) => {
 	formButton.innerHTML =
 		'<img src="/loading.28bc329d.gif" alt="loading animation" class="loading-gif" />';
@@ -129,13 +129,13 @@ const activatePayment = ({
 				metaname: subject,
 				metavalue: `Payment for ${subject} described as "${description}". 
                 Address Information : \n Address : ${address}, 
-                Postal Code : ${postalCode} and city : ${city}`
-			}
+                Postal Code : ${postalCode} and city : ${city}`,
+			},
 		],
-		onclose: function() {
+		onclose: function () {
 			closeForm();
 		},
-		callback: function(response) {
+		callback: function (response) {
 			let txref = response.tx.txRef; // collect txRef returned and pass to a server page to complete status check.
 			//console.log(
 			// 	`This is the response returned after a charge ${response} and texRef is ${txref}`
@@ -147,7 +147,7 @@ const activatePayment = ({
 			}
 
 			x.close(); // use this to close the modal immediately after payment.
-		}
+		},
 	});
 };
 
@@ -170,9 +170,9 @@ const sendMessagePop = ({ shop_item_name, shop_item_descrpt, shop_item_price }) 
 	document.addEventListener("keydown", closeFormWhenEscapeKeyIsPressed);
 };
 
-const processSnapShot = snapshot => {
+const processSnapShot = (snapshot) => {
 	// let uniqueKey = 0;
-	snapshot.forEach(all => {
+	snapshot.forEach((all) => {
 		// increase unique key for every added button
 		// uniqueKey += 1;
 		// /**
@@ -193,7 +193,7 @@ const processSnapShot = snapshot => {
 		/**
 		 * use each key to search the db to populate the page.
 		 */
-		arrayKeys.forEach(key => {
+		arrayKeys.forEach((key) => {
 			let toDisplay = all.toJSON()[key];
 			appendElement(toDisplay, key);
 		});
@@ -211,21 +211,23 @@ const appendElement = (item, key) => {
 	 * object destrucring of item
 	 */
 	let {
-		shop_item_image: itemImage,
+		shop_item_images: itemImage,
 		shop_item_name: itemName,
 		shop_item_descrpt: itemDescription,
 		shop_item_price: itemPrice,
 		shop_item_seller: itemSeller,
-		shop_item_email: itemEmail
+		shop_item_email: itemEmail,
 	} = item;
+	const firstImage = itemImage[0];
 	const shortenStringLength = 200;
+
 	let stringAppended;
 
 	itemDescription.length > shortenStringLength ? (stringAppended = "...") : (stringAppended = "");
 	// //console.log("desc : ",itemDescription);
 	const eachItem = `<div class="category-all__each-item category-all__each-item--hover">
             <div class="category-all__each-item-image-div">
-                <img src = "${itemImage}" class ="category-all__each-item-image" />
+                <img src = "${firstImage}" class ="category-all__each-item-image" />
             </div>
             <div class="category-all__each-item-text-container">
                 <h3 class="category-all__each-item-text">${itemName}</h3>
@@ -320,13 +322,13 @@ formElement.addEventListener("submit", () => {
 		description,
 		address,
 		postalCode,
-		city
+		city,
 	};
 	//console.log(`Para : ${JSON.stringify(parameters)} `);
 	activatePayment(parameters);
 });
 
-const querySelectorValue = query => {
+const querySelectorValue = (query) => {
 	return document.querySelector(query).value;
 };
 
@@ -341,7 +343,7 @@ searchButtonTrigger.addEventListener("click", () => {
 /**
  * add event listener onsubmit to the search form
  */
-searchForm.addEventListener("submit", event => {
+searchForm.addEventListener("submit", (event) => {
 	event.preventDefault();
 	// const searchQuery = document.querySelector("#search").value;
 	// const ref = firebase.database().ref(`Shop Collection/${searchQuery}`);
@@ -356,7 +358,7 @@ searchForm.addEventListener("submit", event => {
 	index.search(searchQuery).then(({ hits }) => {
 		itemContainer.innerHTML = "";
 		if (hits.length !== 0) {
-			hits.forEach(hit => {
+			hits.forEach((hit) => {
 				appendElement(hit, hit.objectID);
 			});
 		} else {
@@ -379,7 +381,7 @@ searchForm.addEventListener("submit", event => {
 pageReloadButton.addEventListener("click", () => {
 	location.reload();
 });
-window.addEventListener("DOMContentLoaded", event => {
+window.addEventListener("DOMContentLoaded", (event) => {
 	event.preventDefault();
 
 	/**
