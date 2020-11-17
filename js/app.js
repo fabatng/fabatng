@@ -130,7 +130,7 @@ const automaticSLider = (counter) => {
 	counter = counter <= 1 ? counter + 1 : 0;
 	testimonialId = setTimeout(() => {
 		automaticSLider(counter);
-	}, 3500);
+	}, 5500);
 };
 
 // eslint-disable-next-line no-unused-vars
@@ -169,7 +169,6 @@ const screenButtonEffects = () => {
 
 // eslint-disable-next-line no-unused-vars
 function slide(index) {
-	// console.log("testimonial id : ", testimonialId);
 	clearInterval(testimonialId);
 	automaticSLider(index);
 }
