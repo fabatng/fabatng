@@ -1,5 +1,5 @@
 ---
 deployment:
     tasks:
-        - export DEPLOYPATH=/home/fabatcom/public_html/
+        - export DEPLOYPATH=//home2/fabatco1/public_html/
         - /bin/cp -R * $DEPLOYPATH
